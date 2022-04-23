@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.add.view.AddActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/add_item_back_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_back"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/add_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/play_regular"
+            android:text="@string/add_item"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintStart_toEndOf="@+id/add_item_back_btn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_name_add_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mont_regular"
+            android:text="@string/nama_barang"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_item_title" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_name_add_item"
+            android:fontFamily="@font/mont_regular"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/edt_border"
+            android:hint="@string/nama_barang"
+            android:textCursorDrawable="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_name_add_item" />
+
+        <TextView
+            android:id="@+id/txt_category_add_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mont_regular"
+            android:text="@string/category"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_name_add_item" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_category_add_item"
+            android:fontFamily="@font/mont_regular"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/edt_border"
+            android:hint="@string/category"
+            android:textCursorDrawable="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_category_add_item" />
+
+        <TextView
+            android:id="@+id/txt_desc_add_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mont_regular"
+            android:text="@string/desc"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_category_add_item" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_desc_add_item"
+            android:fontFamily="@font/mont_regular"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="11dp"
+            android:gravity="top"
+            android:background="@drawable/edt_border"
+            android:hint="@string/desc"
+            android:textCursorDrawable="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_desc_add_item" />
+
+        <TextView
+            android:id="@+id/txt_max_radius_add_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mont_regular"
+            android:text="@string/max_radius"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_desc_add_item" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_max_radius_add_item"
+            android:fontFamily="@font/mont_regular"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/edt_border"
+            android:hint="@string/category"
+            android:textCursorDrawable="@null"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_max_radius_add_item" />
+
+        <TextView
+            android:id="@+id/txt_address_add_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mont_regular"
+            android:text="@string/alamat"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_max_radius_add_item" />
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_address_add_item"
+            android:fontFamily="@font/mont_regular"
+            android:textCursorDrawable="@null"
+            android:layout_width="0dp"
+            android:minHeight="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/edt_border"
+            android:hint="@string/alamat"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:editable="false"
+            app:layout_constraintEnd_toStartOf="@+id/btn_address_add_item"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_address_add_item"
+            tools:ignore="Deprecated" />
+
+        <ImageView
+            android:id="@+id/btn_address_add_item"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="42dp"
+            android:layout_marginEnd="11dp"
+            android:backgroundTint="@color/black"
+            android:background="@drawable/ic_location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_max_radius_add_item" />
+
+        <TextView
+            android:id="@+id/txt_photo_add_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mont_regular"
+            android:text="@string/foto"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_address_add_item" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_photo_add_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_add_image_layout"
+            app:layout_constraintTop_toBottomOf="@+id/txt_photo_add_item"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save_add_item"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:layout_marginBottom="60dp"
+            android:paddingHorizontal="48dp"
+            android:paddingVertical="12dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/mont_regular"
+            android:letterSpacing="0"
+            android:text="@string/save"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_photo_add_item"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp" />
+
+        <ProgressBar
+            android:id="@+id/pg_add_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_bg"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

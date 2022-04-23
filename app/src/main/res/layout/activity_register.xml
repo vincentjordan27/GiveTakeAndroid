@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.register.RegisterActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txt_title_register"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/play_regular"
+            android:text="@string/title"
+            android:textSize="28sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_marginTop="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_email_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mont_regular"
+            android:text="@string/email"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title_register" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_email_register"
+            android:fontFamily="@font/mont_regular"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/edt_border"
+            android:hint="@string/email"
+            android:textCursorDrawable="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_email_register" />
+
+        <TextView
+            android:id="@+id/txt_password_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mont_regular"
+            android:text="@string/password"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_email_register" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_password_register"
+            android:fontFamily="@font/mont_regular"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/edt_border"
+            android:hint="@string/password"
+            android:textCursorDrawable="@null"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_password_register" />
+
+        <TextView
+            android:id="@+id/txt_phone_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mont_regular"
+            android:text="@string/phone_register"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_password_register" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_phone_register"
+            android:fontFamily="@font/mont_regular"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/edt_border"
+            android:hint="@string/phone_register"
+            android:textCursorDrawable="@null"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_phone_register" />
+
+        <TextView
+            android:id="@+id/txt_name_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mont_regular"
+            android:text="@string/name"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_phone_register" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_name_register"
+            android:fontFamily="@font/mont_regular"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/edt_border"
+            android:hint="@string/name"
+            android:textCursorDrawable="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_name_register" />
+
+        <TextView
+            android:id="@+id/txt_username_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mont_regular"
+            android:text="@string/username"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_name_register" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_username_register"
+            android:fontFamily="@font/mont_regular"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/edt_border"
+            android:hint="@string/username"
+            android:textCursorDrawable="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_username_register" />
+
+        <TextView
+            android:id="@+id/txt_address_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mont_regular"
+            android:text="@string/alamat"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_username_register" />
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_address_register"
+            android:fontFamily="@font/mont_regular"
+            android:textCursorDrawable="@null"
+            android:layout_width="0dp"
+            android:minHeight="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/edt_border"
+            android:hint="@string/alamat"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:editable="false"
+            app:layout_constraintEnd_toStartOf="@+id/btn_address_register"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_address_register"
+            tools:ignore="Deprecated" />
+
+        <ImageView
+            android:id="@+id/btn_address_register"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="42dp"
+            android:layout_marginEnd="11dp"
+            android:backgroundTint="@color/black"
+            android:background="@drawable/ic_location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_username_register" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:layout_marginBottom="60dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/mont_regular"
+            android:letterSpacing="0"
+            android:paddingHorizontal="22dp"
+            android:paddingVertical="12dp"
+            android:text="@string/register"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_address_register"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp" />
+
+        <ProgressBar
+            android:id="@+id/pg_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_bg"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/txt_error_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="48dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

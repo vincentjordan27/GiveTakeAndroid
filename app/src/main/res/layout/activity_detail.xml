@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.detail.DetailActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/detail_item_back_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_back"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/detail_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/play_regular"
+            android:text="@string/title"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintStart_toEndOf="@+id/detail_item_back_btn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/fav_detail"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_fav_border"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
+            app:tint="@color/black" />
+
+        <ImageView
+            android:id="@+id/edit_detail"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_edit"
+            app:tint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/item_dummy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_item_title" />
+
+        <TextView
+            android:id="@+id/txt_name_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mont_bold"
+            android:textColor="@color/black"
+            android:layout_marginStart="16dp"
+            android:textSize="14sp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            tools:text="@string/nama_barang" />
+
+        <TextView
+            android:id="@+id/txt_detail_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/txt_name_detail"
+            android:text="@string/desc"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/mont_regular"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_desc_detail"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:fontFamily="@font/mont_regular"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:minHeight="80dp"
+            android:gravity="top"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/edt_border"
+            android:hint="@string/desc"
+            android:textCursorDrawable="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_detail_1"
+            />
+
+        <TextView
+            android:id="@+id/txt_detail_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/txt_desc_detail"
+            android:text="@string/category"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/mont_regular"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_category_detail"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:fontFamily="@font/mont_regular"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:gravity="top"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/edt_border"
+            android:hint="@string/category"
+            android:textCursorDrawable="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_detail_2"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_request_detail"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:layout_marginBottom="60dp"
+            android:paddingHorizontal="48dp"
+            android:paddingVertical="12dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/mont_regular"
+            android:letterSpacing="0"
+            android:text="@string/request"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_category_detail"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_receive_detail"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:layout_marginBottom="60dp"
+            android:paddingHorizontal="48dp"
+            android:paddingVertical="12dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/mont_regular"
+            android:letterSpacing="0"
+            android:text="@string/receive"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_category_detail"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp" />
+
+        <LinearLayout
+            android:id="@+id/view_owner_button_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="64dp"
+            android:weightSum="2"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_category_detail">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_receiver_detail"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/mont_regular"
+                android:letterSpacing="0"
+                android:paddingHorizontal="48dp"
+                android:paddingVertical="12dp"
+                android:text="@string/text_receiver"
+                android:layout_marginStart="16dp"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:cornerRadius="10dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="2dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_delete_detail"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="10dp"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/mont_regular"
+                android:letterSpacing="0"
+                android:gravity="center"
+                android:paddingHorizontal="48dp"
+                android:paddingVertical="12dp"
+                android:text="@string/text_delete_n"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:cornerRadius="10dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="2dp" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/pg_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
