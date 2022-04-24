@@ -39,7 +39,6 @@ import com.vincent.givetake.utils.Constant
 import com.vincent.givetake.utils.Constant.PICK_IMAGE
 import com.vincent.givetake.utils.Result
 import com.vincent.givetake.utils.Utils
-import kotlinx.android.synthetic.main.activity_register.*
 import java.io.File
 
 class AddActivity : AppCompatActivity() {

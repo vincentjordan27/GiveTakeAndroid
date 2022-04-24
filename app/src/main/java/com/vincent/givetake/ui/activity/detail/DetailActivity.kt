@@ -9,17 +9,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.snackbar.Snackbar
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.models.SlideModel
 import com.vincent.givetake.R
 import com.vincent.givetake.databinding.ActivityDetailBinding
-import com.vincent.givetake.ui.activity.login.LoginActivity
 import com.vincent.givetake.utils.Result
-import kotlinx.android.synthetic.main.activity_login.*
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var detailBinding: ActivityDetailBinding
     private var delete = false
+    private val imageList = ArrayList<SlideModel>()
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,9 +67,9 @@ class DetailActivity : AppCompatActivity() {
                 is Result.Loading -> detailBinding.pgDetail.visibility = View.VISIBLE
                 is Result.Success -> {
                     detailBinding.pgDetail.visibility = View.GONE
-                    detailBinding.txtNameDetail.text = it.data!!.data.name
-                    detailBinding.txtDescDetail.setText(it.data.data.desc)
-                    detailBinding.txtCategoryDetail.setText(it.data.data.category)
+                    detailBinding.txtNameDetail.text = it.data!!.data.items[0].name
+                    detailBinding.txtDescDetail.setText(it.data.data.items[0].desc)
+                    detailBinding.txtCategoryDetail.setText(it.data.data.items[0].category)
                 }
                 is Result.Error -> {
                     detailBinding.pgDetail.visibility = View.GONE
@@ -85,6 +85,10 @@ class DetailActivity : AppCompatActivity() {
                     Log.d("DEBUGS", it.data.toString())
                     if (it.data != null) {
                         detailBinding.pgDetail.visibility = View.GONE
+                        for (image in it.data.data.images) {
+                            imageList.add(SlideModel("https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=400&fit=max", ScaleTypes.CENTER_CROP))
+                        }
+                        detailBinding.imgItemDetail.setImageList(imageList)
                         detailBinding.txtNameDetail.text = it.data.data.items[0].name
                         detailBinding.txtDescDetail.setText(it.data.data.items[0].desc)
                         detailBinding.txtCategoryDetail.setText(it.data.data.items[0].category)

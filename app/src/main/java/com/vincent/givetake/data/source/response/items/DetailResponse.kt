@@ -9,6 +9,13 @@ data class DetailResponseNonLogin(
 )
 
 data class DataDetailResponseNonLogin(
+    val request: Int,
+    val wish: Boolean,
+    val items: List<ListItemResponseNonLogin>,
+    val images: List<ImageItemDetail>
+)
+
+data class ListItemResponseNonLogin(
     val id: String,
     val name: String,
     @SerializedName("description")
@@ -34,7 +41,12 @@ data class DetailResponseLogin(
 data class DataDetailResponseLogin(
     val request: Int,
     val wish: Boolean,
-    val items: List<ListItemDetailResponseLogin>
+    val items: List<ListItemDetailResponseLogin>,
+    val images: List<ImageItemDetail>
+)
+
+data class ImageItemDetail(
+    val url: String,
 )
 
 data class ListItemDetailResponseLogin(
