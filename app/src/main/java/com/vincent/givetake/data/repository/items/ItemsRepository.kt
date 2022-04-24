@@ -3,15 +3,22 @@ package com.vincent.givetake.data.repository.items
 import com.google.gson.Gson
 import com.vincent.givetake.data.source.ApiService
 import com.vincent.givetake.data.source.request.AddItemRequest
+import com.vincent.givetake.data.source.request.DeleteItemImageRequest
+import com.vincent.givetake.data.source.response.items.AddItemImageResponse
 import com.vincent.givetake.data.source.response.items.AddItemResponse
 import com.vincent.givetake.data.source.response.items.DeleteItemResponse
 import com.vincent.givetake.data.source.response.items.DetailResponseLogin
 //import com.vincent.givetake.data.source.response.DetailLoginResponse
 import com.vincent.givetake.utils.Result
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 
 class ItemsRepository(private val apiService: ApiService, ) {
 
@@ -47,6 +54,7 @@ class ItemsRepository(private val apiService: ApiService, ) {
     fun generateItemId() = flow {
         emit(Result.Loading)
         emit(Result.Success(apiService.generateId()))
+    }.catch { emit(Result.Error(it.message.toString()))
     }.flowOn(Dispatchers.IO)
 
     fun addItem(token: String, addItemRequest: AddItemRequest) = flow {
@@ -70,6 +78,29 @@ class ItemsRepository(private val apiService: ApiService, ) {
             emit(Result.Error(errorResponse.message))
         }
     }.flowOn(Dispatchers.IO)
+
+    fun uploadImageItem(token: String, itemId: String, image: String) = flow {
+        emit(Result.Loading)
+        val file = File(image)
+        val requestBody = file.asRequestBody("image/*".toMediaType())
+        val imageData = MultipartBody.Part.createFormData("data", filename = file.name, requestBody)
+        val response = apiService.uploadItemImage(token, itemId, imageData)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        } else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), AddItemImageResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }
+
+    fun deleteImageItem(token: String, itemId: String, body: DeleteItemImageRequest) = flow {
+        emit(Result.Loading)
+        emit(Result.Success(apiService.deleteItemImage(token, itemId, body)))
+    }.catch { emit(Result.Error(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
+
+
 
     companion object {
 

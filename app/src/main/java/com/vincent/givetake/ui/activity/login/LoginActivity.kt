@@ -64,6 +64,7 @@ class LoginActivity : AppCompatActivity() {
                                 viewModel.saveUserAccessKey("Bearer ${it.data.data!!.accessToken}")
                                 viewModel.saveUserId(it.data.data.userId)
                                 startActivity(Intent(this, MainActivity::class.java))
+                                finish()
                             }
                         }
                         is Result.Error -> {

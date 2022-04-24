@@ -1,11 +1,13 @@
 package com.vincent.givetake.data.source
 
 import com.vincent.givetake.data.source.request.AddItemRequest
+import com.vincent.givetake.data.source.request.DeleteItemImageRequest
 import com.vincent.givetake.data.source.request.LoginRequest
 import com.vincent.givetake.data.source.request.RegisterRequest
 import com.vincent.givetake.data.source.response.items.*
 import com.vincent.givetake.data.source.response.users.LoginResponse
 import com.vincent.givetake.data.source.response.users.RegisterResponse
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -57,4 +59,19 @@ interface ApiService {
         @Path("id") id: String,
         @Header("Authorization") auth: String
     ) : Response<DeleteItemResponse>
+
+    @Multipart
+    @POST("/upload/item/image/{id}")
+    suspend fun uploadItemImage(
+        @Header("Authorization") auth: String,
+        @Path("id") id: String,
+        @Part data : MultipartBody.Part
+    ) : Response<AddItemImageResponse>
+
+    @HTTP(method = "DELETE", path = "/upload/item/image/{id}", hasBody = true)
+    suspend fun deleteItemImage(
+        @Header("Authorization") auth: String,
+        @Path("id") id: String,
+        @Body item: DeleteItemImageRequest
+    ) : DeleteItemImageResponse
 }

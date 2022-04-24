@@ -8,13 +8,14 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vincent.givetake.R
+import com.vincent.givetake.ui.activity.add.model.ImageData
 
 var positionRemove : Int? = null
 
-class AddImageAdapter(private val listener: (Uri) -> Unit) : RecyclerView.Adapter<AddImageAdapter.ViewHolder>() {
-    private var listData = ArrayList<Uri>()
+class AddImageAdapter(private val listener: (ImageData) -> Unit) : RecyclerView.Adapter<AddImageAdapter.ViewHolder>() {
+    private var listData = ArrayList<ImageData>()
 
-    fun setImage(dataImage : List<Uri>?){
+    fun setImage(dataImage : List<ImageData>?){
         if(dataImage == null) return
         listData.clear()
         listData.addAll(dataImage)
@@ -22,9 +23,9 @@ class AddImageAdapter(private val listener: (Uri) -> Unit) : RecyclerView.Adapte
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageView: ImageView = itemView.findViewById(R.id.img_list)
-        fun bind(uri: Uri, listener: (Uri) -> Unit, position: Int){
+        fun bind(uri: ImageData, listener: (ImageData) -> Unit, position: Int){
             itemView.apply {
-                Glide.with(this).load(uri).into(imageView)
+                Glide.with(this).load(uri.uri).into(imageView)
                 setOnClickListener {
                     positionRemove = position
                     listener(uri)

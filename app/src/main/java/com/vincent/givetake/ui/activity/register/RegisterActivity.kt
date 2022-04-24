@@ -99,6 +99,7 @@ class RegisterActivity : AppCompatActivity() {
                                     .setCancelable(false)
                                     .setPositiveButton("Ok"){_ , _ ->
                                         startActivity(Intent(this, LoginActivity::class.java))
+                                        finish()
                                     }
                                 alertDialog.show()
                             }
