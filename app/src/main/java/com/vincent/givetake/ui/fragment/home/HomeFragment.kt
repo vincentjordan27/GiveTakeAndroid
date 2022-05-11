@@ -17,14 +17,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.vincent.givetake.databinding.FragmentHomeBinding
+import com.vincent.givetake.factory.ItemsPrefViewModelFactory
 import com.vincent.givetake.preference.UserPreferences
-import com.vincent.givetake.ui.activity.add.view.AddActivity
+import com.vincent.givetake.ui.activity.add.AddActivity
 import com.vincent.givetake.ui.activity.detail.DataDetail
 import com.vincent.givetake.ui.activity.detail.DetailActivity
 import com.vincent.givetake.utils.Constant
 import com.vincent.givetake.utils.Result
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "users")
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user" +
+        "")
 
 class HomeFragment : Fragment() {
 
@@ -47,9 +49,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val pref = UserPreferences.getInstance(requireActivity().dataStore)
-        val factory = HomeViewModelFactory.getInstance(pref)
+        val factory = ItemsPrefViewModelFactory.getInstance(pref)
         val viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
-        Log.d("DEBUGS", "OnViewCreated")
 
         val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -70,15 +71,9 @@ class HomeFragment : Fragment() {
         viewModel.getAccessKey().observe(viewLifecycleOwner) {
             if (it != null) {
                 accessKey = it
-                if (it == "") {
-                    binding.btnAddItemHome.visibility = View.GONE
-                    viewModel.getAllItemsNotLogin()
-                    itemAdapter.setRoleUser("guest")
-                }else{
-                    binding.btnAddItemHome.visibility = View.VISIBLE
-                    viewModel.getAllItemsLogin(it)
-                    itemAdapter.setRoleUser("user")
-                }
+                binding.btnAddItemHome.visibility = View.VISIBLE
+                viewModel.getAllItemsLogin(it)
+                itemAdapter.setRoleUser("user")
             }
         }
 
@@ -86,8 +81,8 @@ class HomeFragment : Fragment() {
             userId = it
             itemAdapter.onItemClick = { data ->
                 Log.d("DEBUGS", "$userId ${data.userId}")
-                when {
-                    data.userId == userId -> {
+                when (data.userId) {
+                    userId -> {
                         val dataDetail = DataDetail(
                             "owner",
                             data.id,
@@ -99,19 +94,7 @@ class HomeFragment : Fragment() {
                         val intent = Intent(requireActivity(), DetailActivity::class.java)
                         intent.putExtra("data", dataDetail)
                         resultLauncher.launch(intent)
-//                        startActivity(intent)
-                    }
-                    userId == "" -> {
-                        val dataDetail = DataDetail(
-                            "guest",
-                            data.id,
-                            data.radius,
-                            null
-                        )
-                        val intent = Intent(requireActivity(), DetailActivity::class.java)
-                        intent.putExtra("data", dataDetail)
-                        resultLauncher.launch(intent)
-//                        startActivity(intent)
+            //                        startActivity(intent)
                     }
                     else -> {
                         val dataDetail = DataDetail(
@@ -125,27 +108,8 @@ class HomeFragment : Fragment() {
                         val intent = Intent(requireActivity(), DetailActivity::class.java)
                         intent.putExtra("data", dataDetail)
                         resultLauncher.launch(intent)
-//                        startActivity(intent)
+            //                        startActivity(intent)
                     }
-                }
-            }
-        }
-
-        viewModel.resultNotLogin.observe(viewLifecycleOwner) {
-            when(it) {
-                is Result.Loading -> {
-                    binding.pgHomeFragment.visibility = View.VISIBLE
-                    binding.rvHomeFragment.visibility = View.GONE
-                }
-                is Result.Success -> {
-                    itemAdapter.setData(it.data.data)
-                    binding.pgHomeFragment.visibility = View.GONE
-                    binding.rvHomeFragment.visibility = View.VISIBLE
-                }
-                is Result.Error -> {
-                    Toast.makeText(context, "An error occured : ${it.errorMessage}", Toast.LENGTH_SHORT).show()
-                    binding.pgHomeFragment.visibility = View.GONE
-                    binding.rvHomeFragment.visibility = View.VISIBLE
                 }
             }
         }
@@ -178,15 +142,6 @@ class HomeFragment : Fragment() {
             intent.putExtra(Constant.KEY_ACCESS_USER, accessKey)
             startActivity(intent)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-
     }
 
 

@@ -9,4 +9,5 @@ data class RegisterRequest(
     val longitude: String,
     val phone: String,
     val address: String,
+    val photo: String,
 )

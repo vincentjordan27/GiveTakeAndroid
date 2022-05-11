@@ -12,4 +12,5 @@ data class ItemResponse(
     val userId: String,
     val maxRadius: String,
     val distance: String?,
+    val thumbnail: String,
 )

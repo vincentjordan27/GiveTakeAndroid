@@ -1,13 +1,13 @@
-package com.vincent.givetake.ui.fragment.home
+package com.vincent.givetake.factory
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.vincent.givetake.data.repository.items.ItemsRepository
 import com.vincent.givetake.di.Injection
 import com.vincent.givetake.preference.UserPreferences
+import com.vincent.givetake.ui.fragment.home.HomeViewModel
 
-class HomeViewModelFactory(private val repository: ItemsRepository, private val userPreferences: UserPreferences) : ViewModelProvider.NewInstanceFactory() {
+class ItemsPrefViewModelFactory(private val repository: ItemsRepository, private val userPreferences: UserPreferences) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -19,11 +19,11 @@ class HomeViewModelFactory(private val repository: ItemsRepository, private val 
 
     companion object {
         @Volatile
-        private var instance: HomeViewModelFactory? = null
+        private var instance: ItemsPrefViewModelFactory? = null
 
-        fun getInstance(pref: UserPreferences): HomeViewModelFactory =
+        fun getInstance(pref: UserPreferences): ItemsPrefViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: HomeViewModelFactory(Injection.provideItemsRepository(), pref)
+                instance ?: ItemsPrefViewModelFactory(Injection.provideItemsRepository(), pref)
             }.also { instance = it }
     }
 }

@@ -22,21 +22,11 @@ import java.io.File
 
 class ItemsRepository(private val apiService: ApiService, ) {
 
-    fun getAllItemsNotLogin() = flow {
-        emit(Result.Loading)
-        emit(Result.Success(apiService.getAllItems()))
-    }.catch { emit(Result.Error(it.message.toString()))
-    }.flowOn(Dispatchers.IO)
+
 
     fun getAllItemsLogin(token: String) = flow {
         emit(Result.Loading)
         emit(Result.Success(apiService.getAllItemsLogin(token)))
-    }.catch { emit(Result.Error(it.message.toString()))
-    }.flowOn(Dispatchers.IO)
-
-    fun getItemByIdGuest(id: String) = flow {
-        emit(Result.Loading)
-        emit(Result.Success(apiService.getItemByIdNotLogin(id)))
     }.catch { emit(Result.Error(it.message.toString()))
     }.flowOn(Dispatchers.IO)
 
@@ -79,9 +69,8 @@ class ItemsRepository(private val apiService: ApiService, ) {
         }
     }.flowOn(Dispatchers.IO)
 
-    fun uploadImageItem(token: String, itemId: String, image: String) = flow {
+    fun uploadImageItem(token: String, itemId: String, file: File) = flow {
         emit(Result.Loading)
-        val file = File(image)
         val requestBody = file.asRequestBody("image/*".toMediaType())
         val imageData = MultipartBody.Part.createFormData("data", filename = file.name, requestBody)
         val response = apiService.uploadItemImage(token, itemId, imageData)

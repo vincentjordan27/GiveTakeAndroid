@@ -10,10 +10,6 @@ import com.vincent.givetake.R
 
 class ChatFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ChatFragment()
-    }
-
     private lateinit var viewModel: ChatViewModel
 
     override fun onCreateView(

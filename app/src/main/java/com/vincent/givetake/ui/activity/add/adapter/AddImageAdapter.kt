@@ -1,6 +1,5 @@
 package com.vincent.givetake.ui.activity.add.adapter
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

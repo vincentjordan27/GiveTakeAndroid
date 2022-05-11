@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.vincent.givetake.R
 import com.vincent.givetake.data.source.request.LoginRequest
 import com.vincent.givetake.databinding.ActivityLoginBinding
+import com.vincent.givetake.factory.UsersPrefViewModelFactory
 import com.vincent.givetake.preference.UserPreferences
 import com.vincent.givetake.ui.activity.home.MainActivity
 import com.vincent.givetake.ui.activity.register.RegisterActivity
@@ -22,7 +23,7 @@ import com.vincent.givetake.utils.Result
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "users")
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user")
 
 class LoginActivity : AppCompatActivity() {
 
@@ -35,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(loginBinding.root)
 
         val pref = UserPreferences.getInstance(dataStore)
-        val factory = LoginViewModelFactory.getInstance(pref)
+        val factory = UsersPrefViewModelFactory.getInstance(pref)
         val viewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
 
         loginBinding.btnLogin.setOnClickListener {

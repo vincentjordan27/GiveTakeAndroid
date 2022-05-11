@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.vincent.givetake.R
 import com.vincent.givetake.data.source.response.items.ItemResponse
 import kotlinx.android.synthetic.main.item_home_layout.view.*
@@ -37,12 +38,11 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
         fun bind(data: ItemResponse){
             with(itemView){
                 txt_name_home_rv.text = data.name
-                if(role == "user") {
-                    txt_radius_home_rv.text = "${data.distance} KM"
-                }else {
-                    txt_radius_home_rv.text = data.radius
-                }
-
+                txt_radius_home_rv.text = "${data.distance} KM"
+                Glide.with(context)
+                    .load(data.thumbnail)
+                    .placeholder(R.drawable.ic_load)
+                    .into(img_item_home)
             }
         }
 

@@ -1,26 +1,19 @@
-package com.vincent.givetake.ui.activity.add.view
+package com.vincent.givetake.ui.activity.add
 
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
-import android.provider.Settings
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -28,18 +21,16 @@ import com.vincent.givetake.R
 import com.vincent.givetake.data.source.request.AddItemRequest
 import com.vincent.givetake.data.source.request.DeleteItemImageRequest
 import com.vincent.givetake.databinding.ActivityAddBinding
+import com.vincent.givetake.factory.ItemsRepositoryViewModelFactory
 import com.vincent.givetake.ui.activity.add.adapter.AddImageAdapter
 import com.vincent.givetake.ui.activity.add.model.ImageData
 import com.vincent.givetake.ui.activity.add.viewmodel.AddViewModel
-import com.vincent.givetake.ui.activity.add.viewmodel.AddViewModelFactory
 import com.vincent.givetake.ui.activity.home.MainActivity
 import com.vincent.givetake.ui.activity.map.AddressResult
 import com.vincent.givetake.ui.activity.map.MapsActivity
 import com.vincent.givetake.utils.Constant
-import com.vincent.givetake.utils.Constant.PICK_IMAGE
 import com.vincent.givetake.utils.Result
-import com.vincent.givetake.utils.Utils
-import java.io.File
+import com.vincent.givetake.utils.uriToFile
 
 class AddActivity : AppCompatActivity() {
 
@@ -57,9 +48,7 @@ class AddActivity : AppCompatActivity() {
         binding = ActivityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        checkStoragePermission()
-
-        val factory = AddViewModelFactory.getInstance()
+        val factory = ItemsRepositoryViewModelFactory.getInstance()
         viewModel = ViewModelProvider(this, factory)[AddViewModel::class.java]
         observerViewModel()
 
@@ -80,6 +69,10 @@ class AddActivity : AppCompatActivity() {
 
         binding.btnAddressAddItem.setOnClickListener {
             resultLauncher.launch(intent)
+        }
+
+        binding.addItemBackBtn.setOnClickListener {
+            onBackPressed()
         }
 
         binding.btnSaveAddItem.setOnClickListener {
@@ -112,7 +105,8 @@ class AddActivity : AppCompatActivity() {
                     dataAddress?.latlang?.latitude.toString(),
                     dataAddress?.latlang?.longitude.toString(),
                     binding.edtMaxRadiusAddItem.text.toString(),
-                    0
+                    0,
+                    image[0].url
                 )
 
                 viewModel.addItem(token, data)
@@ -122,6 +116,7 @@ class AddActivity : AppCompatActivity() {
         val uri = Uri.parse("android.resource://com.vincent.givetake/drawable/ic_add_image")
         val defaultImage = ImageData(
             uri,
+            "",
             ""
         )
         image.add(defaultImage)
@@ -129,36 +124,9 @@ class AddActivity : AppCompatActivity() {
         imageAdapter = AddImageAdapter {
             if(imageAdapter.getRemovePosition() == image.size-1 ){
                 if(image.size <= 4){
-                        if (ActivityCompat.checkSelfPermission(
-                                this,
-                                Manifest.permission.READ_EXTERNAL_STORAGE
-                            ) != PackageManager.PERMISSION_GRANTED
-                        ) {
-                            val dialog = AlertDialog.Builder(this, R.style.CostumDialog)
-                            dialog.setCancelable(false)
-                            dialog.setTitle("Silahkan izinkan akses penyimpanan untuk menambahkan gambar")
-                            dialog.setPositiveButton("Ya"){ dialogInterface, _ ->
-                                val i = Intent()
-                                i.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                                i.addCategory(Intent.CATEGORY_DEFAULT)
-                                i.data = Uri.parse("package:$packageName")
-                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-                                i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
-                                dialogInterface.dismiss()
-                                startActivity(i)
-                            }
-                            dialog.setNegativeButton("Tidak"){dialogInterface, _ ->
-                                dialogInterface.dismiss()
-                            }
-                            dialog.show()
-                        }else {
-                            val intent = Intent(Intent.ACTION_PICK)
-                            intent.type = "image/jpeg"
-                            startActivityForResult(intent, PICK_IMAGE)
-                        }
-
-
+                    val intentImage = Intent(Intent.ACTION_PICK)
+                    intentImage.type = "image/jpeg"
+                    startGallery()
                 }else {
                     Toast.makeText(this, "Maksimal 5 Gambar", Toast.LENGTH_LONG).show()
                 }
@@ -198,6 +166,12 @@ class AddActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
+
     private fun observerViewModel() {
         viewModel.resultAddItem.observe(this) {
             when(it) {
@@ -233,7 +207,6 @@ class AddActivity : AppCompatActivity() {
                     showLoading(false)
                     binding.viewPgBackground.visibility = View.GONE
                     itemId = it.data.data.itemId
-                    Log.d("DEBUGS", itemId)
                 }
                 is Result.Error -> {
                     showLoading(false)
@@ -255,15 +228,14 @@ class AddActivity : AppCompatActivity() {
                     binding.viewPgBackground.visibility = View.GONE
                     val dataImageResponse = ImageData(
                         currentUri!!,
-                        it.data!!.data.imageId
+                        it.data!!.data.imageId,
+                        it.data.data.fileLocation
                     )
                     val imageData = image[image.size-1]
                     image[image.size-1] = dataImageResponse
                     image.add(imageData)
                     imageAdapter.setImage(image)
                     imageAdapter.notifyDataSetChanged()
-                    Log.d("DEBUG", image.toString())
-                    Log.d("DEBUG SIZE", image.size.toString())
                 }
                 is Result.Error -> {
                     showLoading(false)
@@ -293,83 +265,44 @@ class AddActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, dataImage: Intent?) {
-        super.onActivityResult(requestCode, resultCode, dataImage)
-        if(requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK && dataImage != null){
-            if (dataImage.data != null){
-                currentUri = dataImage.data!!
-                val path = Utils.getRealPathFromURI(this, currentUri!!)
-                val file = File(path!!)
-                Log.d("DEBUG","${file.length() / 1048576}")
-                if(file.length() / 1048576F > 2F){
-                    val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
-                    dialog.setCancelable(false)
-                    dialog.setTitle("Ukuran Gambar Harus Dibawah 2 MB")
-                    dialog.setPositiveButton("Ok"){ dialogInterface, _ ->
-                        dialogInterface.dismiss()
-                    }
-                    dialog.show()
-                }else {
-                    viewModel.uploadImageItem(token, itemId, path)
+
+    private fun startGallery() {
+        val intent = Intent()
+        intent.action = Intent.ACTION_GET_CONTENT
+        intent.type = "image/*"
+        val chooser = Intent.createChooser(intent, "Pilih Gambar")
+        launcherIntentGallery.launch(chooser)
+    }
+
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val selectedImg: Uri = result.data?.data as Uri
+
+            val file = uriToFile(selectedImg, this@AddActivity)
+
+            currentUri = selectedImg
+
+            if(file.length() / 1048576F > 2F){
+                val dialog = AlertDialog.Builder(this)
+                dialog.setCancelable(false)
+                dialog.setTitle("Ukuran Gambar Harus Dibawah 2 MB")
+                dialog.setPositiveButton("Ok"){ dialogInterface, _ ->
+                    dialogInterface.dismiss()
                 }
+                dialog.show()
+            }else {
+                viewModel.uploadImageItem(token, itemId, file)
             }
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when(requestCode){
-            1 -> {
-                if (grantResults.isNotEmpty() && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED) {
-                    if ((ContextCompat.checkSelfPermission(this@AddActivity,
-                            Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                                PackageManager.PERMISSION_GRANTED)) {
-                    }
-                } else {
-                    finish()
-                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
-                }
-                return
-            }
-
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
-    private fun checkStoragePermission() {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            val dialog = AlertDialog.Builder(this, R.style.CostumDialog)
-            dialog.setCancelable(false)
-            dialog.setTitle("Silahkan izinkan akses penyimpanan untuk menambahkan gambar")
-            dialog.setPositiveButton("Ya"){ dialogInterface, _ ->
-                val i = Intent()
-                i.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                i.addCategory(Intent.CATEGORY_DEFAULT)
-                i.data = Uri.parse("package:$packageName")
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-                i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
-                dialogInterface.dismiss()
-                startActivity(i)
-            }
-            dialog.setNegativeButton("Tidak"){dialogInterface, _ ->
-                dialogInterface.dismiss()
-            }
-            dialog.show()
-        }
-    }
 
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.pgAddItem.visibility = View.VISIBLE
+            binding.btnAddressAddItem
         } else {
             binding.pgAddItem.visibility = View.GONE
         }

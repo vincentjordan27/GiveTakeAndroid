@@ -12,17 +12,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class DetailViewModel(private val itemsRepository: ItemsRepository) : ViewModel() {
-    var resultNotLogin = MutableLiveData<Result<DetailResponseNonLogin?>>()
     var resultLogin = MutableLiveData<Result<DetailResponseLogin?>>()
     var resultDelete = MutableLiveData<Result<DeleteItemResponse?>>()
-
-    fun getDetailNonLogin(id: String) {
-        viewModelScope.launch {
-            itemsRepository.getItemByIdGuest(id).collect {
-                resultNotLogin.value = it
-            }
-        }
-    }
 
     fun getDetailLogin(id: String, token: String) {
         viewModelScope.launch {

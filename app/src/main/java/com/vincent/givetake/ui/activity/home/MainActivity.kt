@@ -14,7 +14,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.vincent.givetake.R
 import com.vincent.givetake.databinding.ActivityMainBinding
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "users")
 
 class MainActivity : AppCompatActivity() {
 

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.add.AddActivity">
+    tools:context=".ui.fragment.profile.edit.EditProfileActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/add_item_back_btn"
+            android:id="@+id/edit_profile_back_btn"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_back"
@@ -22,33 +22,55 @@
             app:tint="@color/black" />
 
         <TextView
-            android:id="@+id/add_item_title"
+            android:id="@+id/edit_profile_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/play_regular"
-            android:text="@string/add_item"
+            android:text="@string/edit_profile"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="24dp"
-            app:layout_constraintStart_toEndOf="@+id/add_item_back_btn"
+            app:layout_constraintStart_toEndOf="@+id/edit_profile_back_btn"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/img_edit_profile_cardview"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_profile_title" >
+
+            <ImageView
+                android:id="@+id/img_edit_profile"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_profile"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                 />
+
+        </androidx.cardview.widget.CardView>
+
         <TextView
-            android:id="@+id/txt_name_add_item"
+            android:id="@+id/txt_old_password_edit_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mont_regular"
-            android:text="@string/nama_barang"
+            android:text="@string/old_password"
             android:textColor="@color/black"
             android:textSize="12sp"
-            android:layout_marginTop="50dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_item_title" />
+            app:layout_constraintTop_toBottomOf="@+id/img_edit_profile_cardview" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_name_add_item"
+            android:id="@+id/edt_old_password_edit_profile"
             android:fontFamily="@font/mont_regular"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
@@ -59,27 +81,28 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="11dp"
             android:background="@drawable/edt_border"
-            android:hint="@string/nama_barang"
+            android:hint="@string/old_password"
             android:textCursorDrawable="@null"
+            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_name_add_item" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_old_password_edit_profile" />
 
         <TextView
-            android:id="@+id/txt_category_add_item"
+            android:id="@+id/txt_new_password_edit_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mont_regular"
-            android:text="@string/category"
+            android:text="@string/new_password"
             android:textColor="@color/black"
             android:textSize="12sp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_name_add_item" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_old_password_edit_profile" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_category_add_item"
+            android:id="@+id/edt_new_password_edit_profile"
             android:fontFamily="@font/mont_regular"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
@@ -90,59 +113,28 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="11dp"
             android:background="@drawable/edt_border"
-            android:hint="@string/category"
+            android:hint="@string/new_password"
             android:textCursorDrawable="@null"
+            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_category_add_item" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_new_password_edit_profile" />
 
         <TextView
-            android:id="@+id/txt_desc_add_item"
+            android:id="@+id/txt_name_edit_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mont_regular"
-            android:text="@string/desc"
+            android:text="@string/name"
             android:textColor="@color/black"
             android:textSize="12sp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_category_add_item" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_new_password_edit_profile" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_desc_add_item"
-            android:fontFamily="@font/mont_regular"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="4dp"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="11dp"
-            android:gravity="top"
-            android:background="@drawable/edt_border"
-            android:hint="@string/desc"
-            android:textCursorDrawable="@null"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_desc_add_item" />
-
-        <TextView
-            android:id="@+id/txt_max_radius_add_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/mont_regular"
-            android:text="@string/max_radius"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_desc_add_item" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_max_radius_add_item"
+            android:id="@+id/edt_name_edit_profile"
             android:fontFamily="@font/mont_regular"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
@@ -153,15 +145,16 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="11dp"
             android:background="@drawable/edt_border"
-            android:hint="@string/category"
+            android:hint="@string/name"
+            android:maxLines="1"
             android:textCursorDrawable="@null"
-            android:inputType="number"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_max_radius_add_item" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_name_edit_profile" />
 
         <TextView
-            android:id="@+id/txt_address_add_item"
+            android:id="@+id/txt_address_edit_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mont_regular"
@@ -171,11 +164,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_max_radius_add_item" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_name_edit_profile" />
 
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_address_add_item"
+            android:id="@+id/edt_address_edit_profile"
             android:fontFamily="@font/mont_regular"
             android:textCursorDrawable="@null"
             android:layout_width="0dp"
@@ -190,13 +183,13 @@
             android:textColor="@color/black"
             android:textSize="12sp"
             android:editable="false"
-            app:layout_constraintEnd_toStartOf="@+id/btn_address_add_item"
+            app:layout_constraintEnd_toStartOf="@+id/btn_address_edit_profile"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_address_add_item"
+            app:layout_constraintTop_toBottomOf="@+id/txt_address_edit_profile"
             tools:ignore="Deprecated" />
 
         <ImageView
-            android:id="@+id/btn_address_add_item"
+            android:id="@+id/btn_address_edit_profile"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginTop="42dp"
@@ -204,83 +197,50 @@
             android:backgroundTint="@color/black"
             android:background="@drawable/ic_location"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_max_radius_add_item" />
-
-        <TextView
-            android:id="@+id/txt_photo_add_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/mont_regular"
-            android:text="@string/foto"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_address_add_item" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_photo_add_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/item_add_image_layout"
-            app:layout_constraintTop_toBottomOf="@+id/txt_photo_add_item"/>
+            app:layout_constraintTop_toBottomOf="@+id/edt_name_edit_profile" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_save_add_item"
-            android:visibility="visible"
+            android:id="@+id/btn_update_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="58dp"
             android:layout_marginBottom="60dp"
-            android:paddingHorizontal="48dp"
-            android:paddingVertical="12dp"
             android:backgroundTint="@color/white"
             android:fontFamily="@font/mont_regular"
             android:letterSpacing="0"
-            android:text="@string/save"
+            android:paddingHorizontal="22dp"
+            android:paddingVertical="12dp"
+            android:text="@string/update"
             android:textAllCaps="false"
             android:textColor="@color/black"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_photo_add_item"
+            app:layout_constraintTop_toBottomOf="@+id/edt_address_edit_profile"
             app:strokeColor="@color/black"
             app:strokeWidth="2dp" />
 
-        <View
-            android:id="@+id/viewPgBackground"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="#CCFFFFFF"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ProgressBar
-            android:id="@+id/pg_add_item"
+            android:id="@+id/pg_profile_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
             android:indeterminateDrawable="@drawable/progress_bg"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
-            android:id="@+id/txt_error_add_item"
+            android:id="@+id/txt_error_edit_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="48dp"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

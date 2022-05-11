@@ -1,12 +1,8 @@
 package com.vincent.givetake.data.source
 
-import com.vincent.givetake.data.source.request.AddItemRequest
-import com.vincent.givetake.data.source.request.DeleteItemImageRequest
-import com.vincent.givetake.data.source.request.LoginRequest
-import com.vincent.givetake.data.source.request.RegisterRequest
+import com.vincent.givetake.data.source.request.*
 import com.vincent.givetake.data.source.response.items.*
-import com.vincent.givetake.data.source.response.users.LoginResponse
-import com.vincent.givetake.data.source.response.users.RegisterResponse
+import com.vincent.givetake.data.source.response.users.*
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -24,20 +20,22 @@ interface ApiService {
         @Body body: LoginRequest
     ) : Response<LoginResponse>
 
-    // Items
-    @GET("items")
-    suspend fun getAllItems() : AllItemResponse
+    @GET("user")
+    suspend fun userData(
+        @Header("Authorization") auth: String
+    ) : Response<UserDataResponse>
+
+    @PATCH("profile")
+    suspend fun updateProfile(
+        @Header("Authorization") auth: String,
+        @Body body: UpdateProfileRequest
+    ) : Response<UpdateUserResponse>
 
     @Headers("Content-Type: application/json;charset=UTF-8")
     @GET("itemsLog")
     suspend fun getAllItemsLogin(
         @Header("Authorization") auth: String,
     ) : AllItemResponse
-
-    @GET("itemnolog/{id}")
-    suspend fun getItemByIdNotLogin(
-        @Path("id") id: String
-    ) : DetailResponseNonLogin
 
     @GET("item/{id}")
     suspend fun getItemById(
@@ -74,4 +72,10 @@ interface ApiService {
         @Path("id") id: String,
         @Body item: DeleteItemImageRequest
     ) : DeleteItemImageResponse
+
+    @Multipart
+    @POST("/upload/user")
+    suspend fun uploadProfileImage(
+        @Part data: MultipartBody.Part
+    ) : Response<UploadProfileImageResponse>
 }

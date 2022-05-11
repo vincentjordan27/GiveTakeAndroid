@@ -11,16 +11,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val itemsRepository: ItemsRepository, private val pref: UserPreferences) : ViewModel() {
 
-    var resultNotLogin = MutableLiveData<Result<AllItemResponse>>()
     var resultLogin = MutableLiveData<Result<AllItemResponse>>()
-
-    fun getAllItemsNotLogin() {
-        viewModelScope.launch {
-            itemsRepository.getAllItemsNotLogin().collect {
-                resultNotLogin.value = it
-            }
-        }
-    }
 
     fun getAllItemsLogin(key: String) {
         viewModelScope.launch {

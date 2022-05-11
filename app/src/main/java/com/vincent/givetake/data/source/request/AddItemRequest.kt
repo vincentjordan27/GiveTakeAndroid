@@ -8,5 +8,6 @@ data class AddItemRequest(
     val latitude: String,
     val longitude: String,
     val maxRadius: String,
-    val status: Int
+    val status: Int,
+    val thumbnail: String,
 )

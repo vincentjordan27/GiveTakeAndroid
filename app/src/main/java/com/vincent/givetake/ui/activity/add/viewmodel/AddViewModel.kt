@@ -13,6 +13,7 @@ import com.vincent.givetake.data.source.response.items.GenerateIdResponse
 import com.vincent.givetake.utils.Result
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.io.File
 
 class AddViewModel(private val itemsRepository: ItemsRepository) : ViewModel() {
     var resultAddItem = MutableLiveData<Result<AddItemResponse?>>()
@@ -36,9 +37,9 @@ class AddViewModel(private val itemsRepository: ItemsRepository) : ViewModel() {
         }
     }
 
-    fun uploadImageItem(token: String, itemId: String, imageUri: String) {
+    fun uploadImageItem(token: String, itemId: String, file: File) {
         viewModelScope.launch {
-            itemsRepository.uploadImageItem(token, itemId, imageUri).collect {
+            itemsRepository.uploadImageItem(token, itemId, file).collect {
                 resultUploadImage.value = it
             }
         }

@@ -13,6 +13,7 @@ import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.vincent.givetake.R
 import com.vincent.givetake.databinding.ActivityDetailBinding
+import com.vincent.givetake.factory.ItemsRepositoryViewModelFactory
 import com.vincent.givetake.utils.Result
 
 class DetailActivity : AppCompatActivity() {
@@ -28,7 +29,7 @@ class DetailActivity : AppCompatActivity() {
         detailBinding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(detailBinding.root)
 
-        val factory = DetailViewModelFactory.getInstance()
+        val factory = ItemsRepositoryViewModelFactory.getInstance()
         val viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         detailBinding.detailItemBackBtn.setOnClickListener {
@@ -45,14 +46,6 @@ class DetailActivity : AppCompatActivity() {
                 detailBinding.btnReceiveDetail.visibility = View.GONE
                 detailBinding.btnRequestDetail.visibility = View.GONE
             }
-            "guest" -> {
-                viewModel.getDetailNonLogin(data.itemId)
-                detailBinding.viewOwnerButtonDetail.visibility = View.GONE
-                detailBinding.editDetail.visibility = View.GONE
-                detailBinding.favDetail.visibility = View.GONE
-                detailBinding.btnReceiveDetail.visibility = View.GONE
-                detailBinding.btnRequestDetail.visibility = View.GONE
-            }
             else -> {
                 viewModel.getDetailLogin(data!!.itemId, data.accessKey)
                 detailBinding.viewOwnerButtonDetail.visibility = View.GONE
@@ -62,21 +55,6 @@ class DetailActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.resultNotLogin.observe(this) {
-            when(it) {
-                is Result.Loading -> detailBinding.pgDetail.visibility = View.VISIBLE
-                is Result.Success -> {
-                    detailBinding.pgDetail.visibility = View.GONE
-                    detailBinding.txtNameDetail.text = it.data!!.data.items[0].name
-                    detailBinding.txtDescDetail.setText(it.data.data.items[0].desc)
-                    detailBinding.txtCategoryDetail.setText(it.data.data.items[0].category)
-                }
-                is Result.Error -> {
-                    detailBinding.pgDetail.visibility = View.GONE
-                }
-
-            }
-        }
 
         viewModel.resultLogin.observe(this) {
             when(it) {

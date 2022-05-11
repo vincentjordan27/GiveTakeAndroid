@@ -15,7 +15,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/play_regular"
-            android:text="@string/title"
+            android:text="@string/register"
             android:textSize="28sp"
             android:gravity="center"
             android:textColor="@color/black"
@@ -23,6 +23,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/img_register_cv"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_title_register" >
+
+            <ImageView
+                android:id="@+id/img_register"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/ic_profile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:scaleType="centerCrop" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/txt_email_register"
@@ -32,10 +53,10 @@
             android:text="@string/email"
             android:textColor="@color/black"
             android:textSize="12sp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="24dp"
             android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_title_register" />
+            app:layout_constraintTop_toBottomOf="@+id/img_register_cv" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_email_register"
