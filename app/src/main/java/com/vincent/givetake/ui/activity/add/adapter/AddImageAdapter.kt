@@ -22,12 +22,16 @@ class AddImageAdapter(private val listener: (ImageData) -> Unit) : RecyclerView.
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageView: ImageView = itemView.findViewById(R.id.img_list)
-        fun bind(uri: ImageData, listener: (ImageData) -> Unit, position: Int){
+        fun bind(data: ImageData, listener: (ImageData) -> Unit, position: Int){
             itemView.apply {
-                Glide.with(this).load(uri.uri).into(imageView)
+                if (data.uri != null) {
+                    Glide.with(this).load(data.uri).into(imageView)
+                }else {
+                    Glide.with(this).load(data.url).into(imageView)
+                }
                 setOnClickListener {
                     positionRemove = position
-                    listener(uri)
+                    listener(data)
                 }
             }
         }

@@ -1,12 +1,11 @@
 package com.vincent.givetake.data.repository.users
 
 import com.google.gson.Gson
-import com.vincent.givetake.data.source.ApiService
+import com.vincent.givetake.data.source.api.UsersService
 import com.vincent.givetake.data.source.request.LoginRequest
 
 import com.vincent.givetake.data.source.request.RegisterRequest
 import com.vincent.givetake.data.source.request.UpdateProfileRequest
-import com.vincent.givetake.data.source.response.items.AddItemImageResponse
 import com.vincent.givetake.data.source.response.users.LoginResponse
 import com.vincent.givetake.data.source.response.users.RegisterResponse
 import com.vincent.givetake.data.source.response.users.UpdateUserResponse
@@ -21,7 +20,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
-class UsersRepository (private val apiService: ApiService) {
+class UsersRepository (private val apiService: UsersService) {
 
     fun registerUser(data: RegisterRequest) = flow {
         emit(Result.Loading)
@@ -87,7 +86,7 @@ class UsersRepository (private val apiService: ApiService) {
         private var instance: UsersRepository? = null
 
         fun getInstance(
-            apiService: ApiService,
+            apiService: UsersService,
         ) : UsersRepository {
             return instance ?: synchronized(this) {
                 UsersRepository(apiService).also {

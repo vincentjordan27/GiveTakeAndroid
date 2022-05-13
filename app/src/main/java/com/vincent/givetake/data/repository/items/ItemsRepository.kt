@@ -1,7 +1,7 @@
 package com.vincent.givetake.data.repository.items
 
 import com.google.gson.Gson
-import com.vincent.givetake.data.source.ApiService
+import com.vincent.givetake.data.source.api.ItemsService
 import com.vincent.givetake.data.source.request.AddItemRequest
 import com.vincent.givetake.data.source.request.DeleteItemImageRequest
 import com.vincent.givetake.data.source.response.items.AddItemImageResponse
@@ -11,7 +11,6 @@ import com.vincent.givetake.data.source.response.items.DetailResponseLogin
 //import com.vincent.givetake.data.source.response.DetailLoginResponse
 import com.vincent.givetake.utils.Result
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -20,9 +19,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
-class ItemsRepository(private val apiService: ApiService, ) {
-
-
+class ItemsRepository(private val apiService: ItemsService ) {
 
     fun getAllItemsLogin(token: String) = flow {
         emit(Result.Loading)
@@ -80,7 +77,7 @@ class ItemsRepository(private val apiService: ApiService, ) {
             val errorResponse = Gson().fromJson(response.errorBody()!!.string(), AddItemImageResponse::class.java)
             emit(Result.Error(errorResponse.message))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     fun deleteImageItem(token: String, itemId: String, body: DeleteItemImageRequest) = flow {
         emit(Result.Loading)
@@ -97,7 +94,7 @@ class ItemsRepository(private val apiService: ApiService, ) {
         private var instance: ItemsRepository? = null
 
         fun getInstance(
-            apiService: ApiService,
+            apiService: ItemsService,
         ) : ItemsRepository {
             return instance ?: synchronized(this) {
                 ItemsRepository(apiService).also {

@@ -1,36 +1,13 @@
-package com.vincent.givetake.data.source
+package com.vincent.givetake.data.source.api
 
-import com.vincent.givetake.data.source.request.*
+import com.vincent.givetake.data.source.request.AddItemRequest
+import com.vincent.givetake.data.source.request.DeleteItemImageRequest
 import com.vincent.givetake.data.source.response.items.*
-import com.vincent.givetake.data.source.response.users.*
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
-interface ApiService {
-
-    // Users
-    @POST("register")
-    suspend fun registerUser(
-        @Body body: RegisterRequest
-    ) : Response<RegisterResponse>
-
-    @POST("login")
-    suspend fun loginUser(
-        @Body body: LoginRequest
-    ) : Response<LoginResponse>
-
-    @GET("user")
-    suspend fun userData(
-        @Header("Authorization") auth: String
-    ) : Response<UserDataResponse>
-
-    @PATCH("profile")
-    suspend fun updateProfile(
-        @Header("Authorization") auth: String,
-        @Body body: UpdateProfileRequest
-    ) : Response<UpdateUserResponse>
-
+interface ItemsService {
     @Headers("Content-Type: application/json;charset=UTF-8")
     @GET("itemsLog")
     suspend fun getAllItemsLogin(
@@ -73,9 +50,4 @@ interface ApiService {
         @Body item: DeleteItemImageRequest
     ) : DeleteItemImageResponse
 
-    @Multipart
-    @POST("/upload/user")
-    suspend fun uploadProfileImage(
-        @Part data: MultipartBody.Part
-    ) : Response<UploadProfileImageResponse>
 }

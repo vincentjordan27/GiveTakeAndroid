@@ -25,8 +25,7 @@ import com.vincent.givetake.ui.activity.detail.DetailActivity
 import com.vincent.givetake.utils.Constant
 import com.vincent.givetake.utils.Result
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user" +
-        "")
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user")
 
 class HomeFragment : Fragment() {
 
@@ -80,7 +79,6 @@ class HomeFragment : Fragment() {
         viewModel.getUserId().observe(viewLifecycleOwner){
             userId = it
             itemAdapter.onItemClick = { data ->
-                Log.d("DEBUGS", "$userId ${data.userId}")
                 when (data.userId) {
                     userId -> {
                         val dataDetail = DataDetail(
@@ -121,9 +119,15 @@ class HomeFragment : Fragment() {
                     binding.rvHomeFragment.visibility = View.GONE
                 }
                 is Result.Success -> {
+                    if (it.data.data.size <= 0) {
+                        binding.tvNoDataHome.visibility = View.VISIBLE
+                    } else {
+                        binding.tvNoDataHome.visibility = View.GONE
+                    }
                     itemAdapter.setData(it.data.data)
                     binding.pgHomeFragment.visibility = View.GONE
                     binding.rvHomeFragment.visibility = View.VISIBLE
+
                 }
                 is Result.Error -> {
                     Toast.makeText(context, "An error occured : ${it.errorMessage}", Toast.LENGTH_SHORT).show()

@@ -39,6 +39,7 @@ class AddActivity : AppCompatActivity() {
     private lateinit var imageAdapter: AddImageAdapter
     private var itemId = ""
     private var token: String = ""
+    private var type: String = ""
     private lateinit var viewModel: AddViewModel
     private var currentUri: Uri? = null
 
@@ -53,6 +54,7 @@ class AddActivity : AppCompatActivity() {
         observerViewModel()
 
         token = intent.getStringExtra(Constant.KEY_ACCESS_USER).toString()
+
         viewModel.getItemId()
 
         var dataAddress: AddressResult? = null
@@ -106,7 +108,7 @@ class AddActivity : AppCompatActivity() {
                     dataAddress?.latlang?.longitude.toString(),
                     binding.edtMaxRadiusAddItem.text.toString(),
                     0,
-                    image[0].url
+                    image[0].url!!
                 )
 
                 viewModel.addItem(token, data)
@@ -249,16 +251,13 @@ class AddActivity : AppCompatActivity() {
             when(it) {
                 is Result.Loading -> {
                     showLoading(true)
-                    binding.viewPgBackground.visibility = View.VISIBLE
 
                 }
                 is Result.Success -> {
                     showLoading(false)
-                    binding.viewPgBackground.visibility = View.GONE
                 }
                 is Result.Error -> {
                     showLoading(false)
-                    binding.viewPgBackground.visibility = View.GONE
                     Snackbar.make(binding.txtErrorAddItem, "Terjadi Error: ${it.errorMessage}", Snackbar.LENGTH_LONG).show()
                 }
             }
@@ -267,6 +266,7 @@ class AddActivity : AppCompatActivity() {
 
 
     private fun startGallery() {
+        showLoading(true)
         val intent = Intent()
         intent.action = Intent.ACTION_GET_CONTENT
         intent.type = "image/*"
@@ -302,9 +302,14 @@ class AddActivity : AppCompatActivity() {
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.pgAddItem.visibility = View.VISIBLE
-            binding.btnAddressAddItem
+            binding.viewPgBackground.visibility = View.VISIBLE
         } else {
             binding.pgAddItem.visibility = View.GONE
+            binding.viewPgBackground.visibility = View.GONE
         }
+    }
+
+    companion object {
+        const val EDIT_TYPE = "edit_type"
     }
 }

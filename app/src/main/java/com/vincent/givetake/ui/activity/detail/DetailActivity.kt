@@ -2,12 +2,12 @@ package com.vincent.givetake.ui.activity.detail
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
@@ -21,6 +21,9 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var detailBinding: ActivityDetailBinding
     private var delete = false
     private val imageList = ArrayList<SlideModel>()
+    private var itemId = ""
+    private var token = ""
+    private lateinit var viewModel: DetailViewModel
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,13 +33,15 @@ class DetailActivity : AppCompatActivity() {
         setContentView(detailBinding.root)
 
         val factory = ItemsRepositoryViewModelFactory.getInstance()
-        val viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         detailBinding.detailItemBackBtn.setOnClickListener {
             onBackPressed()
         }
 
         val data = intent.getParcelableExtra<DataDetail>("data")
+        itemId = data?.itemId.toString()
+        token = data?.accessKey.toString()
         when(data?.role) {
             "owner" -> {
                 viewModel.getDetailLogin(data.itemId, data.accessKey)
@@ -113,7 +118,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         detailBinding.btnDeleteDetail.setOnClickListener {
-            val alertDialog = AlertDialog.Builder(this)
+            val alertDialog = AlertDialog.Builder(this, R.style.CostumDialog)
                 .setTitle("Hapus Item")
                 .setMessage("Anda yakin ingin menghapus item ini ?")
                 .setCancelable(false)
@@ -145,6 +150,11 @@ class DetailActivity : AppCompatActivity() {
                 is Result.Error -> detailBinding.pgDetail.visibility = View.GONE
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getDetailLogin(itemId, token)
     }
 
     override fun onBackPressed() {
