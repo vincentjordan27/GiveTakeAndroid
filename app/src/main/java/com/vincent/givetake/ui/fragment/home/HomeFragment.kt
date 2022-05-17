@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.vincent.givetake.databinding.FragmentHomeBinding
 import com.vincent.givetake.factory.ItemsPrefViewModelFactory
 import com.vincent.givetake.preference.UserPreferences
-import com.vincent.givetake.ui.activity.add.AddActivity
+import com.vincent.givetake.ui.activity.items.add.AddActivity
 import com.vincent.givetake.ui.activity.detail.DataDetail
 import com.vincent.givetake.ui.activity.detail.DetailActivity
 import com.vincent.givetake.utils.Constant
@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
     private var accessKey = ""
     private var userId = ""
     private lateinit var itemAdapter: ItemAdapter
-    private var isDelete = false
+    private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,22 +49,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val pref = UserPreferences.getInstance(requireActivity().dataStore)
         val factory = ItemsPrefViewModelFactory.getInstance(pref)
-        val viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
-        val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = result.data
-                if (data != null) {
-                    isDelete = data.getBooleanExtra("deleted", false)
-                    if (accessKey != "" && isDelete) {
-                        binding.btnAddItemHome.visibility = View.VISIBLE
-                        viewModel.getAllItemsLogin(accessKey)
-                        itemAdapter.setRoleUser("user")
-                    }
-                    isDelete = false
-                }
-            }
-        }
 
         itemAdapter = ItemAdapter()
         viewModel.getAccessKey().observe(viewLifecycleOwner) {
@@ -91,8 +77,7 @@ class HomeFragment : Fragment() {
                         )
                         val intent = Intent(requireActivity(), DetailActivity::class.java)
                         intent.putExtra("data", dataDetail)
-                        resultLauncher.launch(intent)
-            //                        startActivity(intent)
+                        startActivity(intent)
                     }
                     else -> {
                         val dataDetail = DataDetail(
@@ -105,8 +90,7 @@ class HomeFragment : Fragment() {
                         )
                         val intent = Intent(requireActivity(), DetailActivity::class.java)
                         intent.putExtra("data", dataDetail)
-                        resultLauncher.launch(intent)
-            //                        startActivity(intent)
+                        startActivity(intent)
                     }
                 }
             }
@@ -146,6 +130,11 @@ class HomeFragment : Fragment() {
             intent.putExtra(Constant.KEY_ACCESS_USER, accessKey)
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllItemsLogin(accessKey)
     }
 
 

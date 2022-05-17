@@ -1,7 +1,8 @@
 package com.vincent.givetake.ui.activity.register
 
 import android.app.Activity
-import android.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
+
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import com.vincent.givetake.R
 import com.vincent.givetake.databinding.ActivityRegisterBinding
 import com.vincent.givetake.ui.activity.map.AddressResult
 import com.vincent.givetake.ui.activity.map.MapsActivity
@@ -120,7 +122,7 @@ class RegisterActivity : AppCompatActivity() {
                     if (it.data?.status != "success") {
                         Toast.makeText(this, "An error occurred : ${it.data?.message}", Toast.LENGTH_SHORT).show()
                     }else {
-                        val alertDialog = AlertDialog.Builder(this)
+                        val alertDialog = AlertDialog.Builder(this, R.style.CostumDialog)
                             .setTitle("Pendaftaran berhasil")
                             .setCancelable(false)
                             .setPositiveButton("Ok"){_ , _ ->

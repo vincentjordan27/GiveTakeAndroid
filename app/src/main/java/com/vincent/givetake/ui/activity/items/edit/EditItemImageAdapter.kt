@@ -1,5 +1,6 @@
-package com.vincent.givetake.ui.activity.add.adapter
+package com.vincent.givetake.ui.activity.items.edit
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,11 +8,12 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vincent.givetake.R
-import com.vincent.givetake.ui.activity.add.model.ImageData
+import com.vincent.givetake.ui.activity.items.add.adapter.AddImageAdapter
+import com.vincent.givetake.ui.activity.items.add.model.ImageData
 
 var positionRemove : Int? = null
 
-class AddImageAdapter(private val listener: (ImageData) -> Unit) : RecyclerView.Adapter<AddImageAdapter.ViewHolder>() {
+class EditItemImageAdapter(private val listener: (ImageData) -> Unit) : RecyclerView.Adapter<EditItemImageAdapter.ViewHolder>() {
     private var listData = ArrayList<ImageData>()
 
     fun setImage(dataImage : List<ImageData>?){
@@ -26,8 +28,11 @@ class AddImageAdapter(private val listener: (ImageData) -> Unit) : RecyclerView.
             itemView.apply {
                 if (data.uri != null) {
                     Glide.with(this).load(data.uri).into(imageView)
-                }else {
-                    Glide.with(this).load(data.url).into(imageView)
+                } else {
+                    Glide.with(this)
+                        .load(data.url)
+                        .placeholder(R.drawable.ic_load)
+                        .into(imageView)
                 }
                 setOnClickListener {
                     positionRemove = position

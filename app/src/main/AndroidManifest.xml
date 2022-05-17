@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.vincent.givetake">
+    package="com.vincent.givetake" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -14,12 +14,15 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GiveTake">
+        android:theme="@style/Theme.GiveTake" >
+        <activity
+            android:name=".ui.activity.items.edit.EditActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.fragment.profile.edit.EditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.add.AddActivity"
+            android:name=".ui.activity.items.add.AddActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.detail.DetailActivity"
@@ -51,7 +54,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.activity.splash.SplashScreenActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

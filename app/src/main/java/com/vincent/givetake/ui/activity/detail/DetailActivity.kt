@@ -14,6 +14,8 @@ import com.denzcoskun.imageslider.models.SlideModel
 import com.vincent.givetake.R
 import com.vincent.givetake.databinding.ActivityDetailBinding
 import com.vincent.givetake.factory.ItemsRepositoryViewModelFactory
+import com.vincent.givetake.ui.activity.items.edit.EditActivity
+import com.vincent.givetake.utils.Constant
 import com.vincent.givetake.utils.Result
 
 class DetailActivity : AppCompatActivity() {
@@ -39,9 +41,12 @@ class DetailActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+
         val data = intent.getParcelableExtra<DataDetail>("data")
+        Log.d("DEBUGS", data.toString())
         itemId = data?.itemId.toString()
         token = data?.accessKey.toString()
+
         when(data?.role) {
             "owner" -> {
                 viewModel.getDetailLogin(data.itemId, data.accessKey)
@@ -60,6 +65,13 @@ class DetailActivity : AppCompatActivity() {
             }
         }
 
+        detailBinding.editDetail.setOnClickListener {
+            val intent = Intent(this, EditActivity::class.java)
+            intent.putExtra(Constant.KEY_ACCESS_EDIT, token)
+            intent.putExtra(Constant.EDIT_ITEM_ID, itemId)
+
+            startActivity(intent)
+        }
 
         viewModel.resultLogin.observe(this) {
             when(it) {

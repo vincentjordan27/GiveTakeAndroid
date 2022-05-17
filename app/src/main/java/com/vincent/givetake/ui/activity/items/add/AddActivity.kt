@@ -1,6 +1,5 @@
-package com.vincent.givetake.ui.activity.add
+package com.vincent.givetake.ui.activity.items.add
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -22,9 +21,9 @@ import com.vincent.givetake.data.source.request.AddItemRequest
 import com.vincent.givetake.data.source.request.DeleteItemImageRequest
 import com.vincent.givetake.databinding.ActivityAddBinding
 import com.vincent.givetake.factory.ItemsRepositoryViewModelFactory
-import com.vincent.givetake.ui.activity.add.adapter.AddImageAdapter
-import com.vincent.givetake.ui.activity.add.model.ImageData
-import com.vincent.givetake.ui.activity.add.viewmodel.AddViewModel
+import com.vincent.givetake.ui.activity.items.add.adapter.AddImageAdapter
+import com.vincent.givetake.ui.activity.items.add.model.ImageData
+import com.vincent.givetake.ui.activity.items.add.viewmodel.AddViewModel
 import com.vincent.givetake.ui.activity.home.MainActivity
 import com.vincent.givetake.ui.activity.map.AddressResult
 import com.vincent.givetake.ui.activity.map.MapsActivity
@@ -39,7 +38,6 @@ class AddActivity : AppCompatActivity() {
     private lateinit var imageAdapter: AddImageAdapter
     private var itemId = ""
     private var token: String = ""
-    private var type: String = ""
     private lateinit var viewModel: AddViewModel
     private var currentUri: Uri? = null
 
@@ -52,10 +50,9 @@ class AddActivity : AppCompatActivity() {
         val factory = ItemsRepositoryViewModelFactory.getInstance()
         viewModel = ViewModelProvider(this, factory)[AddViewModel::class.java]
         observerViewModel()
-
+        viewModel.getItemId()
         token = intent.getStringExtra(Constant.KEY_ACCESS_USER).toString()
 
-        viewModel.getItemId()
 
         var dataAddress: AddressResult? = null
         val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -104,11 +101,12 @@ class AddActivity : AppCompatActivity() {
                     binding.edtNameAddItem.text.toString(),
                     binding.edtDescAddItem.text.toString(),
                     binding.edtCategoryAddItem.text.toString(),
+                    dataAddress?.address.toString(),
                     dataAddress?.latlang?.latitude.toString(),
                     dataAddress?.latlang?.longitude.toString(),
                     binding.edtMaxRadiusAddItem.text.toString(),
                     0,
-                    image[0].url!!
+                    image[0].url
                 )
 
                 viewModel.addItem(token, data)
@@ -309,7 +307,4 @@ class AddActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
-        const val EDIT_TYPE = "edit_type"
-    }
 }

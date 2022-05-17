@@ -2,6 +2,7 @@ package com.vincent.givetake.data.source.api
 
 import com.vincent.givetake.data.source.request.AddItemRequest
 import com.vincent.givetake.data.source.request.DeleteItemImageRequest
+import com.vincent.givetake.data.source.request.EditItemRequest
 import com.vincent.givetake.data.source.response.items.*
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -50,4 +51,10 @@ interface ItemsService {
         @Body item: DeleteItemImageRequest
     ) : DeleteItemImageResponse
 
+    @PATCH("/item/{id}")
+    suspend fun updateItem(
+        @Header("Authorization") auth: String,
+        @Path("id") id: String,
+        @Body item: EditItemRequest
+    ) : Response<UpdateItemResponse>
 }

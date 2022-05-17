@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.vincent.givetake.data.repository.items.ItemsRepository
 import com.vincent.givetake.di.Injection
-import com.vincent.givetake.ui.activity.add.viewmodel.AddViewModel
+import com.vincent.givetake.ui.activity.items.add.viewmodel.AddViewModel
 import com.vincent.givetake.ui.activity.detail.DetailViewModel
 
 class ItemsRepositoryViewModelFactory(private val itemsRepository: ItemsRepository): ViewModelProvider.NewInstanceFactory() {

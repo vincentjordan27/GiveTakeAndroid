@@ -1,6 +1,6 @@
 package com.vincent.givetake.data.source.request
 
-data class AddItemRequest(
+data class EditItemRequest(
     val id: String,
     val name: String,
     val desc: String,

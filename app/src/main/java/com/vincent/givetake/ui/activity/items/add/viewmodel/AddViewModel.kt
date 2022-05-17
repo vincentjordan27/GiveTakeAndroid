@@ -1,4 +1,4 @@
-package com.vincent.givetake.ui.activity.add.viewmodel
+package com.vincent.givetake.ui.activity.items.add.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

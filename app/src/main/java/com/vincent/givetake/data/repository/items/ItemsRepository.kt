@@ -4,10 +4,8 @@ import com.google.gson.Gson
 import com.vincent.givetake.data.source.api.ItemsService
 import com.vincent.givetake.data.source.request.AddItemRequest
 import com.vincent.givetake.data.source.request.DeleteItemImageRequest
-import com.vincent.givetake.data.source.response.items.AddItemImageResponse
-import com.vincent.givetake.data.source.response.items.AddItemResponse
-import com.vincent.givetake.data.source.response.items.DeleteItemResponse
-import com.vincent.givetake.data.source.response.items.DetailResponseLogin
+import com.vincent.givetake.data.source.request.EditItemRequest
+import com.vincent.givetake.data.source.response.items.*
 //import com.vincent.givetake.data.source.response.DetailLoginResponse
 import com.vincent.givetake.utils.Result
 import kotlinx.coroutines.Dispatchers
@@ -85,6 +83,16 @@ class ItemsRepository(private val apiService: ItemsService ) {
     }.catch { emit(Result.Error(it.message.toString()))
     }.flowOn(Dispatchers.IO)
 
+    fun updateItem(token: String, itemId: String, body: EditItemRequest) = flow {
+        emit(Result.Loading)
+        val response = apiService.updateItem(token, itemId, body)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        }else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), UpdateItemResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.flowOn(Dispatchers.IO)
 
 
 

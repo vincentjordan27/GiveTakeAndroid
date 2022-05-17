@@ -4,62 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.register.RegisterActivity">
+    tools:context=".ui.activity.items.add.AddActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/edit_item_back_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_back"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+
         <TextView
-            android:id="@+id/txt_title_register"
-            android:layout_width="0dp"
+            android:id="@+id/edit_item_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/play_regular"
-            android:text="@string/register"
-            android:textSize="28sp"
-            android:gravity="center"
+            android:text="@string/ubah_barang"
             android:textColor="@color/black"
-            android:layout_marginTop="28dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="24sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintStart_toEndOf="@+id/edit_item_back_btn"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/img_register_cv"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:cardCornerRadius="10dp"
-            android:layout_marginTop="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_title_register" >
-
-            <ImageView
-                android:id="@+id/img_register"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@drawable/ic_profile"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:scaleType="centerCrop" />
-
-        </androidx.cardview.widget.CardView>
-
         <TextView
-            android:id="@+id/txt_email_register"
+            android:id="@+id/txt_name_edit_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mont_regular"
-            android:text="@string/email"
+            android:text="@string/nama_barang"
             android:textColor="@color/black"
             android:textSize="12sp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="50dp"
             android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_register_cv" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_item_title" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_email_register"
+            android:id="@+id/edt_name_edit_item"
             android:fontFamily="@font/mont_regular"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
@@ -70,30 +59,27 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="11dp"
             android:background="@drawable/edt_border"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"
-            android:nextFocusForward="@id/edt_password_register"
+            android:hint="@string/nama_barang"
             android:textCursorDrawable="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_email_register" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_name_edit_item" />
 
         <TextView
-            android:id="@+id/txt_password_register"
+            android:id="@+id/txt_category_edit_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mont_regular"
-            android:text="@string/password"
+            android:text="@string/category"
             android:textColor="@color/black"
             android:textSize="12sp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_email_register" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_name_edit_item" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_password_register"
+            android:id="@+id/edt_category_edit_item"
             android:fontFamily="@font/mont_regular"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
@@ -104,30 +90,59 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="11dp"
             android:background="@drawable/edt_border"
-            android:hint="@string/password"
+            android:hint="@string/category"
             android:textCursorDrawable="@null"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:nextFocusForward="@id/edt_phone_register"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_password_register" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_category_edit_item" />
 
         <TextView
-            android:id="@+id/txt_phone_register"
+            android:id="@+id/txt_desc_edit_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mont_regular"
-            android:text="@string/phone_register"
+            android:text="@string/desc"
             android:textColor="@color/black"
             android:textSize="12sp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_password_register" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_category_edit_item" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_phone_register"
+            android:id="@+id/edt_desc_edit_item"
+            android:fontFamily="@font/mont_regular"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="11dp"
+            android:gravity="top"
+            android:background="@drawable/edt_border"
+            android:hint="@string/desc"
+            android:textCursorDrawable="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_desc_edit_item" />
+
+        <TextView
+            android:id="@+id/txt_max_radius_edit_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mont_regular"
+            android:text="@string/max_radius"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_desc_edit_item" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_max_radius_edit_item"
             android:fontFamily="@font/mont_regular"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
@@ -138,85 +153,15 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="11dp"
             android:background="@drawable/edt_border"
-            android:hint="@string/phone_register"
+            android:hint="@string/category"
             android:textCursorDrawable="@null"
             android:inputType="number"
-            android:maxLines="1"
-            android:nextFocusForward="@id/edt_name_register"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_phone_register" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_max_radius_edit_item" />
 
         <TextView
-            android:id="@+id/txt_name_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/mont_regular"
-            android:text="@string/name"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_phone_register" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_name_register"
-            android:fontFamily="@font/mont_regular"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="4dp"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="11dp"
-            android:background="@drawable/edt_border"
-            android:hint="@string/name"
-            android:textCursorDrawable="@null"
-            android:maxLines="1"
-            android:inputType="textPersonName"
-            android:imeOptions="actionNext"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_name_register" />
-
-        <TextView
-            android:id="@+id/txt_username_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/mont_regular"
-            android:text="@string/username"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_name_register" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_username_register"
-            android:fontFamily="@font/mont_regular"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="4dp"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="11dp"
-            android:background="@drawable/edt_border"
-            android:hint="@string/username"
-            android:textCursorDrawable="@null"
-            android:maxLines="1"
-            android:inputType="text"
-            android:imeOptions="actionDone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_username_register" />
-
-        <TextView
-            android:id="@+id/txt_address_register"
+            android:id="@+id/txt_address_edit_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mont_regular"
@@ -226,11 +171,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_username_register" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_max_radius_edit_item" />
 
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_address_register"
+            android:id="@+id/edt_address_edit_item"
             android:fontFamily="@font/mont_regular"
             android:textCursorDrawable="@null"
             android:layout_width="0dp"
@@ -245,13 +190,13 @@
             android:textColor="@color/black"
             android:textSize="12sp"
             android:editable="false"
-            app:layout_constraintEnd_toStartOf="@+id/btn_address_register"
+            app:layout_constraintEnd_toStartOf="@+id/btn_address_edit_item"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_address_register"
+            app:layout_constraintTop_toBottomOf="@+id/txt_address_edit_item"
             tools:ignore="Deprecated" />
 
         <ImageView
-            android:id="@+id/btn_address_register"
+            android:id="@+id/btn_address_edit_item"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginTop="42dp"
@@ -259,51 +204,83 @@
             android:backgroundTint="@color/black"
             android:background="@drawable/ic_location"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_username_register" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_max_radius_edit_item" />
+
+        <TextView
+            android:id="@+id/txt_photo_edit_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mont_regular"
+            android:text="@string/foto"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_address_edit_item" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_photo_edit_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_add_image_layout"
+            app:layout_constraintTop_toBottomOf="@+id/txt_photo_edit_item"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_register"
+            android:id="@+id/btn_save_edit_item"
+            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="58dp"
             android:layout_marginBottom="60dp"
+            android:paddingHorizontal="48dp"
+            android:paddingVertical="12dp"
             android:backgroundTint="@color/white"
             android:fontFamily="@font/mont_regular"
             android:letterSpacing="0"
-            android:paddingHorizontal="22dp"
-            android:paddingVertical="12dp"
-            android:text="@string/register"
+            android:text="@string/save"
             android:textAllCaps="false"
             android:textColor="@color/black"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_address_register"
+            app:layout_constraintTop_toBottomOf="@+id/rv_photo_edit_item"
             app:strokeColor="@color/black"
             app:strokeWidth="2dp" />
 
-        <ProgressBar
-            android:id="@+id/pg_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <View
+            android:id="@+id/viewPgBackground"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#CCFFFFFF"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/pg_edit_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:indeterminate="true"
             android:indeterminateDrawable="@drawable/progress_bg"
             android:visibility="gone"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
-            android:id="@+id/txt_error_register"
+            android:id="@+id/txt_error_edit_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="48dp"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
