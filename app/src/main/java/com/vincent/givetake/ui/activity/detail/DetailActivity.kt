@@ -171,8 +171,6 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent = Intent()
-        intent.putExtra("deleted", false)
-        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 }

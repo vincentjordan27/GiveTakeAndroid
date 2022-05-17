@@ -22,4 +22,10 @@ class ProfileViewModel(private val usersRepository: UsersRepository, private val
     fun getAccessKey() : LiveData<String> {
         return pref.getUserAccessKey().asLiveData()
     }
+
+    fun logout() {
+        viewModelScope.launch {
+            pref.logout()
+        }
+    }
 }

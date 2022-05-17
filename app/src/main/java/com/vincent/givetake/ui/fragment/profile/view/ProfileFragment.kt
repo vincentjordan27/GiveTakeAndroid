@@ -2,10 +2,8 @@ package com.vincent.givetake.ui.fragment.profile.view
 
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +11,14 @@ import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.vincent.givetake.data.source.response.users.UserData
-import com.vincent.givetake.data.source.response.users.UserDataResponse
 import com.vincent.givetake.databinding.ProfileFragmentBinding
 import com.vincent.givetake.factory.UsersPrefViewModelFactory
 import com.vincent.givetake.preference.UserPreferences
+import com.vincent.givetake.ui.activity.login.LoginActivity
 import com.vincent.givetake.ui.fragment.profile.edit.EditProfileActivity
 import com.vincent.givetake.utils.Result
 
@@ -44,6 +44,7 @@ class ProfileFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if (needRefresh) {
+            needRefresh = false
             viewModel.getUserData(accessKey)
         }
     }
@@ -61,11 +62,21 @@ class ProfileFragment : Fragment() {
             intent.putExtra(EditProfileActivity.PROFILE_DATA, dataUser)
             startActivity(intent)
         }
+
+        binding.btnLogout.setOnClickListener {
+            viewModel.logout()
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            activity?.startActivity(intent)
+            activity?.finish()
+        }
+
     }
+
 
     private fun observeViewModel() {
         viewModel.getAccessKey().observe(viewLifecycleOwner) {
-            if (it != null) {
+            if (it != null && it != "") {
                 accessKey = it
                 showLoading(false)
                 viewModel.getUserData(accessKey)
@@ -76,7 +87,6 @@ class ProfileFragment : Fragment() {
                 is Result.Loading -> showLoading(true)
                 is Result.Success -> {
                     showLoading(false)
-                    Log.d("DEBUGS", "SUCCESS")
                     if (it.data != null) {
                         dataUser = it.data.data
                         dataUser!!.accessKey = accessKey
@@ -93,7 +103,7 @@ class ProfileFragment : Fragment() {
                 }
                 is Result.Error -> {
                     showLoading(false)
-                    Toast.makeText(context, "An error occured : ${it.errorMessage}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Terjadi error : ${it.errorMessage}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
