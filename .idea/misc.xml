@@ -25,14 +25,19 @@
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_edit_profile.xml" value="0.16944444444444445" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_history_reward.xml" value="0.1" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_items.xml" value="0.25" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_my_items.xml" value="0.25" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_my_offers.xml" value="0.25" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_notifications.xml" value="0.10989583333333333" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_rewards.xml" value="0.16799999999999998" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_add_image_layout.xml" value="0.25" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_home_layout.xml" value="0.264" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_my_offer.xml" value="0.176" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_reward_history_layou.xml" value="0.1814814814814815" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_reward_history_layout.xml" value="0.264" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_reward_layout.xml" value="0.1" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/layout_image.xml" value="0.13177083333333334" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/my_item_layout.xml" value="0.25" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/profile_fragment.xml" value="0.264" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/menu/bottom_nav_menu.xml" value="0.10989583333333333" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/xml/network_security_config.xml" value="0.10989583333333333" />

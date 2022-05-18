@@ -94,7 +94,27 @@ class ItemsRepository(private val apiService: ItemsService ) {
         }
     }.flowOn(Dispatchers.IO)
 
+    fun getMyOffers(token: String) = flow {
+        emit(Result.Loading)
+        val response = apiService.getMyOffers(token)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        }else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), MyOffersResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.flowOn(Dispatchers.IO)
 
+    fun getMyItems(token: String) = flow {
+        emit(Result.Loading)
+        val response = apiService.getMyItems(token)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        }else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), MyItemsResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.flowOn(Dispatchers.IO)
 
     companion object {
 

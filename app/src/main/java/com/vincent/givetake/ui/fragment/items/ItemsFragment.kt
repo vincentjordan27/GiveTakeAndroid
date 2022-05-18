@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.tabs.TabLayoutMediator
 import com.vincent.givetake.databinding.FragmentItemsBinding
+import com.vincent.givetake.ui.fragment.rewards.TabRewardAdapter
+import com.vincent.givetake.ui.fragment.rewards.main.RewardsFragment
 
 class ItemsFragment : Fragment() {
 
     private var _binding: FragmentItemsBinding? = null
-
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -20,21 +22,26 @@ class ItemsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this)[ItemsViewModel::class.java]
-
-        _binding = FragmentItemsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
+        _binding = FragmentItemsBinding.inflate(layoutInflater)
+        val view = binding.root
+        val pagerAdapter = TabItemsAdapter(requireActivity())
+        binding.viewpager.adapter = pagerAdapter
+        TabLayoutMediator(binding.tabLayout, binding.viewpager) { tabs, position ->
+            tabs.text = tabTitles[position]
+        }.attach()
+        return view
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private val tabTitles = arrayOf(
+            "Tawaran",
+            "Barang",
+            "Wishlist"
+        )
     }
 }

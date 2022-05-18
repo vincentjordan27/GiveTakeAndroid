@@ -1,13 +1,33 @@
 package com.vincent.givetake.ui.fragment.items
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.vincent.givetake.data.repository.items.ItemsRepository
+import com.vincent.givetake.data.source.response.items.MyItemsResponse
+import com.vincent.givetake.data.source.response.items.MyOffersResponse
+import com.vincent.givetake.preference.UserPreferences
+import com.vincent.givetake.utils.Result
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
-class ItemsViewModel : ViewModel() {
+class ItemsViewModel(private val repository: ItemsRepository, private val userPreferences: UserPreferences) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+    val myOfferResult = MutableLiveData<Result<MyOffersResponse?>>()
+    val myItemsResult = MutableLiveData<Result<MyItemsResponse?>>()
+
+    fun getMyOffers(token: String) = viewModelScope.launch {
+        repository.getMyOffers(token).collect {
+            myOfferResult.value = it
+        }
     }
-    val text: LiveData<String> = _text
+
+    fun getMyItems(token: String) = viewModelScope.launch {
+        repository.getMyItems(token).collect {
+            myItemsResult.value = it
+        }
+    }
+
+    fun getAccessKey() : LiveData<String> {
+        return userPreferences.getUserAccessKey().asLiveData()
+    }
+
 }

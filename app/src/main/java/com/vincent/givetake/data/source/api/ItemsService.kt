@@ -57,4 +57,14 @@ interface ItemsService {
         @Path("id") id: String,
         @Body item: EditItemRequest
     ) : Response<UpdateItemResponse>
+
+    @GET("myoffers")
+    suspend fun getMyOffers(
+        @Header("Authorization") auth: String,
+    ) : Response<MyOffersResponse>
+
+    @GET("myitems")
+    suspend fun getMyItems(
+        @Header("Authorization") auth: String,
+    ) : Response<MyItemsResponse>
 }
