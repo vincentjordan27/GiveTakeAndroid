@@ -3,6 +3,7 @@ package com.vincent.givetake.data.repository.items
 import com.google.gson.Gson
 import com.vincent.givetake.data.source.api.ItemsService
 import com.vincent.givetake.data.source.request.AddItemRequest
+import com.vincent.givetake.data.source.request.WishlistRequest
 import com.vincent.givetake.data.source.request.DeleteItemImageRequest
 import com.vincent.givetake.data.source.request.EditItemRequest
 import com.vincent.givetake.data.source.response.items.*
@@ -112,6 +113,28 @@ class ItemsRepository(private val apiService: ItemsService ) {
             emit(Result.Success(response.body()))
         }else {
             val errorResponse = Gson().fromJson(response.errorBody()!!.string(), MyItemsResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun addWishlist(token: String, body: WishlistRequest) = flow {
+        emit(Result.Loading)
+        val response = apiService.addWishlist(token, body)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        }else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), WishlistResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun deleteWishlist(token: String, body: WishlistRequest) = flow {
+        emit(Result.Loading)
+        val response = apiService.deleteWishlist(token, body)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        }else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), WishlistResponse::class.java)
             emit(Result.Error(errorResponse.message))
         }
     }.flowOn(Dispatchers.IO)

@@ -276,6 +276,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="gone"/>
 
+        <TextView
+            android:id="@+id/txt_error_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="48dp"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

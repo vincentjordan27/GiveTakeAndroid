@@ -1,6 +1,7 @@
 package com.vincent.givetake.data.source.api
 
 import com.vincent.givetake.data.source.request.AddItemRequest
+import com.vincent.givetake.data.source.request.WishlistRequest
 import com.vincent.givetake.data.source.request.DeleteItemImageRequest
 import com.vincent.givetake.data.source.request.EditItemRequest
 import com.vincent.givetake.data.source.response.items.*
@@ -67,4 +68,17 @@ interface ItemsService {
     suspend fun getMyItems(
         @Header("Authorization") auth: String,
     ) : Response<MyItemsResponse>
+
+    @POST("wishlist")
+    suspend fun addWishlist(
+        @Header("Authorization") auth: String,
+        @Body body: WishlistRequest
+    ) : Response<WishlistResponse>
+
+    @HTTP(method = "DELETE", path = "wishlist", hasBody = true)
+    suspend fun deleteWishlist(
+        @Header("Authorization") auth: String,
+        @Body body: WishlistRequest
+    ) : Response<WishlistResponse>
+
 }

@@ -11,7 +11,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import com.google.android.material.snackbar.Snackbar
 import com.vincent.givetake.R
+import com.vincent.givetake.data.source.request.WishlistRequest
 import com.vincent.givetake.databinding.ActivityDetailBinding
 import com.vincent.givetake.factory.ItemsRepositoryViewModelFactory
 import com.vincent.givetake.ui.activity.items.edit.EditActivity
@@ -25,6 +27,7 @@ class DetailActivity : AppCompatActivity() {
     private val imageList = ArrayList<SlideModel>()
     private var itemId = ""
     private var token = ""
+    private var isWishlist = false
     private lateinit var viewModel: DetailViewModel
 
     @SuppressLint("SetTextI18n")
@@ -77,7 +80,6 @@ class DetailActivity : AppCompatActivity() {
             when(it) {
                 is Result.Loading -> detailBinding.pgDetail.visibility = View.VISIBLE
                 is Result.Success -> {
-                    Log.d("DEBUGS", it.data.toString())
                     if (it.data != null) {
                         detailBinding.pgDetail.visibility = View.GONE
                         for (image in it.data.data.images) {
@@ -87,6 +89,7 @@ class DetailActivity : AppCompatActivity() {
                         detailBinding.txtNameDetail.text = it.data.data.items[0].name
                         detailBinding.txtDescDetail.setText(it.data.data.items[0].desc)
                         detailBinding.txtCategoryDetail.setText(it.data.data.items[0].category)
+                        isWishlist = it.data.data.wish
                         if (it.data.data.wish) {
                             detailBinding.favDetail.setImageResource(R.drawable.ic_fav)
                         }else {
@@ -160,6 +163,48 @@ class DetailActivity : AppCompatActivity() {
                     finish()
                 }
                 is Result.Error -> detailBinding.pgDetail.visibility = View.GONE
+            }
+        }
+
+        detailBinding.favDetail.setOnClickListener {
+            val body = WishlistRequest(
+                itemId
+            )
+            if (!isWishlist) {
+                viewModel.addWishlist(token, body)
+                detailBinding.favDetail.setImageResource(R.drawable.ic_fav)
+            }else {
+                viewModel.deleteWishlist(token, body)
+                detailBinding.favDetail.setImageResource(R.drawable.ic_fav_border)
+            }
+
+        }
+
+        viewModel.resultAddWishlist.observe(this) {
+            when(it) {
+                is Result.Loading -> detailBinding.pgDetail.visibility = View.VISIBLE
+                is Result.Success -> {
+                    isWishlist = true
+                    detailBinding.pgDetail.visibility = View.GONE
+                }
+                is Result.Error -> {
+                    detailBinding.pgDetail.visibility = View.GONE
+                    Snackbar.make(detailBinding.txtErrorDetail, it.errorMessage, Snackbar.LENGTH_LONG).show()
+                }
+            }
+        }
+
+        viewModel.resultDeleteWishlist.observe(this) {
+            when(it) {
+                is Result.Loading -> detailBinding.pgDetail.visibility = View.VISIBLE
+                is Result.Success -> {
+                    isWishlist = false
+                    detailBinding.pgDetail.visibility = View.GONE
+                }
+                is Result.Error -> {
+                    detailBinding.pgDetail.visibility = View.GONE
+                    Snackbar.make(detailBinding.txtErrorDetail, it.errorMessage, Snackbar.LENGTH_LONG).show()
+                }
             }
         }
     }
