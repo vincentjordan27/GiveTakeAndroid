@@ -65,6 +65,7 @@ class HistoryRewardFragment : Fragment() {
             when(it) {
                 is Result.Loading -> {
                     binding.pgRewardsHistory.visibility = View.VISIBLE
+                    binding.rvRewardsHistory.visibility = View.INVISIBLE
                 }
                 is Result.Success -> {
                     binding.pgRewardsHistory.visibility = View.GONE

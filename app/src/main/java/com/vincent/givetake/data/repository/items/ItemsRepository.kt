@@ -139,6 +139,17 @@ class ItemsRepository(private val apiService: ItemsService ) {
         }
     }.flowOn(Dispatchers.IO)
 
+    fun getWishlist(token: String) = flow {
+        emit(Result.Loading)
+        val response = apiService.getWishlist(token)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        }else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), MyWishlistResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.flowOn(Dispatchers.IO)
+
     companion object {
 
         @Volatile

@@ -87,6 +87,7 @@ class MyItemsFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.pgMyItems.visibility = View.VISIBLE
+            binding.rvMyItems.visibility = View.GONE
         }else {
             binding.pgMyItems.visibility = View.GONE
         }

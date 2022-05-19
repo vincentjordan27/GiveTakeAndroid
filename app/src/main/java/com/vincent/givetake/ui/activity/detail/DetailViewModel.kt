@@ -8,6 +8,7 @@ import com.vincent.givetake.data.source.request.WishlistRequest
 import com.vincent.givetake.data.source.response.items.WishlistResponse
 import com.vincent.givetake.data.source.response.items.DeleteItemResponse
 import com.vincent.givetake.data.source.response.items.DetailResponseLogin
+import com.vincent.givetake.data.source.response.items.MyWishlistResponse
 import com.vincent.givetake.utils.Result
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

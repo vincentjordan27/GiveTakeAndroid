@@ -81,4 +81,9 @@ interface ItemsService {
         @Body body: WishlistRequest
     ) : Response<WishlistResponse>
 
+    @GET("wishlist")
+    suspend fun getWishlist(
+        @Header("Authorization") auth: String,
+    ) : Response<MyWishlistResponse>
+
 }

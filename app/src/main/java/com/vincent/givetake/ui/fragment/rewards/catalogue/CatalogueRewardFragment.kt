@@ -77,6 +77,7 @@ class CatalogueRewardFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.pgRewardsCatalogue.visibility = View.VISIBLE
+            binding.tvNoDataRewardsCalagoue.visibility = View.INVISIBLE
         } else {
             binding.pgRewardsCatalogue.visibility = View.GONE
         }

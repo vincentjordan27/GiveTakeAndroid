@@ -85,6 +85,7 @@ class MyOffersFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.pgMyOffers.visibility = View.VISIBLE
+            binding.rvMyOffers.visibility = View.GONE
         }else {
             binding.pgMyOffers.visibility = View.GONE
         }
