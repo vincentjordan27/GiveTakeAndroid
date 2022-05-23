@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.detail.DetailActivity">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -165,45 +164,60 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_request_detail"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="58dp"
+            android:layout_marginTop="34dp"
             android:layout_marginBottom="60dp"
-            android:paddingHorizontal="48dp"
-            android:paddingVertical="12dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_weight="3"
             android:backgroundTint="@color/white"
             android:fontFamily="@font/mont_regular"
             android:letterSpacing="0"
-            android:text="@string/request"
+            android:paddingVertical="16dp"
+            android:text="Ajukan"
             android:textAllCaps="false"
             android:textColor="@color/black"
+            android:visibility="visible"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_direction"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_category_detail"
             app:strokeColor="@color/black"
             app:strokeWidth="2dp" />
 
+
+        <ImageView
+            android:id="@+id/btn_direction"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="42dp"
+            android:layout_marginEnd="11dp"
+            android:backgroundTint="@color/black"
+            android:background="@drawable/ic_direction"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_category_detail" />
+
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_receive_detail"
-            android:visibility="visible"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="58dp"
+            android:layout_marginTop="34dp"
             android:layout_marginBottom="60dp"
-            android:paddingHorizontal="48dp"
-            android:paddingVertical="12dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_weight="3"
             android:backgroundTint="@color/white"
             android:fontFamily="@font/mont_regular"
             android:letterSpacing="0"
+            android:paddingVertical="16dp"
             android:text="@string/receive"
             android:textAllCaps="false"
             android:textColor="@color/black"
+            android:visibility="gone"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_direction"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_category_detail"
             app:strokeColor="@color/black"

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.request.RequestActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_back"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/play_regular"
+            android:text="Ajukan Tawaran"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintStart_toEndOf="@+id/back_btn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            android:text="Alasan"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/mont_regular"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_request"
+            android:fontFamily="@font/mont_regular"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:minHeight="300dp"
+            android:gravity="top"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/edt_border"
+            android:hint="Alasan"
+            android:imeOptions="actionDone"
+            android:textCursorDrawable="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_placeholder"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:layout_weight="3"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/mont_regular"
+            android:letterSpacing="0"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="56dp"
+            android:text="Ajukan"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:visibility="visible"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/edt_request"
+            app:layout_constraintStart_toStartOf="@+id/edt_request"
+            app:layout_constraintTop_toBottomOf="@+id/edt_request"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp" />
+
+        <ProgressBar
+            android:id="@+id/pg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/txt_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

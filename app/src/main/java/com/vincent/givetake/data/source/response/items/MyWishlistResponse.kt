@@ -8,5 +8,7 @@ data class MyWishlistResponse(
 
 data class WishlistItem(
     val id: String,
-    val thumbnail: String
+    val thumbnail: String,
+    val distance: String,
+    val maxRadius: String
 )

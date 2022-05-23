@@ -2,6 +2,7 @@ package com.vincent.givetake.ui.fragment.items.myitems
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -57,6 +58,7 @@ class MyItemsFragment : Fragment() {
         viewModel.getAccessKey().observe(viewLifecycleOwner) {
             if (it != null && it != "") {
                 token = it
+                myItemsAdapter.token = token
                 viewModel.getMyItems(token)
             }
         }

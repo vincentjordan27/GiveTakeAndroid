@@ -2,10 +2,7 @@ package com.vincent.givetake.data.repository.items
 
 import com.google.gson.Gson
 import com.vincent.givetake.data.source.api.ItemsService
-import com.vincent.givetake.data.source.request.AddItemRequest
-import com.vincent.givetake.data.source.request.WishlistRequest
-import com.vincent.givetake.data.source.request.DeleteItemImageRequest
-import com.vincent.givetake.data.source.request.EditItemRequest
+import com.vincent.givetake.data.source.request.*
 import com.vincent.givetake.data.source.response.items.*
 //import com.vincent.givetake.data.source.response.DetailLoginResponse
 import com.vincent.givetake.utils.Result
@@ -146,6 +143,50 @@ class ItemsRepository(private val apiService: ItemsService ) {
             emit(Result.Success(response.body()))
         }else {
             val errorResponse = Gson().fromJson(response.errorBody()!!.string(), MyWishlistResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun itemRequest(token: String, itemId: String, body: ItemRequestBody) = flow {
+        emit(Result.Loading)
+        val response = apiService.requestItem(token, itemId, body)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        }else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), StatusResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun deleteRequestItem(token: String, itemId: String) = flow {
+        emit(Result.Loading)
+        val response = apiService.deleteRequestItem(token, itemId)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        }else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), StatusResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun getReceiverList(token: String, itemId: String) = flow {
+        emit(Result.Loading)
+        val response = apiService.getReceiver(token, itemId)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        } else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), ReceiverListResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun chooseReceiver(token: String, itemId: String, body: ChooseReceiverRequest) = flow {
+        emit(Result.Loading)
+        val response = apiService.chooseReceiver(token, itemId, body)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        } else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), StatusResponse::class.java)
             emit(Result.Error(errorResponse.message))
         }
     }.flowOn(Dispatchers.IO)

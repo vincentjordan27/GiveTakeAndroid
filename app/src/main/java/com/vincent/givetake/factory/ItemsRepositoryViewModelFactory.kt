@@ -6,6 +6,8 @@ import com.vincent.givetake.data.repository.items.ItemsRepository
 import com.vincent.givetake.di.Injection
 import com.vincent.givetake.ui.activity.items.add.viewmodel.AddViewModel
 import com.vincent.givetake.ui.activity.detail.DetailViewModel
+import com.vincent.givetake.ui.activity.receiver.ReceiverViewModel
+import com.vincent.givetake.ui.activity.request.RequestViewModel
 
 class ItemsRepositoryViewModelFactory(private val itemsRepository: ItemsRepository): ViewModelProvider.NewInstanceFactory() {
 
@@ -15,6 +17,10 @@ class ItemsRepositoryViewModelFactory(private val itemsRepository: ItemsReposito
             return AddViewModel(itemsRepository) as T
         }else if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             return DetailViewModel(itemsRepository) as T
+        }else if (modelClass.isAssignableFrom(RequestViewModel::class.java)) {
+            return RequestViewModel(itemsRepository) as T
+        }else if(modelClass.isAssignableFrom(ReceiverViewModel::class.java)) {
+            return ReceiverViewModel(itemsRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

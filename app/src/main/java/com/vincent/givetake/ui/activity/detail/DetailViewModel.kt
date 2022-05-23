@@ -4,11 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vincent.givetake.data.repository.items.ItemsRepository
+import com.vincent.givetake.data.source.request.ItemRequestBody
 import com.vincent.givetake.data.source.request.WishlistRequest
-import com.vincent.givetake.data.source.response.items.WishlistResponse
-import com.vincent.givetake.data.source.response.items.DeleteItemResponse
-import com.vincent.givetake.data.source.response.items.DetailResponseLogin
-import com.vincent.givetake.data.source.response.items.MyWishlistResponse
+import com.vincent.givetake.data.source.response.items.*
 import com.vincent.givetake.utils.Result
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -18,6 +16,7 @@ class DetailViewModel(private val itemsRepository: ItemsRepository) : ViewModel(
     var resultLogin = MutableLiveData<Result<DetailResponseLogin?>>()
     var resultAddWishlist = MutableLiveData<Result<WishlistResponse?>>()
     var resultDeleteWishlist = MutableLiveData<Result<WishlistResponse?>>()
+    var resultDeleteRequest = MutableLiveData<Result<StatusResponse?>>()
 
 
     fun getDetailLogin(id: String, token: String) {
@@ -45,6 +44,12 @@ class DetailViewModel(private val itemsRepository: ItemsRepository) : ViewModel(
     fun deleteWishlist(token: String, body: WishlistRequest) = viewModelScope.launch {
         itemsRepository.deleteWishlist(token, body).collect {
             resultDeleteWishlist.value = it
+        }
+    }
+
+    fun deleteRequestItem(token: String, itemId: String) = viewModelScope.launch {
+        itemsRepository.deleteRequestItem(token, itemId).collect {
+            resultDeleteRequest.value = it
         }
     }
 
