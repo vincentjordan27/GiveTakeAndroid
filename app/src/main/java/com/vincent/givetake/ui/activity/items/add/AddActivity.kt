@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
@@ -40,11 +41,15 @@ class AddActivity : AppCompatActivity() {
     private var token: String = ""
     private lateinit var viewModel: AddViewModel
     private var currentUri: Uri? = null
+    private var category = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityAddBinding.inflate(layoutInflater)
+        val categoryData = resources.getStringArray(R.array.kategori)
+        val arrayAdapter = ArrayAdapter(this, R.layout.category_item, categoryData)
+        binding.autoCompleteTextView.setAdapter(arrayAdapter)
         setContentView(binding.root)
 
         val factory = ItemsRepositoryViewModelFactory.getInstance()
@@ -53,6 +58,9 @@ class AddActivity : AppCompatActivity() {
         viewModel.getItemId()
         token = intent.getStringExtra(Constant.KEY_ACCESS_USER).toString()
 
+        binding.autoCompleteTextView.setOnItemClickListener { _, _, i, _ ->
+            category = categoryData[i]
+        }
 
         var dataAddress: AddressResult? = null
         val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -78,7 +86,7 @@ class AddActivity : AppCompatActivity() {
             if (binding.edtNameAddItem.text.toString().isEmpty()) {
                 binding.edtNameAddItem.error = "Nama barang harus diisi"
             }
-            if (binding.edtCategoryAddItem.text.toString().isEmpty()) {
+            if (category != "") {
                 binding.edtCategoryAddItem.error = "Kategori tidak boleh kosong"
             }
             if (binding.edtDescAddItem.text.toString().isEmpty()) {
@@ -93,14 +101,15 @@ class AddActivity : AppCompatActivity() {
             if (image.size <= 1) {
                 Snackbar.make(binding.txtErrorAddItem, "Wajib menambahkan minimal 1 gambar ", Snackbar.LENGTH_LONG).show()
             }
-            if (binding.edtNameAddItem.text.toString().isNotEmpty() && binding.edtCategoryAddItem.text.toString().isNotEmpty()
+            if (binding.edtNameAddItem.text.toString().isNotEmpty() && category != ""
                 && binding.edtDescAddItem.text.toString().isNotEmpty() && binding.edtMaxRadiusAddItem.text.toString().isNotEmpty()
                 && binding.edtAddressAddItem.text.toString().isNotEmpty() && image.size > 1) {
                 val data = AddItemRequest(
                     itemId,
                     binding.edtNameAddItem.text.toString(),
                     binding.edtDescAddItem.text.toString(),
-                    binding.edtCategoryAddItem.text.toString(),
+                    "",
+//                    binding.edtCategoryAddItem.text.toString(),
                     dataAddress?.address.toString(),
                     dataAddress?.latlang?.latitude.toString(),
                     dataAddress?.latlang?.longitude.toString(),
