@@ -19,6 +19,7 @@ import com.vincent.givetake.data.source.request.WishlistRequest
 import com.vincent.givetake.databinding.ActivityDetailBinding
 import com.vincent.givetake.factory.ItemsRepositoryViewModelFactory
 import com.vincent.givetake.ui.activity.items.edit.EditActivity
+import com.vincent.givetake.ui.activity.receive.ReceiveActivity
 import com.vincent.givetake.ui.activity.receiver.list.ListReceiverActivity
 import com.vincent.givetake.ui.activity.request.RequestActivity
 import com.vincent.givetake.utils.Constant
@@ -30,6 +31,7 @@ class DetailActivity : AppCompatActivity() {
     private var delete = false
     private var cancel = false
     private val imageList = ArrayList<SlideModel>()
+    private val imageUlasanList = ArrayList<SlideModel>()
     private var itemId = ""
     private var token = ""
     private var isWishlist = false
@@ -143,7 +145,10 @@ class DetailActivity : AppCompatActivity() {
         }
 
         detailBinding.btnReceiveDetail.setOnClickListener {
-            Toast.makeText(this, "Klik Receive", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@DetailActivity, ReceiveActivity::class.java)
+            intent.putExtra(Constant.RECEIVE_TOKEN, token)
+            intent.putExtra(Constant.RECEIVE_ITEM_ID, itemId)
+            startActivity(intent)
         }
 
         detailBinding.btnReceiverDetail.setOnClickListener {
@@ -159,6 +164,7 @@ class DetailActivity : AppCompatActivity() {
                 is Result.Success -> {
                     if (it.data != null) {
                         detailBinding.pgDetail.visibility = View.GONE
+                        imageList.clear()
                         for (image in it.data.data.images) {
                             imageList.add(SlideModel(image.url, ScaleTypes.CENTER_CROP))
                         }
@@ -192,7 +198,16 @@ class DetailActivity : AppCompatActivity() {
                                     detailBinding.btnDirection.visibility = View.GONE
                                 }
                                 3 -> {
-                                    //Nambah ulasan
+                                    imageUlasanList.clear()
+                                    detailBinding.btnReceiveDetail.visibility = View.GONE
+                                    detailBinding.btnRequestDetail.visibility = View.GONE
+                                    detailBinding.btnDirection.visibility = View.GONE
+                                    detailBinding.txtUlasan.text = it.data.data.ulasan
+                                    for (image in it.data.data.ulasanImage) {
+                                        imageUlasanList.add(SlideModel(image.url, ScaleTypes.CENTER_CROP))
+                                    }
+                                    detailBinding.imgUlasanDetail.setImageList(imageUlasanList)
+
                                 }
                                 else -> {
                                     detailBinding.btnReceiveDetail.visibility = View.GONE

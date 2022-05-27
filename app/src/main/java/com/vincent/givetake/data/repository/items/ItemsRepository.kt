@@ -191,6 +191,42 @@ class ItemsRepository(private val apiService: ItemsService ) {
         }
     }.flowOn(Dispatchers.IO)
 
+    fun uploadImageUlasan(token: String, itemId: String, file: File) = flow {
+        emit(Result.Loading)
+        val requestBody = file.asRequestBody("image/*".toMediaType())
+        val imageData = MultipartBody.Part.createFormData("data", filename = file.name, requestBody)
+        val response = apiService.uploadUlasanImage(token, itemId, imageData)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        } else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), AddUlasanImageResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun deleteImageUlasan(token: String, itemId: String, body: DeleteUlasanImageRequest)  = flow{
+        emit(Result.Loading)
+        val response = apiService.deleteUlasanImage(token, itemId, body)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        } else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), StatusResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun finishReceiveItem(token: String, itemId: String, body: FinishReceiveItemRequest) = flow {
+        emit(Result.Loading)
+        val response = apiService.finishReceiveItem(token, itemId, body)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        } else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), StatusResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.flowOn(Dispatchers.IO)
+
+
     companion object {
 
         @Volatile

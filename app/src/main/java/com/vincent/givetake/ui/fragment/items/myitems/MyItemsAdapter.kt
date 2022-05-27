@@ -90,6 +90,9 @@ class StoriesDiffCallback(
             oldList[oldItemPosition].id != newList[newItemPosition].id -> {
                 false
             }
+            oldList[oldItemPosition].status != newList[newItemPosition].status -> {
+                false
+            }
             else -> true
         }
     }

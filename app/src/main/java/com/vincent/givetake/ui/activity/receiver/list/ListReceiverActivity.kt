@@ -124,4 +124,9 @@ class ListReceiverActivity : AppCompatActivity() {
         finish()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getReceiverList(token, itemId)
+    }
+
 }

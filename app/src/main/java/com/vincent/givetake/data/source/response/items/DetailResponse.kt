@@ -12,7 +12,9 @@ data class DataDetailResponseLogin(
     val request: Int,
     val wish: Boolean,
     val items: List<ListItemDetailResponseLogin>,
-    val images: List<ImageItemDetail>
+    val images: List<ImageItemDetail>,
+    val ulasan: String,
+    val ulasanImage: List<ImageItemDetail>
 )
 
 data class ImageItemDetail(

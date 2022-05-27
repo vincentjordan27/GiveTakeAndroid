@@ -17,5 +17,7 @@ object Constant {
     const val CHOOSE_RECEIVER_REQUEST_ID = "choose_receiver_request_id"
     const val CHOOSE_RECEIVER_NAME = "choose_receiver_name"
     const val IS_CHOOSE_RECEIVER = "is_choose_receiver"
+    const val RECEIVE_TOKEN = "receive_token"
+    const val RECEIVE_ITEM_ID = "receive_item_id"
 
 }

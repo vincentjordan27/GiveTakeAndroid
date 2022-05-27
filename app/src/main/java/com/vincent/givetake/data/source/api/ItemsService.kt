@@ -108,4 +108,28 @@ interface ItemsService {
         @Path("id") itemId: String,
         @Body body: ChooseReceiverRequest
     ) : Response<StatusResponse>
+
+    @Multipart
+    @POST("upload/ulasan/image/{id}")
+    suspend fun uploadUlasanImage(
+        @Header("Authorization") auth: String,
+        @Path("id") itemId: String,
+        @Part data : MultipartBody.Part
+    ) : Response<AddUlasanImageResponse>
+
+    @HTTP(method = "DELETE", path = "upload/ulasan/image/{id}", hasBody = true)
+    suspend fun deleteUlasanImage(
+        @Header("Authorization") auth: String,
+        @Path("id") itemId: String,
+        @Body body: DeleteUlasanImageRequest
+    ) : Response<StatusResponse>
+
+    @POST("/receive/{id}")
+    suspend fun finishReceiveItem(
+        @Header("Authorization") auth: String,
+        @Path("id") itemId: String,
+        @Body body: FinishReceiveItemRequest
+    ) : Response<StatusResponse>
+
+
 }
