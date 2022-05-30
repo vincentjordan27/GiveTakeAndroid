@@ -13,6 +13,12 @@ interface ItemsService {
         @Header("Authorization") auth: String,
     ) : AllItemResponse
 
+    @POST("filter")
+    suspend fun filterItem(
+        @Header("Authorization") auth: String,
+        @Body body: FilterRequest
+    ): Response<AllItemResponse>
+
     @GET("item/{id}")
     suspend fun getItemById(
         @Path("id") id: String,
@@ -124,12 +130,11 @@ interface ItemsService {
         @Body body: DeleteUlasanImageRequest
     ) : Response<StatusResponse>
 
-    @POST("/receive/{id}")
+    @POST("receive/{id}")
     suspend fun finishReceiveItem(
         @Header("Authorization") auth: String,
         @Path("id") itemId: String,
         @Body body: FinishReceiveItemRequest
     ) : Response<StatusResponse>
-
 
 }

@@ -2,7 +2,8 @@ package com.vincent.givetake.data.source.response.items
 
 data class AllItemResponse (
     val status: String,
-    val data: ArrayList<ItemResponse>
+    val data: ArrayList<ItemResponse>,
+    val message: String
     )
 
 data class ItemResponse(

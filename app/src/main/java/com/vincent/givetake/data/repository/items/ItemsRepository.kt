@@ -14,6 +14,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
+import java.util.logging.Filter
 
 class ItemsRepository(private val apiService: ItemsService ) {
 
@@ -33,6 +34,16 @@ class ItemsRepository(private val apiService: ItemsService ) {
             emit(Result.Error(errorResponse.message))
         }
     }.flowOn(Dispatchers.IO)
+
+    fun getItemFilter(token: String, body: FilterRequest) = flow {
+        emit(Result.Loading)
+        val response = apiService.filterItem(token, body)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        }else {
+
+        }
+    }
 
     fun generateItemId() = flow {
         emit(Result.Loading)

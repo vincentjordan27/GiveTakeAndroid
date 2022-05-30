@@ -67,6 +67,11 @@ class DetailActivity : AppCompatActivity() {
                 detailBinding.btnReceiveDetail.visibility = View.GONE
                 detailBinding.btnRequestDetail.visibility = View.GONE
                 detailBinding.btnDirection.visibility = View.GONE
+                detailBinding.imageUlasanCardView.visibility = View.GONE
+                detailBinding.txtDetail4.visibility = View.GONE
+                detailBinding.txtDetail3.visibility = View.GONE
+                detailBinding.txtUlasan.visibility = View.GONE
+
             }
             else -> {
                 viewModel.getDetailLogin(data!!.itemId, data.accessKey)
@@ -186,16 +191,28 @@ class DetailActivity : AppCompatActivity() {
                                     detailBinding.btnRequestDetail.visibility = View.VISIBLE
                                     detailBinding.btnRequestDetail.text = "Batalkan"
                                     detailBinding.btnDirection.visibility = View.VISIBLE
+                                    detailBinding.imageUlasanCardView.visibility = View.GONE
+                                    detailBinding.txtDetail4.visibility = View.GONE
+                                    detailBinding.txtDetail3.visibility = View.GONE
+                                    detailBinding.txtUlasan.visibility = View.GONE
                                 }
                                 1 -> {
                                     detailBinding.btnReceiveDetail.visibility = View.VISIBLE
                                     detailBinding.btnRequestDetail.visibility = View.GONE
                                     detailBinding.btnDirection.visibility = View.VISIBLE
+                                    detailBinding.imageUlasanCardView.visibility = View.GONE
+                                    detailBinding.txtDetail4.visibility = View.GONE
+                                    detailBinding.txtDetail3.visibility = View.GONE
+                                    detailBinding.txtUlasan.visibility = View.GONE
                                 }
                                 2 -> {
                                     detailBinding.btnReceiveDetail.visibility = View.GONE
                                     detailBinding.btnRequestDetail.visibility = View.GONE
                                     detailBinding.btnDirection.visibility = View.GONE
+                                    detailBinding.imageUlasanCardView.visibility = View.GONE
+                                    detailBinding.txtDetail4.visibility = View.GONE
+                                    detailBinding.txtDetail3.visibility = View.GONE
+                                    detailBinding.txtUlasan.visibility = View.GONE
                                 }
                                 3 -> {
                                     imageUlasanList.clear()
@@ -207,6 +224,10 @@ class DetailActivity : AppCompatActivity() {
                                         imageUlasanList.add(SlideModel(image.url, ScaleTypes.CENTER_CROP))
                                     }
                                     detailBinding.imgUlasanDetail.setImageList(imageUlasanList)
+                                    detailBinding.imageUlasanCardView.visibility = View.VISIBLE
+                                    detailBinding.txtDetail4.visibility = View.VISIBLE
+                                    detailBinding.txtDetail3.visibility = View.VISIBLE
+                                    detailBinding.txtUlasan.visibility = View.VISIBLE
 
                                 }
                                 else -> {
@@ -221,6 +242,10 @@ class DetailActivity : AppCompatActivity() {
                                         detailBinding.btnRequestDetail.isEnabled = true
                                         detailBinding.btnRequestDetail.text = "Ajukan"
                                     }
+                                    detailBinding.imageUlasanCardView.visibility = View.GONE
+                                    detailBinding.txtDetail4.visibility = View.GONE
+                                    detailBinding.txtDetail3.visibility = View.GONE
+                                    detailBinding.txtUlasan.visibility = View.GONE
                                 }
                             }
                         } else {

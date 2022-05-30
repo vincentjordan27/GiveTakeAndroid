@@ -10,6 +10,9 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
     private val USER_KEY = stringPreferencesKey("user_key")
     private val USER_ID = stringPreferencesKey("user_id")
     private val USER_POINT = intPreferencesKey("user_point")
+    private val INDEX_FILTER = intPreferencesKey("index_filter")
+    private val RADIUS_FILTER= stringPreferencesKey("radius_filter")
+    private val NAME_FILTER = stringPreferencesKey("name_filter")
 
     fun getUserAccessKey(): Flow<String> {
         return dataStore.data.map { preferences ->
@@ -29,6 +32,16 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
         }
     }
 
+    fun getFilterData(): Flow<FilterData> {
+        return dataStore.data.map { preferences ->
+            return@map FilterData(
+                preferences[RADIUS_FILTER] ?: "",
+                preferences[INDEX_FILTER] ?: -1,
+                preferences[NAME_FILTER] ?: ""
+            )
+        }
+    }
+
     suspend fun saveUserAccessKey(key: String) {
         dataStore.edit { preferences ->
             preferences[USER_KEY] = key
@@ -44,6 +57,22 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
     suspend fun saveUserId(id: String) {
         dataStore.edit { preferences ->
             preferences[USER_ID] = id
+        }
+    }
+
+    suspend fun saveFilterSearch(data: FilterData) {
+        dataStore.edit { preference ->
+            preference[INDEX_FILTER] = data.index
+            preference[NAME_FILTER] = data.category
+            preference[RADIUS_FILTER] = data.radius
+        }
+    }
+
+    suspend fun reset() {
+        dataStore.edit {  preference ->
+            preference[INDEX_FILTER] = -1
+            preference[NAME_FILTER] = ""
+            preference[RADIUS_FILTER] = ""
         }
     }
 
