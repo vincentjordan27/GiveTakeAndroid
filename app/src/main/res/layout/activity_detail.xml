@@ -84,14 +84,27 @@
             android:id="@+id/txt_name_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/mont_bold"
             android:textColor="@color/black"
-            android:layout_marginStart="16dp"
             android:textSize="14sp"
-            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toStartOf="@+id/chat"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageDetailCardView"
             tools:text="@string/nama_barang" />
+
+        <ImageView
+            android:id="@+id/chat"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_chat"
+            app:tint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageDetailCardView"/>
 
         <TextView
             android:id="@+id/txt_detail_1"

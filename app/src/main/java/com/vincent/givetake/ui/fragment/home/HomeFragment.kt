@@ -3,10 +3,13 @@ package com.vincent.givetake.ui.fragment.home
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -64,7 +67,11 @@ class HomeFragment : Fragment() {
                     if (filter != null) {
                         filterData = filter
                         if (filter.index == -1){
-                            viewModel.getAllItemsLogin(it)
+                            if (binding.edtSearch.text.toString().isNotEmpty()) {
+                                viewModel.getAllItemsSearch(accessKey, binding.edtSearch.text.toString())
+                            } else {
+                                viewModel.getAllItemsLogin(accessKey)
+                            }
                         }else {
                             val body = FilterRequest(
                                 filter.category,
@@ -162,6 +169,31 @@ class HomeFragment : Fragment() {
             }
         }
 
+        viewModel.resultSearchItem.observe(viewLifecycleOwner) {
+            when(it) {
+                is Result.Loading -> {
+                    binding.pgHomeFragment.visibility = View.VISIBLE
+                    binding.rvHomeFragment.visibility = View.GONE
+                }
+                is Result.Success -> {
+                    if (it.data?.data?.size!! <= 0) {
+                        binding.tvNoDataHome.visibility = View.VISIBLE
+                    } else {
+                        binding.tvNoDataHome.visibility = View.GONE
+                    }
+                    itemAdapter.setData(it.data.data)
+                    binding.pgHomeFragment.visibility = View.GONE
+                    binding.rvHomeFragment.visibility = View.VISIBLE
+
+                }
+                is Result.Error -> {
+                    Toast.makeText(context, "An error occurred : ${it.errorMessage}", Toast.LENGTH_SHORT).show()
+                    binding.pgHomeFragment.visibility = View.GONE
+                    binding.rvHomeFragment.visibility = View.VISIBLE
+                }
+            }
+        }
+
         binding.rvHomeFragment.adapter = itemAdapter
         binding.rvHomeFragment.layoutManager = GridLayoutManager(requireActivity(), 2)
         binding.rvHomeFragment.setHasFixedSize(true)
@@ -176,6 +208,16 @@ class HomeFragment : Fragment() {
             val frag = BottomSheetFragment(filterData)
             frag.show(requireActivity().supportFragmentManager, "Bottom Sheet")
         }
+
+        binding.edtSearch.addTextChangedListener (object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.getAllItemsSearch(accessKey, s.toString())
+            }
+        })
     }
 
     override fun onResume() {
@@ -184,7 +226,11 @@ class HomeFragment : Fragment() {
             if (filter != null) {
                 filterData = filter
                 if (filter.index == -1){
-                    viewModel.getAllItemsLogin(accessKey)
+                    if (binding.edtSearch.text.toString().isNotEmpty()) {
+                        viewModel.getAllItemsSearch(accessKey, binding.edtSearch.text.toString())
+                    } else {
+                        viewModel.getAllItemsLogin(accessKey)
+                    }
                 }else {
                     val body = FilterRequest(
                         filter.category,

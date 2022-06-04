@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.vincent.givetake.data.repository.users.UsersRepository
 import com.vincent.givetake.di.Injection
 import com.vincent.givetake.preference.UserPreferences
+import com.vincent.givetake.ui.activity.chat.ChatRoomViewModel
 import com.vincent.givetake.ui.activity.login.LoginViewModel
 import com.vincent.givetake.ui.fragment.profile.view.ProfileViewModel
 

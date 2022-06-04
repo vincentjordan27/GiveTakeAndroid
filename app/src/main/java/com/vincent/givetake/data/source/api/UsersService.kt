@@ -36,4 +36,11 @@ interface UsersService {
         @Part data: MultipartBody.Part
     ) : Response<UploadProfileImageResponse>
 
+    @GET("/token/{id}")
+    suspend fun getToken(
+        @Header("Authorization") auth: String,
+        @Path("id") userId: String
+    ) : Response<TokenResponse>
+
+
 }

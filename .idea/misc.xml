@@ -6,14 +6,16 @@
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/drawable/edt_border.xml" value="0.16" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/drawable/ic_add.xml" value="0.1675" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/drawable/ic_add_image.xml" value="0.1675" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/drawable/ic_chat.xml" value="0.1675" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/drawable/ic_hamburger_menu.xml" value="0.1675" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/drawable/ic_map.xml" value="0.176" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/drawable/ic_profile.xml" value="0.121" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/drawable/ic_reward.xml" value="0.121" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/drawable/progress_bg.xml" value="0.16" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_add.xml" value="0.27906976744186046" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_chat.xml" value="0.264" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_choose_user.xml" value="0.1" />
-        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_detail.xml" value="0.4" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_detail.xml" value="0.264" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_edit.xml" value="0.1" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_edit_profile.xml" value="0.264" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_list_receiver.xml" value="0.2" />
@@ -31,7 +33,7 @@
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_dashboard.xml" value="0.10989583333333333" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_edit_profile.xml" value="0.16944444444444445" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_history_reward.xml" value="0.1" />
-        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_items.xml" value="0.25" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_my_items.xml" value="0.25" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_my_offers.xml" value="0.25" />
@@ -40,9 +42,12 @@
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_wishlist.xml" value="0.25" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_add_image_layout.xml" value="0.25" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_chat_layout.xml" value="0.24895833333333334" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_chat_received_layout.xml" value="0.8" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_chat_sent_layout.xml" value="0.4" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_filter_layout.xml" value="0.2" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_home_layout.xml" value="0.264" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_my_offer.xml" value="0.176" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_recent_conversation_layout.xml" value="0.4" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_reward_history_layou.xml" value="0.1814814814814815" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_reward_history_layout.xml" value="0.264" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/item_reward_layout.xml" value="0.1" />

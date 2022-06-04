@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GiveTake">
         <activity
+            android:name=".ui.activity.chat.ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.receive.ReceiveActivity"
             android:exported="false" />
         <activity

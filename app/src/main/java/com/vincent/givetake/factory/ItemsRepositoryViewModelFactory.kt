@@ -16,8 +16,6 @@ class ItemsRepositoryViewModelFactory(private val itemsRepository: ItemsReposito
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AddViewModel::class.java)) {
             return AddViewModel(itemsRepository) as T
-        }else if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
-            return DetailViewModel(itemsRepository) as T
         }else if (modelClass.isAssignableFrom(RequestViewModel::class.java)) {
             return RequestViewModel(itemsRepository) as T
         }else if(modelClass.isAssignableFrom(ReceiverViewModel::class.java)) {

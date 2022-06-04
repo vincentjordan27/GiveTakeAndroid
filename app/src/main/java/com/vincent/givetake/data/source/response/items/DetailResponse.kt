@@ -1,6 +1,8 @@
 package com.vincent.givetake.data.source.response.items
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class DetailResponseLogin(
     val status: String,
@@ -22,6 +24,7 @@ data class ImageItemDetail(
     val url: String,
 )
 
+@Parcelize
 data class ListItemDetailResponseLogin(
     val id: String,
     val name: String,
@@ -38,4 +41,4 @@ data class ListItemDetailResponseLogin(
     val itemStatus: Int,
     val address: String,
     val ulasan: String = ""
-)
+) : Parcelable

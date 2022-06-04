@@ -41,9 +41,21 @@ class ItemsRepository(private val apiService: ItemsService ) {
         if (response.isSuccessful) {
             emit(Result.Success(response.body()))
         }else {
-
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), AllItemResponse::class.java)
+            emit(Result.Error(errorResponse.message))
         }
-    }
+    }.flowOn(Dispatchers.IO)
+
+    fun getItemSearch(token: String, query: String) = flow {
+        emit(Result.Loading)
+        val response = apiService.searchItem(token, query)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        }else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), AllItemResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.flowOn(Dispatchers.IO)
 
     fun generateItemId() = flow {
         emit(Result.Loading)

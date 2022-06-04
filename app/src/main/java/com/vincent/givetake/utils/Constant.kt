@@ -20,4 +20,19 @@ object Constant {
     const val RECEIVE_TOKEN = "receive_token"
     const val RECEIVE_ITEM_ID = "receive_item_id"
 
+    const val CHAT_ITEM = "item_chat"
+    const val KEY_COLLECTION_CHAT = "chat"
+    const val KEY_SENDER_ID = "senderId"
+    const val KEY_RECEIVER_ID = "receiverId"
+    const val KEY_ITEM_ID = "itemId"
+    const val KEY_MESSAGE = "message"
+    const val KEY_TIME_SEND = "timesend"
+    const val KEY_CHAT_ID = "chatId"
+    const val KEY_ITEM_NAME = "name"
+    const val KEY_COLLECTION_CONVERSATIONS = "conversations"
+    const val KEY_CONVERSION = "conversion"
+
+    const val KEY_SENDER_USERNAME = "senderName"
+    const val KEY_RECEIVER_USERNAME = "receiverName"
+    const val KEY_LAST_MESSAGE = "lastMessage"
 }

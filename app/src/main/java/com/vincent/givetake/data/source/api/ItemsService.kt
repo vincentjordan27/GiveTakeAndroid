@@ -19,6 +19,12 @@ interface ItemsService {
         @Body body: FilterRequest
     ): Response<AllItemResponse>
 
+    @GET("search")
+    suspend fun searchItem(
+        @Header("Authorization") auth: String,
+        @Query("query") query: String
+    ): Response<AllItemResponse>
+
     @GET("item/{id}")
     suspend fun getItemById(
         @Path("id") id: String,

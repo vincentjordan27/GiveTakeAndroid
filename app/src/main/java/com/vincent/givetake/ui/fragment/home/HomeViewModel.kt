@@ -15,6 +15,7 @@ class HomeViewModel(private val itemsRepository: ItemsRepository, private val pr
 
     var resultLogin = MutableLiveData<Result<AllItemResponse>>()
     var resultFilterLogin = MutableLiveData<Result<AllItemResponse?>>()
+    var resultSearchItem = MutableLiveData<Result<AllItemResponse?>>()
 
     fun getAllItemsLogin(key: String) {
         viewModelScope.launch {
@@ -27,6 +28,13 @@ class HomeViewModel(private val itemsRepository: ItemsRepository, private val pr
     fun getAllItemsFilter(key: String, body: FilterRequest) = viewModelScope.launch {
         itemsRepository.getItemFilter(key, body).collect {
             resultFilterLogin.value = it
+        }
+    }
+
+    fun getAllItemsSearch(key: String, query: String) = viewModelScope.launch {
+        itemsRepository.getItemSearch(key, query).collect {
+            resultSearchItem.value = it
+            pref.reset()
         }
     }
 

@@ -15,9 +15,14 @@ import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.google.android.material.snackbar.Snackbar
 import com.vincent.givetake.R
+import com.vincent.givetake.data.source.request.CreateChatRequest
 import com.vincent.givetake.data.source.request.WishlistRequest
+import com.vincent.givetake.data.source.response.chat.ChatItemResponse
+import com.vincent.givetake.data.source.response.items.ListItemDetailResponseLogin
 import com.vincent.givetake.databinding.ActivityDetailBinding
+import com.vincent.givetake.factory.ItemsChatsViewModelFactory
 import com.vincent.givetake.factory.ItemsRepositoryViewModelFactory
+import com.vincent.givetake.ui.activity.chat.ChatActivity
 import com.vincent.givetake.ui.activity.items.edit.EditActivity
 import com.vincent.givetake.ui.activity.receive.ReceiveActivity
 import com.vincent.givetake.ui.activity.receiver.list.ListReceiverActivity
@@ -38,6 +43,8 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var viewModel: DetailViewModel
     private var request = 0
     private var status = 0
+    private var ownerId = ""
+    private var dataDetail: ListItemDetailResponseLogin?= null
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +53,7 @@ class DetailActivity : AppCompatActivity() {
         detailBinding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(detailBinding.root)
 
-        val factory = ItemsRepositoryViewModelFactory.getInstance()
+        val factory = ItemsChatsViewModelFactory.getInstance()
         viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         detailBinding.detailItemBackBtn.setOnClickListener {
@@ -163,11 +170,43 @@ class DetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        detailBinding.chat.setOnClickListener {
+            val body = CreateChatRequest(
+                ownerId,
+                itemId
+            )
+            viewModel.postRoomChat(token, body)
+        }
+
+        viewModel.resultPostChat.observe(this) {
+            when(it) {
+                is Result.Loading -> detailBinding.pgDetail.visibility = View.VISIBLE
+                is Result.Success -> {
+                    detailBinding.pgDetail.visibility = View.GONE
+                    val item = ChatItemResponse(
+                        it.data!!.chatId,
+                        "",
+                        ownerId,
+                        itemId,
+                        0,
+                        dataDetail!!.name
+
+                    )
+                    val intent = Intent(this@DetailActivity, ChatActivity::class.java)
+                    intent.putExtra(Constant.KEY_ACCESS_USER, token)
+                    intent.putExtra(Constant.CHAT_ITEM, item)
+                    startActivity(intent)
+                }
+            }
+        }
+
         viewModel.resultLogin.observe(this) {
             when(it) {
                 is Result.Loading -> detailBinding.pgDetail.visibility = View.VISIBLE
                 is Result.Success -> {
                     if (it.data != null) {
+                        dataDetail = it.data.data.items[0]
+                        ownerId = it.data.data.items[0].userId
                         detailBinding.pgDetail.visibility = View.GONE
                         imageList.clear()
                         for (image in it.data.data.images) {

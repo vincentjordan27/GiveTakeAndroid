@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.vincent.givetake.preference.UserPreferences
 import com.vincent.givetake.ui.activity.splash.SplashViewModel
+import com.vincent.givetake.ui.fragment.chat.ChatViewModel
 import com.vincent.givetake.ui.fragment.filter.BottomSheetViewModel
 
 

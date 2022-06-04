@@ -6,10 +6,7 @@ import com.vincent.givetake.data.source.request.LoginRequest
 
 import com.vincent.givetake.data.source.request.RegisterRequest
 import com.vincent.givetake.data.source.request.UpdateProfileRequest
-import com.vincent.givetake.data.source.response.users.LoginResponse
-import com.vincent.givetake.data.source.response.users.RegisterResponse
-import com.vincent.givetake.data.source.response.users.UpdateUserResponse
-import com.vincent.givetake.data.source.response.users.UserDataResponse
+import com.vincent.givetake.data.source.response.users.*
 import com.vincent.givetake.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -77,7 +74,17 @@ class UsersRepository (private val apiService: UsersService) {
             val errorResponse = response.errorBody().toString()
             emit(Result.Error(errorResponse))
         }
-    }.catch { emit(Result.Error(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
+    fun getToken(accessKey: String, userId: String) = flow {
+        emit(Result.Loading)
+        val response = apiService.getToken(accessKey, userId)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        }else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), TokenResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
     }.flowOn(Dispatchers.IO)
 
     companion object {
