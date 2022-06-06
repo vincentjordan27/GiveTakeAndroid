@@ -16,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GiveTake">
         <activity
+            android:name=".ui.activity.advice.add.AddAdviceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.advice.list.AdviceActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.chat.ChatActivity"
             android:exported="false" />
         <activity

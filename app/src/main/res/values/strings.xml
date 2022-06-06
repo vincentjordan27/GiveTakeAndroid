@@ -55,4 +55,9 @@
         <item>Daur Ulang</item>
         <item>Eletronik</item>
     </string-array>
+
+    <string-array name="type">
+        <item>Saran</item>
+        <item>Keluhan</item>
+    </string-array>
 </resources>

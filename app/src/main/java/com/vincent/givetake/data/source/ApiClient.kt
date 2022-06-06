@@ -1,16 +1,15 @@
 package com.vincent.givetake.data.source
 
 import com.vincent.givetake.BuildConfig
-import com.vincent.givetake.data.source.api.ChatService
-import com.vincent.givetake.data.source.api.ItemsService
-import com.vincent.givetake.data.source.api.RewardsService
-import com.vincent.givetake.data.source.api.UsersService
+import com.vincent.givetake.data.source.api.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
+
+    val url = "http://10.0.2.2:5000"
     fun getUsersService(): UsersService {
         val loggingInterceptor = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -23,7 +22,7 @@ object ApiClient {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5000")
+            .baseUrl(url)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
@@ -43,7 +42,7 @@ object ApiClient {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5000")
+            .baseUrl(url)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
@@ -63,7 +62,7 @@ object ApiClient {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5000")
+            .baseUrl(url)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
@@ -83,11 +82,31 @@ object ApiClient {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5000")
+            .baseUrl(url)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
 
         return retrofit.create(ChatService::class.java)
+    }
+
+    fun getAdviceService(): AdviceService {
+        val loggingInterceptor = if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        } else {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+        }
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(url)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
+        return retrofit.create(AdviceService::class.java)
     }
 }

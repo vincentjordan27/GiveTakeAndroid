@@ -18,8 +18,10 @@ import com.vincent.givetake.data.source.response.users.UserData
 import com.vincent.givetake.databinding.ProfileFragmentBinding
 import com.vincent.givetake.factory.UsersPrefViewModelFactory
 import com.vincent.givetake.preference.UserPreferences
+import com.vincent.givetake.ui.activity.advice.list.AdviceActivity
 import com.vincent.givetake.ui.activity.login.LoginActivity
 import com.vincent.givetake.ui.fragment.profile.edit.EditProfileActivity
+import com.vincent.givetake.utils.Constant
 import com.vincent.givetake.utils.Result
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user")
@@ -69,6 +71,12 @@ class ProfileFragment : Fragment() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             activity?.startActivity(intent)
             activity?.finish()
+        }
+
+        binding.txtComplaintProfile.setOnClickListener {
+            val intent = Intent(requireActivity(), AdviceActivity::class.java)
+            intent.putExtra(Constant.KEY_ACCESS_USER, accessKey)
+            startActivity(intent)
         }
 
     }

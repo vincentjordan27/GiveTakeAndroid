@@ -47,10 +47,11 @@ class AddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityAddBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         val categoryData = resources.getStringArray(R.array.kategori)
         val arrayAdapter = ArrayAdapter(this, R.layout.category_item, categoryData)
         binding.autoCompleteTextView.setAdapter(arrayAdapter)
-        setContentView(binding.root)
 
         val factory = ItemsRepositoryViewModelFactory.getInstance()
         viewModel = ViewModelProvider(this, factory)[AddViewModel::class.java]

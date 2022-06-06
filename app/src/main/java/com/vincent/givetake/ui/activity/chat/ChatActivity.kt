@@ -115,10 +115,10 @@ class ChatActivity : AppCompatActivity(){
     }
 
     private fun sendMessage() {
-        if (chatMessages.size == 0) {
-            receiverId = item.receiverId
+        receiverId = if (chatMessages.size == 0) {
+            item.receiverId
         } else {
-            receiverId = if (chatMessages[0].receiverId == userId) item.senderId else userId
+            if (chatMessages[0].receiverId == userId) item.senderId else userId
         }
         val message = HashMap<String, Any>()
         message[Constant.KEY_SENDER_ID] = userId

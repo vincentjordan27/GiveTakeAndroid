@@ -16,7 +16,7 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -88,5 +88,8 @@ dependencies {
 
     //SlideShow
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
+
+    // Multidex
+    implementation "androidx.multidex:multidex:2.0.1"
 
 }
