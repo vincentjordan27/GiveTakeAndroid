@@ -13,6 +13,9 @@ data class DetailResponseLogin(
 data class DataDetailResponseLogin(
     val request: Int,
     val wish: Boolean,
+    val address: String,
+    val latitude: String,
+    val longitude: String,
     val items: List<ListItemDetailResponseLogin>,
     val images: List<ImageItemDetail>,
     val ulasan: String,

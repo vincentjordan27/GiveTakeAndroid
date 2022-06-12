@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.snackbar.Snackbar
 import com.vincent.givetake.R
 import com.vincent.givetake.data.source.request.CreateChatRequest
@@ -24,6 +25,8 @@ import com.vincent.givetake.factory.ItemsChatsViewModelFactory
 import com.vincent.givetake.factory.ItemsRepositoryViewModelFactory
 import com.vincent.givetake.ui.activity.chat.ChatActivity
 import com.vincent.givetake.ui.activity.items.edit.EditActivity
+import com.vincent.givetake.ui.activity.map.MapDirectionActivity
+import com.vincent.givetake.ui.activity.map.MapDirectionData
 import com.vincent.givetake.ui.activity.receive.ReceiveActivity
 import com.vincent.givetake.ui.activity.receiver.list.ListReceiverActivity
 import com.vincent.givetake.ui.activity.request.RequestActivity
@@ -45,6 +48,7 @@ class DetailActivity : AppCompatActivity() {
     private var status = 0
     private var ownerId = ""
     private var dataDetail: ListItemDetailResponseLogin?= null
+    private var mapDirectionData: MapDirectionData?= null
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -127,7 +131,6 @@ class DetailActivity : AppCompatActivity() {
                 viewModel.deleteWishlist(token, body)
                 detailBinding.favDetail.setImageResource(R.drawable.ic_fav_border)
             }
-
         }
 
         detailBinding.btnRequestDetail.setOnClickListener {
@@ -178,6 +181,12 @@ class DetailActivity : AppCompatActivity() {
             viewModel.postRoomChat(token, body)
         }
 
+        detailBinding.btnDirection.setOnClickListener {
+            val intent = Intent(this, MapDirectionActivity::class.java)
+            intent.putExtra(Constant.MAP_DIRECTION_DATA, mapDirectionData)
+            startActivity(intent)
+        }
+
         viewModel.resultPostChat.observe(this) {
             when(it) {
                 is Result.Loading -> detailBinding.pgDetail.visibility = View.VISIBLE
@@ -208,6 +217,12 @@ class DetailActivity : AppCompatActivity() {
                         dataDetail = it.data.data.items[0]
                         ownerId = it.data.data.items[0].userId
                         detailBinding.pgDetail.visibility = View.GONE
+                        mapDirectionData = MapDirectionData(
+                            LatLng(it.data.data.latitude.toDouble(), it.data.data.longitude.toDouble()),
+                            LatLng(it.data.data.items[0].latitude.toDouble(), it.data.data.items[0].longitude.toDouble()),
+                            it.data.data.address,
+                            it.data.data.items[0].address
+                        )
                         imageList.clear()
                         for (image in it.data.data.images) {
                             imageList.add(SlideModel(image.url, ScaleTypes.CENTER_CROP))
@@ -277,9 +292,11 @@ class DetailActivity : AppCompatActivity() {
                                     if (it.data.data.items[0].maxRadius.toDouble() < data.distance!!.toDouble()) {
                                         detailBinding.btnRequestDetail.isEnabled = false
                                         detailBinding.btnRequestDetail.text = "Tidak Memenuhi Syarat"
+                                        detailBinding.btnDirection.visibility = View.GONE
                                     } else {
                                         detailBinding.btnRequestDetail.isEnabled = true
                                         detailBinding.btnRequestDetail.text = "Ajukan"
+                                        detailBinding.btnDirection.visibility = View.VISIBLE
                                     }
                                     detailBinding.imageUlasanCardView.visibility = View.GONE
                                     detailBinding.txtDetail4.visibility = View.GONE

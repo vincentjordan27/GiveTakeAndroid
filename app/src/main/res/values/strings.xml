@@ -63,4 +63,5 @@
         <item>Saran</item>
         <item>Keluhan</item>
     </string-array>
+    <string name="title_activity_map_direction">MapDirectionActivity</string>
 </resources>

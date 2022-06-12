@@ -20,6 +20,7 @@ object Constant {
     const val IS_CHOOSE_RECEIVER = "is_choose_receiver"
     const val RECEIVE_TOKEN = "receive_token"
     const val RECEIVE_ITEM_ID = "receive_item_id"
+    const val MAP_DIRECTION_DATA = "map_direction_data"
 
     const val CHAT_ITEM = "item_chat"
     const val KEY_COLLECTION_CHAT = "chat"
