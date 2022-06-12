@@ -9,4 +9,5 @@ data class LoginResponse(
 data class KeyLogin(
     val userId: String,
     val accessToken: String,
+    val phone: String,
 )

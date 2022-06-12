@@ -21,6 +21,8 @@ import com.vincent.givetake.ui.activity.map.MapsActivity
 import com.vincent.givetake.data.source.request.RegisterRequest
 import com.vincent.givetake.factory.UsersRepositoryViewModelFactory
 import com.vincent.givetake.ui.activity.login.LoginActivity
+import com.vincent.givetake.ui.activity.otp.OtpRegisterActivity
+import com.vincent.givetake.utils.Constant
 import com.vincent.givetake.utils.Result
 import com.vincent.givetake.utils.uriToFile
 import kotlinx.android.synthetic.main.activity_register.*
@@ -90,9 +92,13 @@ class RegisterActivity : AppCompatActivity() {
                 registerBinding.edtAddressRegister.text?.isEmpty() == true -> {
                     registerBinding.edtAddressRegister.error = "Alamat Wajib Diisi"
                 }
+                registerBinding.edtPhoneRegister.text?.substring(0, 3) != "628" -> {
+                    registerBinding.edtPhoneRegister.error = "Nomor Telephone Wajib Dimulai Dengan 628"
+                }
                 registerBinding.edtNameRegister.text?.isNotEmpty() == true && registerBinding.edtEmailRegister.text?.isNotEmpty() == true
                         && registerBinding.edtUsernameRegister.text?.isNotEmpty() == true && registerBinding.edtPasswordRegister.text?.isNotEmpty() == true
-                        && registerBinding.edtPhoneRegister.text?.isNotEmpty() == true && registerBinding.edtAddressRegister.text?.isNotEmpty() == true && currentUri != null ->
+                        && registerBinding.edtPhoneRegister.text?.isNotEmpty() == true && registerBinding.edtAddressRegister.text?.isNotEmpty() == true
+                        && currentUri != null && registerBinding.edtPhoneRegister.text?.substring(0, 3) == "628"->
                 {
                     val data = RegisterRequest(
                         registerBinding.edtNameRegister.text.toString(),
@@ -126,7 +132,12 @@ class RegisterActivity : AppCompatActivity() {
                             .setTitle("Pendaftaran berhasil")
                             .setCancelable(false)
                             .setPositiveButton("Ok"){_ , _ ->
-                                startActivity(Intent(this, LoginActivity::class.java))
+                                val intent = Intent(this, OtpRegisterActivity::class.java)
+                                intent.putExtra(Constant.KEY_PHONE, registerBinding.edtPhoneRegister.text.toString())
+                                intent.putExtra(Constant.KEY_USERNAME, registerBinding.edtUsernameRegister.text.toString())
+                                intent.putExtra(Constant.KEY_PASSWORD, registerBinding.edtPasswordRegister.text.toString())
+
+                                startActivity(intent)
                                 finish()
                             }
                         alertDialog.show()

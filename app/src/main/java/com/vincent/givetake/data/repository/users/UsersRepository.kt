@@ -5,7 +5,9 @@ import com.vincent.givetake.data.source.api.UsersService
 import com.vincent.givetake.data.source.request.LoginRequest
 
 import com.vincent.givetake.data.source.request.RegisterRequest
+import com.vincent.givetake.data.source.request.UpdatePhoneRequest
 import com.vincent.givetake.data.source.request.UpdateProfileRequest
+import com.vincent.givetake.data.source.response.items.StatusResponse
 import com.vincent.givetake.data.source.response.users.*
 import com.vincent.givetake.utils.Result
 import kotlinx.coroutines.Dispatchers
@@ -86,6 +88,18 @@ class UsersRepository (private val apiService: UsersService) {
             emit(Result.Error(errorResponse.message))
         }
     }.flowOn(Dispatchers.IO)
+
+    fun updatePhone(accessKey: String, body: UpdatePhoneRequest) = flow {
+        emit(Result.Loading)
+        val response = apiService.updatePhone(accessKey, body)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        }else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), StatusResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.flowOn(Dispatchers.IO)
+
 
     companion object {
 

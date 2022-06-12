@@ -2,7 +2,9 @@ package com.vincent.givetake.data.source.api
 
 import com.vincent.givetake.data.source.request.LoginRequest
 import com.vincent.givetake.data.source.request.RegisterRequest
+import com.vincent.givetake.data.source.request.UpdatePhoneRequest
 import com.vincent.givetake.data.source.request.UpdateProfileRequest
+import com.vincent.givetake.data.source.response.items.StatusResponse
 import com.vincent.givetake.data.source.response.users.*
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -42,5 +44,10 @@ interface UsersService {
         @Path("id") userId: String
     ) : Response<TokenResponse>
 
+    @PATCH("phone")
+    suspend fun updatePhone(
+        @Header("Authorization") auth: String,
+        @Body body: UpdatePhoneRequest
+    ) : Response<StatusResponse>
 
 }

@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import com.vincent.givetake.data.repository.advice.AdviceRepository
 import com.vincent.givetake.data.repository.chat.ChatRepository
+import com.vincent.givetake.data.repository.email.EmailRepository
 import com.vincent.givetake.data.repository.items.ItemsRepository
+import com.vincent.givetake.data.repository.otp.OtpRepository
 import com.vincent.givetake.data.repository.rewards.RewardsRepository
 import com.vincent.givetake.data.repository.users.UsersRepository
 import com.vincent.givetake.data.source.ApiClient
@@ -34,5 +36,15 @@ object Injection {
     fun provideAdviceRepository(): AdviceRepository {
         val apiService = ApiClient.getAdviceService()
         return AdviceRepository.getInstance(apiService)
+    }
+
+    fun provideOtpRepository(): OtpRepository {
+        val apiService = ApiClient.getOtpService()
+        return OtpRepository.getInstance(apiService)
+    }
+
+    fun provideEmailRepository(): EmailRepository {
+        val apiService = ApiClient.getEmailService()
+        return EmailRepository.getInstance(apiService)
     }
 }

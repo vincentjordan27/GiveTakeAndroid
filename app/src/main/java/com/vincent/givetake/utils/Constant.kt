@@ -2,6 +2,7 @@ package com.vincent.givetake.utils
 
 object Constant {
     const val KEY_ACCESS_USER = "user"
+    const val KEY_USER_ID = "user_id"
     const val PROFILE_DATA = "profile_data"
     const val PICK_IMAGE = 201
     const val KEY_ACCESS_EDIT = "edit"
@@ -35,4 +36,9 @@ object Constant {
     const val KEY_SENDER_USERNAME = "senderName"
     const val KEY_RECEIVER_USERNAME = "receiverName"
     const val KEY_LAST_MESSAGE = "lastMessage"
+
+    const val KEY_OTP = "key_otp"
+    const val KEY_PHONE = "key_phone"
+    const val KEY_USERNAME = "key_username"
+    const val KEY_PASSWORD = "key_password"
 }

@@ -143,6 +143,7 @@
             android:textColor="@color/black"
             android:textSize="12sp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/mont_regular"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ProgressBar

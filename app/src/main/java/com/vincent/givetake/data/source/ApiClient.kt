@@ -10,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiClient {
 
     val url = "http://10.0.2.2:5000"
+    val urlOtp = "https://sendtalk-api.taptalk.io/api/v1/message/"
     fun getUsersService(): UsersService {
         val loggingInterceptor = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -108,5 +109,45 @@ object ApiClient {
             .build()
 
         return retrofit.create(AdviceService::class.java)
+    }
+
+    fun getOtpService(): OtpService {
+        val loggingInterceptor = if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        } else {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+        }
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(urlOtp)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
+        return retrofit.create(OtpService::class.java)
+    }
+
+    fun getEmailService(): EmailService {
+        val loggingInterceptor = if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        } else {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+        }
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(url)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
+        return retrofit.create(EmailService::class.java)
     }
 }

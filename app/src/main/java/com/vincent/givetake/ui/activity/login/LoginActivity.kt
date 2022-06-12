@@ -18,7 +18,9 @@ import com.vincent.givetake.databinding.ActivityLoginBinding
 import com.vincent.givetake.factory.UsersPrefViewModelFactory
 import com.vincent.givetake.preference.UserPreferences
 import com.vincent.givetake.ui.activity.home.MainActivity
+import com.vincent.givetake.ui.activity.otp.OtpLoginActivity
 import com.vincent.givetake.ui.activity.register.RegisterActivity
+import com.vincent.givetake.utils.Constant
 import com.vincent.givetake.utils.Result
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
@@ -62,10 +64,11 @@ class LoginActivity : AppCompatActivity() {
                             if (it.data?.status != "success") {
                                 Toast.makeText(this, "An error occurred : ${it.data?.message}", Toast.LENGTH_SHORT).show()
                             }else {
-                                viewModel.saveUserAccessKey("Bearer ${it.data.data!!.accessToken}")
-                                viewModel.saveUserId(it.data.data.userId)
-                                startActivity(Intent(this, MainActivity::class.java))
-                                finish()
+                                val intent = Intent(this, OtpLoginActivity::class.java)
+                                intent.putExtra(Constant.KEY_ACCESS_USER, it.data.data!!.accessToken)
+                                intent.putExtra(Constant.KEY_USER_ID, it.data.data.userId)
+                                intent.putExtra(Constant.KEY_PHONE, it.data.data.phone)
+                                startActivity(intent)
                             }
                         }
                         is Result.Error -> {

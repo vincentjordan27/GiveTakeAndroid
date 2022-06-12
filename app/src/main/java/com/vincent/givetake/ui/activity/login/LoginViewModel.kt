@@ -12,6 +12,15 @@ import kotlinx.coroutines.launch
 class LoginViewModel(private val usersRepository: UsersRepository, private val pref: UserPreferences) : ViewModel() {
     var result = MutableLiveData<Result<LoginResponse?>?>()
 
+
+    fun loginUser(data: LoginRequest) {
+        result.value = null
+        viewModelScope.launch {
+            usersRepository.loginUser(data).collect {
+                result.value = it
+            }
+        }
+    }
     fun saveUserAccessKey(key: String) {
         viewModelScope.launch {
             pref.saveUserAccessKey(key)
@@ -24,13 +33,6 @@ class LoginViewModel(private val usersRepository: UsersRepository, private val p
         }
     }
 
-    fun loginUser(data: LoginRequest) {
-        result.value = null
-        viewModelScope.launch {
-            usersRepository.loginUser(data).collect {
-                result.value = it
-            }
-        }
-    }
+
 
 }

@@ -16,6 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GiveTake">
         <activity
+            android:name=".ui.activity.resetphone.ResetPhoneActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.otp.OtpLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.otp.OtpRegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.advice.add.AddAdviceActivity"
             android:exported="false" />
         <activity
