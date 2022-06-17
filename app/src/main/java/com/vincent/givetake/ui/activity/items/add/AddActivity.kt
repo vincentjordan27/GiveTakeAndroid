@@ -87,7 +87,7 @@ class AddActivity : AppCompatActivity() {
             if (binding.edtNameAddItem.text.toString().isEmpty()) {
                 binding.edtNameAddItem.error = "Nama barang harus diisi"
             }
-            if (category != "") {
+            if (category == "") {
                 binding.edtCategoryAddItem.error = "Kategori tidak boleh kosong"
             }
             if (binding.edtDescAddItem.text.toString().isEmpty()) {

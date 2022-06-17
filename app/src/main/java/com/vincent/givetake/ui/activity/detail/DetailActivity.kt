@@ -25,6 +25,7 @@ import com.vincent.givetake.factory.ItemsChatsViewModelFactory
 import com.vincent.givetake.factory.ItemsRepositoryViewModelFactory
 import com.vincent.givetake.ui.activity.chat.ChatActivity
 import com.vincent.givetake.ui.activity.items.edit.EditActivity
+import com.vincent.givetake.ui.activity.map.AddressResult
 import com.vincent.givetake.ui.activity.map.MapDirectionActivity
 import com.vincent.givetake.ui.activity.map.MapDirectionData
 import com.vincent.givetake.ui.activity.receive.ReceiveActivity
@@ -49,6 +50,9 @@ class DetailActivity : AppCompatActivity() {
     private var ownerId = ""
     private var dataDetail: ListItemDetailResponseLogin?= null
     private var mapDirectionData: MapDirectionData?= null
+    private var myToken: String = ""
+    private var addressResult: AddressResult? = null
+    private var name : String = ""
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,6 +86,7 @@ class DetailActivity : AppCompatActivity() {
                 detailBinding.txtDetail4.visibility = View.GONE
                 detailBinding.txtDetail3.visibility = View.GONE
                 detailBinding.txtUlasan.visibility = View.GONE
+                detailBinding.chat.visibility = View.GONE
 
             }
             else -> {
@@ -90,6 +95,8 @@ class DetailActivity : AppCompatActivity() {
                 detailBinding.editDetail.visibility = View.GONE
                 detailBinding.favDetail.visibility = View.VISIBLE
                 detailBinding.btnDirection.visibility = View.VISIBLE
+                detailBinding.chat.visibility = View.VISIBLE
+
             }
         }
 
@@ -97,6 +104,7 @@ class DetailActivity : AppCompatActivity() {
             val intent = Intent(this, EditActivity::class.java)
             intent.putExtra(Constant.KEY_ACCESS_EDIT, token)
             intent.putExtra(Constant.EDIT_ITEM_ID, itemId)
+            intent.putExtra(Constant.EDIT_ITEM_ADDRESS, addressResult)
 
             startActivity(intent)
         }
@@ -138,6 +146,9 @@ class DetailActivity : AppCompatActivity() {
                 val intent = Intent(this@DetailActivity, RequestActivity::class.java)
                 intent.putExtra(Constant.REQUEST_ACCESS, token)
                 intent.putExtra(Constant.REQUEST_ITEM_ID, itemId)
+                intent.putExtra(Constant.REQUEST_TOKEN_NOTIF, dataDetail?.token)
+                intent.putExtra(Constant.KEY_ITEM_NAME, dataDetail?.name)
+                intent.putExtra(Constant.MY_TOKEN, myToken)
                 startActivity(intent)
             } else if(request == 0) {
                 val alertDialog = AlertDialog.Builder(this, R.style.CostumDialog)
@@ -198,8 +209,11 @@ class DetailActivity : AppCompatActivity() {
                         ownerId,
                         itemId,
                         0,
-                        dataDetail!!.name
-
+                        name,
+                        dataDetail!!.owner,
+                        myToken,
+                        dataDetail!!.token,
+                        dataDetail!!.name,
                     )
                     val intent = Intent(this@DetailActivity, ChatActivity::class.java)
                     intent.putExtra(Constant.KEY_ACCESS_USER, token)
@@ -214,6 +228,8 @@ class DetailActivity : AppCompatActivity() {
                 is Result.Loading -> detailBinding.pgDetail.visibility = View.VISIBLE
                 is Result.Success -> {
                     if (it.data != null) {
+                        myToken = it.data.data.token
+                        name = it.data.data.name
                         dataDetail = it.data.data.items[0]
                         ownerId = it.data.data.items[0].userId
                         detailBinding.pgDetail.visibility = View.GONE
@@ -221,6 +237,11 @@ class DetailActivity : AppCompatActivity() {
                             LatLng(it.data.data.latitude.toDouble(), it.data.data.longitude.toDouble()),
                             LatLng(it.data.data.items[0].latitude.toDouble(), it.data.data.items[0].longitude.toDouble()),
                             it.data.data.address,
+                            it.data.data.items[0].address
+                        )
+                        addressResult = AddressResult(
+                            LatLng(it.data.data.items[0].latitude.toDouble(), it.data.data.items[0].longitude.toDouble()),
+                            "",
                             it.data.data.items[0].address
                         )
                         imageList.clear()
@@ -374,6 +395,7 @@ class DetailActivity : AppCompatActivity() {
                 is Result.Success -> {
                     detailBinding.pgDetail.visibility = View.GONE
                     detailBinding.btnRequestDetail.text = "Ajukan"
+                    request = -1
                 }
                 is Result.Error -> {
                     detailBinding.pgDetail.visibility = View.GONE

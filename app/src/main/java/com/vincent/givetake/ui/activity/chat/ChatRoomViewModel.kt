@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 
 class ChatRoomViewModel(private val chatRepository: ChatRepository, private val repository: UsersRepository, private val itemsRepository: ItemsRepository, private val preferences: UserPreferences) : ViewModel() {
 
-    val resultUserData = MutableLiveData<Result<TokenResponse?>>()
 
     var resultLogin = MutableLiveData<Result<DetailResponseLogin?>>()
     val resultUpdateChat = MutableLiveData<Result<UpdateChatResponse?>>()
@@ -39,10 +38,5 @@ class ChatRoomViewModel(private val chatRepository: ChatRepository, private val 
         return preferences.getUserId().asLiveData()
     }
 
-    fun getUserToken(accessKey: String, userId: String) = viewModelScope.launch {
-        repository.getToken(accessKey, userId).collect {
-            resultUserData.value = it
-        }
-    }
 
 }

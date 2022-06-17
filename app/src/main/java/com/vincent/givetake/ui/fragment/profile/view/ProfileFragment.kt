@@ -14,6 +14,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.vincent.givetake.data.source.request.UpdateTokenRequest
 import com.vincent.givetake.data.source.response.users.UserData
 import com.vincent.givetake.databinding.ProfileFragmentBinding
 import com.vincent.givetake.factory.UsersPrefViewModelFactory
@@ -66,11 +67,10 @@ class ProfileFragment : Fragment() {
         }
 
         binding.btnLogout.setOnClickListener {
-            viewModel.logout()
-            val intent = Intent(requireActivity(), LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            activity?.startActivity(intent)
-            activity?.finish()
+            val body = UpdateTokenRequest(
+                ""
+            )
+            viewModel.logout(accessKey, body)
         }
 
         binding.txtComplaintProfile.setOnClickListener {
@@ -90,6 +90,7 @@ class ProfileFragment : Fragment() {
                 viewModel.getUserData(accessKey)
             }
         }
+
         viewModel.resultUserData.observe(viewLifecycleOwner) {
             when(it) {
                 is Result.Loading -> showLoading(true)
@@ -112,6 +113,23 @@ class ProfileFragment : Fragment() {
                 is Result.Error -> {
                     showLoading(false)
                     Toast.makeText(context, "Terjadi error : ${it.errorMessage}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        viewModel.updateToken.observe(viewLifecycleOwner) {
+            when(it) {
+                is Result.Loading -> showLoading(true)
+                is Result.Success -> {
+                    showLoading(false)
+                    val intent = Intent(requireActivity(), LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    activity?.startActivity(intent)
+                    activity?.finish()
+                }
+                is Result.Error -> {
+                    showLoading(false)
+                    Toast.makeText(context, it.errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
         }

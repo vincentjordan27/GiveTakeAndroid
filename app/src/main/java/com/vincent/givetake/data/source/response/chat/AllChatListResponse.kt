@@ -22,5 +22,13 @@ data class ChatItemResponse(
     val itemId: String,
     @field:SerializedName("ishasmessage")
     val valid: Int,
+    @field:SerializedName("sender_name")
+    val senderName: String,
+    @field:SerializedName("receiver_name")
+    val receiverName: String,
+    @field:SerializedName("sender_token")
+    val senderToken: String,
+    @field:SerializedName("receiver_token")
+    val receiverToken: String,
     val name: String,
 ) : Parcelable

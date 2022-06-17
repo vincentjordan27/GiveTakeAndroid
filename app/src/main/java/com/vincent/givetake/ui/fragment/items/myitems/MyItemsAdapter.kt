@@ -86,15 +86,7 @@ class StoriesDiffCallback(
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return when {
-            oldList[oldItemPosition].id != newList[newItemPosition].id -> {
-                false
-            }
-            oldList[oldItemPosition].status != newList[newItemPosition].status -> {
-                false
-            }
-            else -> true
-        }
+        return false
     }
 
 

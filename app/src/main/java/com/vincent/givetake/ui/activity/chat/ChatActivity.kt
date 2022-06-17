@@ -13,13 +13,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import com.vincent.givetake.data.source.ApiClient
 import com.vincent.givetake.data.source.response.chat.ChatItemResponse
+import com.vincent.givetake.data.source.response.fcm.FcmResponse
 import com.vincent.givetake.databinding.ActivityChatBinding
 import com.vincent.givetake.factory.AllRepoViewModelFactory
+import com.vincent.givetake.firebase.DataNotification
+import com.vincent.givetake.firebase.NotificationData
 import com.vincent.givetake.preference.UserPreferences
 import com.vincent.givetake.ui.fragment.chat.ChatMessage
 import com.vincent.givetake.utils.Constant
 import com.vincent.givetake.utils.Result
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -36,8 +43,9 @@ class ChatActivity : AppCompatActivity(){
     private var token: String = ""
     private lateinit var database: FirebaseFirestore
     private var fcm: String = ""
-    private var receiverId: String = ""
     private lateinit var item: ChatItemResponse
+    private var itemName: String = ""
+    private var nameSender: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,26 +53,37 @@ class ChatActivity : AppCompatActivity(){
         setContentView(binding.root)
         showLoading(true)
 
+        init()
         val pref = UserPreferences.getInstance(dataStore)
         val factory = AllRepoViewModelFactory.getInstance(pref)
         viewModel = ViewModelProvider(this, factory)[ChatRoomViewModel::class.java]
-
-        token = intent.getStringExtra(Constant.KEY_ACCESS_USER) ?: ""
-        item = intent.getParcelableExtra(Constant.CHAT_ITEM)!!
-
 
         viewModel.getUserId().observe(this) {
             if (it != null) {
                 userId = it
                 chatAdapter.senderId = userId
                 chatAdapter.notifyDataSetChanged()
+                Log.d("DEBUGS", item.toString())
+                if (userId == item.receiverId) {
+                    fcm = item.senderToken
+                    nameSender = item.receiverName
+                } else if (item.senderName == "") {
+                    fcm = item.receiverToken
+                    nameSender = item.senderName
+                } else {
+                    fcm = item.receiverToken
+                    nameSender = item.senderName
+                }
             }
         }
 
-        viewModel.getUserToken(token, item.receiverId)
+        token = intent.getStringExtra(Constant.KEY_ACCESS_USER) ?: ""
+        item = intent.getParcelableExtra(Constant.CHAT_ITEM)!!
+
+
         viewModel.getDetailLogin(item.itemId, token)
         setObserver()
-        init()
+
         listenMessage()
         setListener()
     }
@@ -79,22 +98,12 @@ class ChatActivity : AppCompatActivity(){
     }
 
     private fun setObserver() {
-        viewModel.resultUserData.observe(this) {
-            when(it) {
-                is Result.Success -> {
-                    fcm = it.data?.token.toString()
-                }
-                is Result.Error -> {
-                    Toast.makeText(this, "Terjadi kesalahan dalam memuat chat1", Toast.LENGTH_SHORT).show()
-                    finish()
-                }
-                else -> {}
-            }
-        }
+
         viewModel.resultLogin.observe(this) {
             when (it) {
                 is Result.Success -> {
                     binding.name.text = it.data!!.data.items[0].name
+                    itemName = it.data.data.items[0].name
                 }
                 is Result.Error -> {
                     Toast.makeText(this, "Terjadi kesalahan dalam memuat chat2", Toast.LENGTH_SHORT).show()
@@ -115,11 +124,6 @@ class ChatActivity : AppCompatActivity(){
     }
 
     private fun sendMessage() {
-        receiverId = if (chatMessages.size == 0) {
-            item.receiverId
-        } else {
-            if (chatMessages[0].receiverId == userId) item.senderId else userId
-        }
         val message = HashMap<String, Any>()
         message[Constant.KEY_SENDER_ID] = userId
         message[Constant.KEY_RECEIVER_ID] = item.receiverId
@@ -133,9 +137,34 @@ class ChatActivity : AppCompatActivity(){
 
         binding.inputMessage.text = null
 
-        Log.d("USERS", userId)
-        // FCM
+        sendNotification()
     }
+    private fun sendNotification() {
+        val token = listOf(fcm)
+        val body = NotificationData(
+            DataNotification(
+                Constant.FCM_TYPE_CHAT,
+                nameSender,
+                itemName
+            ),
+            token
+        )
+
+        Log.d("DEBUGS", fcm)
+        ApiClient.getNotificationService().sendMessage(
+            Constant.getterRemoteMsgHeaders(),
+            body
+        ).enqueue(object: Callback<FcmResponse> {
+            override fun onResponse(call: Call<FcmResponse>, response: Response<FcmResponse>) {}
+
+            override fun onFailure(call: Call<FcmResponse>, t: Throwable) {
+                Toast.makeText(this@ChatActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+
 
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
@@ -181,9 +210,9 @@ class ChatActivity : AppCompatActivity(){
                     }
                     chatMessages.sortWith(compareBy { it.dateObject })
                     chatAdapter.notifyItemRangeChanged(chatMessages.size, chatMessages.size)
-                    binding.rv.smoothScrollToPosition(chatMessages.size - 1)
-                    Log.d("MESSAE", chatMessages[chatMessages.size - 1].toString())
-                    Log.d("MESSAE", "User id ${userId}")
+                    if (chatMessages.isNotEmpty()) {
+                        binding.rv.smoothScrollToPosition(chatMessages.size - 1)
+                    }
                     binding.rv.visibility = View.VISIBLE
                 }
                 showLoading(false)

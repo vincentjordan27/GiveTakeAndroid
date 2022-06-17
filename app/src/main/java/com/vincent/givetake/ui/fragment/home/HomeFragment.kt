@@ -5,22 +5,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.vincent.givetake.R
+import com.google.firebase.messaging.FirebaseMessaging
 import com.vincent.givetake.data.source.request.FilterRequest
+import com.vincent.givetake.data.source.request.UpdateTokenRequest
 import com.vincent.givetake.databinding.FragmentHomeBinding
-import com.vincent.givetake.factory.ItemsPrefViewModelFactory
+import com.vincent.givetake.factory.ItemUserPrefViewModelFactory
 import com.vincent.givetake.preference.FilterData
 import com.vincent.givetake.preference.UserPreferences
 import com.vincent.givetake.ui.activity.items.add.AddActivity
@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val pref = UserPreferences.getInstance(requireActivity().dataStore)
-        val factory = ItemsPrefViewModelFactory.getInstance(pref)
+        val factory = ItemUserPrefViewModelFactory.getInstance(pref)
         viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
 
@@ -62,6 +62,7 @@ class HomeFragment : Fragment() {
         viewModel.getAccessKey().observe(viewLifecycleOwner) {
             if (it != null) {
                 accessKey = it
+                getToken()
                 binding.btnAddItemHome.visibility = View.VISIBLE
                 viewModel.getFilter().observe(viewLifecycleOwner) { filter ->
                     if (filter != null) {
@@ -242,6 +243,15 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun getToken() {
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            Log.d("DEBUGS", it)
+            val body = UpdateTokenRequest(
+                it
+            )
+            viewModel.updateToken(accessKey, body)
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

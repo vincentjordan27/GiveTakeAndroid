@@ -1,6 +1,7 @@
 package com.vincent.givetake.ui.fragment.chat
 
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,8 @@ class RecentConversationAdapter(private val chatMessages: List<ChatItemResponse>
     var onConversionClicked : ((ChatItemResponse) -> Unit)? = null
     inner class ViewHolder (private val binding: ItemRecentConversationLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun setData(chatMessage: ChatItemResponse) {
-            binding.textName.text = chatMessage.name
+            binding.textName.text = if (userId == chatMessage.senderId) chatMessage.receiverName else chatMessage.senderName
+            binding.textItemName.text = chatMessage.name
             binding.root.setOnClickListener {
                 onConversionClicked?.invoke(chatMessage)
             }

@@ -1,9 +1,6 @@
 package com.vincent.givetake.data.source.api
 
-import com.vincent.givetake.data.source.request.LoginRequest
-import com.vincent.givetake.data.source.request.RegisterRequest
-import com.vincent.givetake.data.source.request.UpdatePhoneRequest
-import com.vincent.givetake.data.source.request.UpdateProfileRequest
+import com.vincent.givetake.data.source.request.*
 import com.vincent.givetake.data.source.response.items.StatusResponse
 import com.vincent.givetake.data.source.response.users.*
 import okhttp3.MultipartBody
@@ -38,11 +35,11 @@ interface UsersService {
         @Part data: MultipartBody.Part
     ) : Response<UploadProfileImageResponse>
 
-    @GET("/token/{id}")
-    suspend fun getToken(
+    @PATCH("token")
+    suspend fun updateToken(
         @Header("Authorization") auth: String,
-        @Path("id") userId: String
-    ) : Response<TokenResponse>
+        @Body body: UpdateTokenRequest
+    ) : Response<StatusResponse>
 
     @PATCH("phone")
     suspend fun updatePhone(

@@ -11,6 +11,7 @@ object ApiClient {
 
     val url = "http://10.0.2.2:5000"
     val urlOtp = "https://sendtalk-api.taptalk.io/api/v1/message/"
+    val urlFcm = "https://fcm.googleapis.com/fcm/"
     fun getUsersService(): UsersService {
         val loggingInterceptor = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -149,5 +150,25 @@ object ApiClient {
             .build()
 
         return retrofit.create(EmailService::class.java)
+    }
+
+    fun getNotificationService(): NotificationService {
+        val loggingInterceptor = if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        } else {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+        }
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(urlFcm)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
+        return retrofit.create(NotificationService::class.java)
     }
 }

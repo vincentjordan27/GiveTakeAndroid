@@ -7,9 +7,10 @@ object Constant {
     const val PICK_IMAGE = 201
     const val KEY_ACCESS_EDIT = "edit"
     const val EDIT_ITEM_ID = "edit_item_id"
-    const val EDIT_ITEM_STATUS = "status"
+    const val EDIT_ITEM_ADDRESS = "edit_item_address"
     const val REQUEST_ACCESS = "request_access"
     const val REQUEST_ITEM_ID = "request_item_id"
+    const val REQUEST_TOKEN_NOTIF = "request_token_notif"
     const val LIST_RECEIVER_ACCESS = "list_receiver_access"
     const val LIST_RECEIVER_ITEM_ID = "list_receiver_item_id"
     const val CHOOSE_RECEIVER_ACCESS = "choose_receiver_access"
@@ -21,6 +22,7 @@ object Constant {
     const val RECEIVE_TOKEN = "receive_token"
     const val RECEIVE_ITEM_ID = "receive_item_id"
     const val MAP_DIRECTION_DATA = "map_direction_data"
+    const val MY_TOKEN = "my_token"
 
     const val CHAT_ITEM = "item_chat"
     const val KEY_COLLECTION_CHAT = "chat"
@@ -42,4 +44,25 @@ object Constant {
     const val KEY_PHONE = "key_phone"
     const val KEY_USERNAME = "key_username"
     const val KEY_PASSWORD = "key_password"
+
+    const val FCM_TYPE = "fcmType"
+    const val FCM_TYPE_CHAT = "fcmTypeChat"
+    const val FCM_TYPE_ITEM = "fcmTypeItem"
+    const val FCM_ITEM_NAME = "fcmItemName"
+    const val FCM_CHAT_NAME = "fcmChatName"
+    const val FCM_TOKEN = "fcmToken"
+    private const val REMOTE_MSG_AUTHORIZATION = "Authorization"
+    private const val REMOTE_MSG_CONTENT_TYPE = "Content-Type"
+    const val REMOTE_MSG_DATA = "data"
+    const val REMOTE_MSG_REGISTRATION_IDS = "registration_ids"
+
+    var remoteMsgHeaders : HashMap<String, String>? = null
+    fun getterRemoteMsgHeaders() : HashMap<String, String> {
+        if (remoteMsgHeaders == null) {
+            remoteMsgHeaders = HashMap()
+            remoteMsgHeaders!![REMOTE_MSG_AUTHORIZATION] = "key=AAAA7PUszrE:APA91bGM9Vyq0CyNKNsIxndcskxnuTiFlqQo4ZuUC-xNMXdqqJ_UpwEjzvglu5VYH0eaWDccd-5C9GRq5zf1popsAGmMn5OHhMDBA4q_mQIMab8tsMxZiaf515rAd6ydoUbgvZftZ_1d"
+            remoteMsgHeaders!![REMOTE_MSG_CONTENT_TYPE] = "application/json"
+        }
+        return remoteMsgHeaders!!
+    }
 }

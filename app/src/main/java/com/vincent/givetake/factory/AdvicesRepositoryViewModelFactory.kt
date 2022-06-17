@@ -3,7 +3,6 @@ package com.vincent.givetake.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.vincent.givetake.data.repository.advice.AdviceRepository
-import com.vincent.givetake.data.repository.items.ItemsRepository
 import com.vincent.givetake.di.Injection
 import com.vincent.givetake.ui.activity.advice.AdviceViewModel
 import com.vincent.givetake.ui.activity.items.add.viewmodel.AddViewModel

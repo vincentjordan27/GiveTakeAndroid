@@ -80,6 +80,9 @@ class RegisterActivity : AppCompatActivity() {
                 registerBinding.edtPasswordRegister.text?.isEmpty() == true -> {
                     registerBinding.edtPasswordRegister.error = "Password Wajib Diisi"
                 }
+                registerBinding.edtPasswordRegister.text?.length!! < 8 -> {
+                    registerBinding.edtPasswordRegister.error = "Password minimal sebanyak 8 karakter"
+                }
                 registerBinding.edtPhoneRegister.text?.isEmpty() == true -> {
                     registerBinding.edtPhoneRegister.error = "Nomor Telephone Wajib Diisi"
                 }
@@ -98,7 +101,7 @@ class RegisterActivity : AppCompatActivity() {
                 registerBinding.edtNameRegister.text?.isNotEmpty() == true && registerBinding.edtEmailRegister.text?.isNotEmpty() == true
                         && registerBinding.edtUsernameRegister.text?.isNotEmpty() == true && registerBinding.edtPasswordRegister.text?.isNotEmpty() == true
                         && registerBinding.edtPhoneRegister.text?.isNotEmpty() == true && registerBinding.edtAddressRegister.text?.isNotEmpty() == true
-                        && currentUri != null && registerBinding.edtPhoneRegister.text?.substring(0, 3) == "628"->
+                        && currentUri != null && registerBinding.edtPhoneRegister.text?.substring(0, 3) == "628" && registerBinding.edtPasswordRegister.text?.length!! >= 8->
                 {
                     val data = RegisterRequest(
                         registerBinding.edtNameRegister.text.toString(),

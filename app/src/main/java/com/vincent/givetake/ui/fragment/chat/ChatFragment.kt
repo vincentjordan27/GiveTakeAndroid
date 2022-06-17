@@ -56,7 +56,8 @@ class ChatFragment : Fragment() {
         viewModel.getUserId().observe(viewLifecycleOwner) {
             if (it != null) {
                 userId = it
-                conversationAdapter
+                conversationAdapter.userId = userId
+                conversationAdapter.notifyDataSetChanged()
             }
         }
 

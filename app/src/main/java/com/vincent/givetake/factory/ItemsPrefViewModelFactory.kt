@@ -13,9 +13,7 @@ class ItemsPrefViewModelFactory(private val repository: ItemsRepository, private
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(repository, userPreferences) as T
-        } else if (modelClass.isAssignableFrom(EditViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(EditViewModel::class.java)) {
             return EditViewModel(userPreferences, repository) as T
         } else if (modelClass.isAssignableFrom(ItemsViewModel::class.java)) {
             return ItemsViewModel(repository, userPreferences) as T

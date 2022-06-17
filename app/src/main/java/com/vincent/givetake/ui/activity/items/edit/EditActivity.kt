@@ -57,6 +57,7 @@ class EditActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory)[EditViewModel::class.java]
         token = intent.getStringExtra(Constant.KEY_ACCESS_EDIT).toString()
         itemId = intent.getStringExtra(Constant.EDIT_ITEM_ID).toString()
+        addressResult = intent.getParcelableExtra(Constant.EDIT_ITEM_ADDRESS)
 
         setObserver()
         setOnClickListener()
@@ -106,6 +107,9 @@ class EditActivity : AppCompatActivity() {
             adapter = adapterEdit
         }
 
+        binding.editItemBackBtn.setOnClickListener {
+            onBackPressed()
+        }
 
     }
 
@@ -117,6 +121,11 @@ class EditActivity : AppCompatActivity() {
                 binding.edtAddressEditItem.setText(addressResult?.address)
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
     private fun setOnClickListener() {

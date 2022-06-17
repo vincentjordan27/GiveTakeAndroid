@@ -19,7 +19,9 @@ data class DataDetailResponseLogin(
     val items: List<ListItemDetailResponseLogin>,
     val images: List<ImageItemDetail>,
     val ulasan: String,
-    val ulasanImage: List<ImageItemDetail>
+    val ulasanImage: List<ImageItemDetail>,
+    val token: String = "",
+    val name: String = ""
 )
 
 data class ImageItemDetail(
@@ -43,5 +45,7 @@ data class ListItemDetailResponseLogin(
     @SerializedName("status")
     val itemStatus: Int,
     val address: String,
-    val ulasan: String = ""
+    val ulasan: String = "",
+    val token: String = "",
+    val owner: String = ""
 ) : Parcelable
