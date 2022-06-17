@@ -18,7 +18,6 @@ data class DataDetailResponseLogin(
     val longitude: String,
     val items: List<ListItemDetailResponseLogin>,
     val images: List<ImageItemDetail>,
-    val ulasan: String,
     val ulasanImage: List<ImageItemDetail>,
     val token: String = "",
     val name: String = ""

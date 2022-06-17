@@ -294,7 +294,7 @@ class DetailActivity : AppCompatActivity() {
                                     detailBinding.btnReceiveDetail.visibility = View.GONE
                                     detailBinding.btnRequestDetail.visibility = View.GONE
                                     detailBinding.btnDirection.visibility = View.GONE
-                                    detailBinding.txtUlasan.text = it.data.data.ulasan
+                                    detailBinding.txtUlasan.text = it.data.data.items[0].ulasan
                                     for (image in it.data.data.ulasanImage) {
                                         imageUlasanList.add(SlideModel(image.url, ScaleTypes.CENTER_CROP))
                                     }
@@ -303,7 +303,7 @@ class DetailActivity : AppCompatActivity() {
                                     detailBinding.txtDetail4.visibility = View.VISIBLE
                                     detailBinding.txtDetail3.visibility = View.VISIBLE
                                     detailBinding.txtUlasan.visibility = View.VISIBLE
-
+                                    detailBinding.chat.visibility = View.GONE
                                 }
                                 else -> {
                                     detailBinding.btnReceiveDetail.visibility = View.GONE

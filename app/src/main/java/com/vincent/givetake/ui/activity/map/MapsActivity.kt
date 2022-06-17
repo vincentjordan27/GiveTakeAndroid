@@ -40,6 +40,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var geocoder: Geocoder
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
+    private var isMedan : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +48,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -59,10 +59,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             if (data == null) {
                 Snackbar.make(binding.txtErrorMap, "Silahkan pilih lokasi", Snackbar.LENGTH_LONG).show()
             }else{
-                val intent = Intent()
-                intent.putExtra("data", data)
-                setResult(Activity.RESULT_OK, intent)
-                finish()
+                if (isMedan) {
+                    val intent = Intent()
+                    intent.putExtra("data", data)
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
+                } else {
+                    Snackbar.make(binding.txtErrorMap, "Anda harus berada dimedan untuk menggunakan aplikasi ini", Snackbar.LENGTH_LONG).show()
+                }
             }
         }
 
@@ -93,6 +97,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     place.name,
                     place.address
                 )
+                if (place.address?.contains("Medan") == true) {
+                    isMedan = true
+                }
             }
 
             override fun onError(status: Status) {
@@ -158,6 +165,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             geocoder[0].featureName,
             geocoder[0].getAddressLine(0)
         )
+        if (geocoder[0].getAddressLine(0).contains("Medan")) {
+            isMedan = true
+        }
         mMap.addMarker(
             MarkerOptions()
                 .position(myLocation)
