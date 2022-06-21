@@ -16,11 +16,13 @@ import com.vincent.givetake.databinding.ItemAdviceLayoutBinding
 import com.vincent.givetake.databinding.ItemMyOfferBinding
 import com.vincent.givetake.databinding.ItemRewardHistoryLayoutBinding
 import com.vincent.givetake.databinding.ItemRewardLayoutBinding
+import com.vincent.givetake.ui.activity.advice.detail.DetailAdviceActivity
 import com.vincent.givetake.ui.activity.detail.DataDetail
 import com.vincent.givetake.ui.activity.detail.DetailActivity
 import com.vincent.givetake.ui.fragment.items.myoffers.MyOffersAdapter
 import com.vincent.givetake.ui.fragment.rewards.catalogue.CatalogueRewardAdapter
 import com.vincent.givetake.ui.fragment.rewards.history.HistoryRewardAdapter
+import com.vincent.givetake.utils.Constant
 
 class AdviceListAdapter: RecyclerView.Adapter<AdviceListAdapter.ViewHolder>() {
 
@@ -39,7 +41,12 @@ class AdviceListAdapter: RecyclerView.Adapter<AdviceListAdapter.ViewHolder>() {
             binding.status.text = if (oldItemList[position].reply == "") "Menunggu" else "Selesai"
             binding.type.text = oldItemList[position].category
             itemView.setOnClickListener {
-
+                val intent = Intent(itemView.context, DetailAdviceActivity::class.java)
+                intent.putExtra(Constant.ADVICE_DETAIL_TYPE, oldItemList[position].category)
+                intent.putExtra(Constant.ADVICE_DETAIL_TITLE, oldItemList[position].title)
+                intent.putExtra(Constant.ADVICE_DETAIL_DESC, oldItemList[position].description)
+                intent.putExtra(Constant.ADVICE_DETAIL_REPLY, oldItemList[position].reply)
+                itemView.context.startActivity(intent)
             }
         }
     }

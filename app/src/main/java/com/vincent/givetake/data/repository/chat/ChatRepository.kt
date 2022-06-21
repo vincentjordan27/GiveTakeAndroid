@@ -8,6 +8,7 @@ import com.vincent.givetake.data.source.response.chat.CreateChatRoomResponse
 import com.vincent.givetake.data.source.response.chat.UpdateChatResponse
 import com.vincent.givetake.utils.Result
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
@@ -22,6 +23,7 @@ class ChatRepository(private val apiService: ChatService) {
             val errorResponse = Gson().fromJson(response.errorBody()!!.string(), CreateChatRoomResponse::class.java)
             emit(Result.Error(errorResponse.message))
         }
+    }.catch { emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
     }.flowOn(Dispatchers.IO)
 
     fun getChatRoom(token: String) = flow {
@@ -33,6 +35,7 @@ class ChatRepository(private val apiService: ChatService) {
             val errorResponse = Gson().fromJson(response.errorBody()!!.string(), AllChatListResponse::class.java)
             emit(Result.Error(errorResponse.message))
         }
+    }.catch { emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
     }.flowOn(Dispatchers.IO)
 
     fun validateChat(token: String, id: String) = flow {
@@ -44,6 +47,7 @@ class ChatRepository(private val apiService: ChatService) {
             val errorResponse = Gson().fromJson(response.errorBody()!!.string(), UpdateChatResponse::class.java)
             emit(Result.Error(errorResponse.message))
         }
+    }.catch { emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
     }.flowOn(Dispatchers.IO)
 
     companion object {

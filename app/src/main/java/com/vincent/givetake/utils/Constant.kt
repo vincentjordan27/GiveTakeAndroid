@@ -65,4 +65,13 @@ object Constant {
         }
         return remoteMsgHeaders!!
     }
+
+    const val ADVICE_DETAIL_TYPE = "advice_detail_type"
+    const val ADVICE_DETAIL_TITLE = "advice_detail_title"
+    const val ADVICE_DETAIL_DESC = "advice_detail_desc"
+    const val ADVICE_DETAIL_REPLY = "advice_detail_reply"
+
+    const val UPDATE_PASS_KEY = "update_pass_key"
+    const val UPDATE_PASS_USERNAME = "update_pass_username"
+
 }

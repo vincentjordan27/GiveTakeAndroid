@@ -12,13 +12,13 @@ class RewardsRepository(private val apiService: RewardsService) {
     fun getRewards() = flow {
         emit(Result.Loading)
         emit(Result.Success(apiService.getRewards()))
-    }.catch { emit(Result.Error(it.message.toString()))
+    }.catch { emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
     }.flowOn(Dispatchers.IO)
 
     fun getMyRewards(token: String) = flow {
         emit(Result.Loading)
         emit(Result.Success(apiService.getMyRewards(token)))
-    }.catch { emit(Result.Error(it.message.toString()))
+    }.catch { emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
     }.flowOn(Dispatchers.IO)
 
     companion object {

@@ -13,7 +13,6 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.vincent.givetake.R
 import com.vincent.givetake.data.source.request.OtpRequest
-import com.vincent.givetake.data.source.request.ResetPhoneRequest
 import com.vincent.givetake.databinding.ActivityOtpLoginBinding
 import com.vincent.givetake.factory.OtpPrefViewModelFactory
 import com.vincent.givetake.preference.UserPreferences

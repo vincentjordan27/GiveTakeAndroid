@@ -20,6 +20,7 @@ import com.vincent.givetake.preference.UserPreferences
 import com.vincent.givetake.ui.activity.home.MainActivity
 import com.vincent.givetake.ui.activity.otp.OtpLoginActivity
 import com.vincent.givetake.ui.activity.register.RegisterActivity
+import com.vincent.givetake.ui.activity.resetpass.ResetPasswordActivity
 import com.vincent.givetake.utils.Constant
 import com.vincent.givetake.utils.Result
 import kotlinx.android.synthetic.main.activity_login.*
@@ -85,6 +86,10 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(it)
                 finish()
             }
+        }
+
+        loginBinding.txtForgetPassLogin.setOnClickListener {
+            startActivity(Intent(this, ResetPasswordActivity::class.java))
         }
     }
 

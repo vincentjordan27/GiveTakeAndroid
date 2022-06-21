@@ -17,7 +17,7 @@
     <string name="alamat">Alamat</string>
     <string name="username">Username</string>
     <string name="login">Masuk</string>
-    <string name="lupa_password">Lupa Password</string>
+    <string name="lupa_password">Lupa Kata Sandi</string>
     <string name="to_register">Belum Memiliki Akun ? <b>Daftar</b></string>
     <string name="resend_otp">Tidak Menerima Kode ? <b>Kirim Ulang</b></string>
     <string name="title_activity_maps">MapsActivity</string>
@@ -64,4 +64,5 @@
         <item>Keluhan</item>
     </string-array>
     <string name="title_activity_map_direction">MapDirectionActivity</string>
+    <string name="dummy_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec diam lorem, ullamcorper at tempor sed, tincidunt at nunc. Suspendisse porttitor, enim fermentum ultricies dictum, ante magna blandit orci, a dapibus massa urna a velit. Aenean leo dui, tincidunt ac metus a, varius pretium massa. Curabitur pellentesque ligula erat, sit amet facilisis nisl ornare et. Mauris interdum a orci nec hendrerit.</string>
 </resources>

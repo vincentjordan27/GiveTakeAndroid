@@ -6,6 +6,7 @@ import com.vincent.givetake.data.source.api.OtpService
 import com.vincent.givetake.data.source.request.OtpRequest
 import com.vincent.givetake.utils.Result
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
@@ -23,6 +24,7 @@ class OtpRepository(private val apiService: OtpService) {
         }else {
             emit(Result.Error(response.message()))
         }
+    }.catch { emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
     }.flowOn(Dispatchers.IO)
 
     companion object {

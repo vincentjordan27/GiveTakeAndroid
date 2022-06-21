@@ -15,7 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GiveTake">
-
+        <activity
+            android:name=".ui.activity.resetpass.UpdatePassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.resetpass.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.advice.detail.DetailAdviceActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -90,7 +98,8 @@
             android:name=".ui.activity.receiver.list.ListReceiverActivity"
             android:exported="false" />
 
-        <service android:name=".firebase.MessagingService"
+        <service
+            android:name=".firebase.MessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

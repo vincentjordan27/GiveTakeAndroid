@@ -47,4 +47,9 @@ interface UsersService {
         @Body body: UpdatePhoneRequest
     ) : Response<StatusResponse>
 
+    @PATCH("password/{username}")
+    suspend fun updatePass(
+        @Path("username") username: String,
+        @Body body: UpdatePassRequest
+    ) : Response<StatusResponse>
 }

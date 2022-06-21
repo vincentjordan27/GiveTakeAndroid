@@ -24,6 +24,7 @@
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_chat.xml" value="0.264" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_choose_user.xml" value="0.1" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_detail.xml" value="0.264" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_detail_advice.xml" value="0.4" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_edit.xml" value="0.1" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_edit_profile.xml" value="0.264" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_list_receiver.xml" value="0.2" />
@@ -37,10 +38,13 @@
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_receive.xml" value="0.1" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_register.xml" value="0.4" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_request.xml" value="0.176" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_reset_password.xml" value="0.2" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_reset_phone.xml" value="0.25" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/activity_update_pass.xml" value="0.1953125" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/category_item.xml" value="0.25" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/chat_fragment.xml" value="0.264" />
+        <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/dialog_reset_pass.xml" value="0.1953125" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/dialog_reset_phone.xml" value="0.1" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.264" />
         <entry key="..\:/Project/TA/GiveTakeAndroid/app/src/main/res/layout/fragment_catalogue_reward.xml" value="0.1814814814814815" />

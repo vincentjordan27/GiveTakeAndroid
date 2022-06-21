@@ -55,7 +55,7 @@ class HistoryRewardFragment : Fragment() {
 
     private fun setObserver() {
         viewModel.getAccessKey().observe(viewLifecycleOwner) {
-            if (it != null) {
+            if (it != null && it != "") {
                 token = it
                 viewModel.getMyRewards(token)
             }

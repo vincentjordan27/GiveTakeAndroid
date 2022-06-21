@@ -9,9 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
 
-    val url = "http://10.0.2.2:5000"
-    val urlOtp = "https://sendtalk-api.taptalk.io/api/v1/message/"
-    val urlFcm = "https://fcm.googleapis.com/fcm/"
+    const val url = "http://10.0.2.2:5000"
+    const val urlOtp = "https://sendtalk-api.taptalk.io/api/v1/message/"
+    const val urlFcm = "https://fcm.googleapis.com/fcm/"
     fun getUsersService(): UsersService {
         val loggingInterceptor = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)

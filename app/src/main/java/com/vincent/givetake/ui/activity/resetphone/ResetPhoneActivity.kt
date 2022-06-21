@@ -1,32 +1,23 @@
 package com.vincent.givetake.ui.activity.resetphone
 
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.Window
 import android.view.WindowManager
 import android.widget.*
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.vincent.givetake.R
-import com.vincent.givetake.data.source.request.LoginRequest
-import com.vincent.givetake.data.source.request.ResetPhoneRequest
+import com.vincent.givetake.data.source.request.ResetRequest
 import com.vincent.givetake.data.source.request.UpdatePhoneRequest
 import com.vincent.givetake.databinding.ActivityResetPhoneBinding
-import com.vincent.givetake.factory.EmailRepositoryViewModelFactory
-import com.vincent.givetake.preference.UserPreferences
-import com.vincent.givetake.ui.activity.home.MainActivity
+import com.vincent.givetake.factory.UserEmailRepoViewModelFactory
 import com.vincent.givetake.ui.activity.login.LoginActivity
 import com.vincent.givetake.utils.Constant
 import com.vincent.givetake.utils.Result
-import java.util.*
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -46,7 +37,7 @@ class ResetPhoneActivity : AppCompatActivity() {
 
         accessKey = intent.getStringExtra(Constant.KEY_ACCESS_USER) ?: ""
 
-        val factory = EmailRepositoryViewModelFactory.getInstance()
+        val factory = UserEmailRepoViewModelFactory.getInstance()
         viewModel = ViewModelProvider(this, factory)[ResetPhoneViewModel::class.java]
         init()
         setListener()
@@ -55,7 +46,7 @@ class ResetPhoneActivity : AppCompatActivity() {
 
     private fun init() {
         key = Random(System.currentTimeMillis()).nextInt(1000..9999).toString()
-        val body = ResetPhoneRequest(
+        val body = ResetRequest(
             key
         )
         viewModel.sendResetOtp(accessKey, body)
@@ -134,16 +125,13 @@ class ResetPhoneActivity : AppCompatActivity() {
                         viewModel.updatePhone(accessKey, updatePhone)
                     }
                 }
-                dialog.setOnDismissListener {
-                    finish()
-                }
                 dialog.show()
             }
         }
 
         binding.tvResend.setOnClickListener {
             key = Random(System.currentTimeMillis()).nextInt(1000..9999).toString()
-            val body = ResetPhoneRequest(
+            val body = ResetRequest(
                 key
             )
             viewModel.sendResetOtp(accessKey, body)

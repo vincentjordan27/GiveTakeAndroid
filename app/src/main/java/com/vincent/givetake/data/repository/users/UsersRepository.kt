@@ -27,6 +27,7 @@ class UsersRepository (private val apiService: UsersService) {
             val errorResponse = Gson().fromJson(response.errorBody()!!.string(), RegisterResponse::class.java)
             emit(Result.Error(errorResponse.message))
         }
+    }.catch { emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
     }.flowOn(Dispatchers.IO)
 
     fun loginUser(data: LoginRequest) = flow {
@@ -38,6 +39,7 @@ class UsersRepository (private val apiService: UsersService) {
             val errorResponse = Gson().fromJson(response.errorBody()!!.string(), LoginResponse::class.java)
             emit(Result.Error(errorResponse.message))
         }
+    }.catch { emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
     }.flowOn(Dispatchers.IO)
 
     fun userData(token: String) = flow {
@@ -49,6 +51,8 @@ class UsersRepository (private val apiService: UsersService) {
             val errorResponse = Gson().fromJson(response.errorBody()!!.string(), UserDataResponse::class.java)
             emit(Result.Error(errorResponse.message))
         }
+    }.catch {
+        emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
     }.flowOn(Dispatchers.IO)
 
     fun updateProfile(token: String, body: UpdateProfileRequest) = flow {
@@ -60,6 +64,8 @@ class UsersRepository (private val apiService: UsersService) {
             val errorResponse = Gson().fromJson(response.errorBody()!!.string(), UpdateUserResponse::class.java)
             emit(Result.Error(errorResponse.message))
         }
+    }.catch {
+        emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
     }.flowOn(Dispatchers.IO)
 
     fun uploadImageProfile(file: File) = flow {
@@ -73,6 +79,8 @@ class UsersRepository (private val apiService: UsersService) {
             val errorResponse = response.errorBody().toString()
             emit(Result.Error(errorResponse))
         }
+    }.catch {
+        emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
     }.flowOn(Dispatchers.IO)
 
 
@@ -85,6 +93,8 @@ class UsersRepository (private val apiService: UsersService) {
             val errorResponse = Gson().fromJson(response.errorBody()!!.string(), StatusResponse::class.java)
             emit(Result.Error(errorResponse.message))
         }
+    }.catch {
+        emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
     }.flowOn(Dispatchers.IO)
 
     fun updateToken(accessKey: String, body: UpdateTokenRequest) = flow {
@@ -96,6 +106,19 @@ class UsersRepository (private val apiService: UsersService) {
             val errorResponse = Gson().fromJson(response.errorBody()!!.string(), StatusResponse::class.java)
             emit(Result.Error(errorResponse.message))
         }
+    }.catch { emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
+    }.flowOn(Dispatchers.IO)
+
+    fun updatePassword(username: String, body: UpdatePassRequest) = flow {
+        emit(Result.Loading)
+        val response = apiService.updatePass(username, body)
+        if (response.isSuccessful) {
+            emit(Result.Success(response.body()))
+        } else {
+            val errorResponse = Gson().fromJson(response.errorBody()!!.string(), StatusResponse::class.java)
+            emit(Result.Error(errorResponse.message))
+        }
+    }.catch { emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
     }.flowOn(Dispatchers.IO)
 
     companion object {

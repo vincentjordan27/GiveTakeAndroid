@@ -13,7 +13,7 @@ data class AdviceItemResponse(
     val title: String,
     val category: String,
     val description: String,
-    val reply: String,
+    val reply: String = "",
     @field:SerializedName("user_id")
     val userId: String,
 )

@@ -10,6 +10,7 @@ import com.vincent.givetake.data.source.response.advice.AllAdviceResponse
 import com.vincent.givetake.data.source.response.chat.CreateChatRoomResponse
 import com.vincent.givetake.utils.Result
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
@@ -24,6 +25,7 @@ class AdviceRepository(private val apiService: AdviceService) {
             val errorResponse = Gson().fromJson(response.errorBody()!!.string(), AddAdviceResponse::class.java)
             emit(Result.Error(errorResponse.message))
         }
+    }.catch { emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
     }.flowOn(Dispatchers.IO)
 
     fun myAdvices(token: String) = flow {
@@ -35,6 +37,7 @@ class AdviceRepository(private val apiService: AdviceService) {
             val errorResponse = Gson().fromJson(response.errorBody()!!.string(), AllAdviceResponse::class.java)
             emit(Result.Error(errorResponse.message))
         }
+    }.catch { emit(Result.Error("Server timeout. Silahkan dicoba kembali beberapa saat lagi"))
     }.flowOn(Dispatchers.IO)
 
     companion object {

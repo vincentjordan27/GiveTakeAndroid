@@ -1,5 +1,5 @@
 package com.vincent.givetake.data.source.request
 
-data class ResetPhoneRequest(
+data class ResetRequest(
     val code: String
 )
