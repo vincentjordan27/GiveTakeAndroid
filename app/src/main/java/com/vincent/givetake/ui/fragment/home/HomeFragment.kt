@@ -138,7 +138,7 @@ class HomeFragment : Fragment() {
 
                 }
                 is Result.Error -> {
-                    Toast.makeText(context, "An error occurred : ${it.errorMessage}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, it.errorMessage, Toast.LENGTH_SHORT).show()
                     binding.pgHomeFragment.visibility = View.GONE
                     binding.rvHomeFragment.visibility = View.VISIBLE
                 }
@@ -163,7 +163,7 @@ class HomeFragment : Fragment() {
 
                 }
                 is Result.Error -> {
-                    Toast.makeText(context, "An error occurred : ${it.errorMessage}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, it.errorMessage, Toast.LENGTH_SHORT).show()
                     binding.pgHomeFragment.visibility = View.GONE
                     binding.rvHomeFragment.visibility = View.VISIBLE
                 }
@@ -188,7 +188,7 @@ class HomeFragment : Fragment() {
 
                 }
                 is Result.Error -> {
-                    Toast.makeText(context, "An error occurred : ${it.errorMessage}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, it.errorMessage, Toast.LENGTH_SHORT).show()
                     binding.pgHomeFragment.visibility = View.GONE
                     binding.rvHomeFragment.visibility = View.VISIBLE
                 }
