@@ -118,15 +118,14 @@
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <com.google.android.material.textfield.TextInputEditText
+        <TextView
             android:id="@+id/txt_desc_detail"
-            android:cursorVisible="false"
             android:focusable="false"
             android:fontFamily="@font/mont_regular"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:minHeight="80dp"
             android:gravity="top"
             android:textColor="@color/black"
@@ -134,7 +133,6 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="11dp"
             android:background="@drawable/edt_border"
-            android:hint="@string/desc"
             android:textCursorDrawable="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -153,9 +151,8 @@
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <com.google.android.material.textfield.TextInputEditText
+        <TextView
             android:id="@+id/txt_category_detail"
-            android:cursorVisible="false"
             android:focusable="false"
             android:fontFamily="@font/mont_regular"
             android:paddingHorizontal="8dp"
@@ -168,7 +165,6 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="11dp"
             android:background="@drawable/edt_border"
-            android:hint="@string/category"
             android:textCursorDrawable="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -196,7 +192,8 @@
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp"
             android:gravity="top"
             android:textColor="@color/black"
             android:textSize="14sp"

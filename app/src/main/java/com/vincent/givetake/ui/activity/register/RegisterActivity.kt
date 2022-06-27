@@ -196,10 +196,10 @@ class RegisterActivity : AppCompatActivity() {
 
             currentUri = selectedImg
 
-            if(file.length() / 1048576F > 2F){
-                val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            if(file.length() / 1048576F > 5F){
+                val dialog = AlertDialog.Builder(this)
                 dialog.setCancelable(false)
-                dialog.setTitle("Ukuran Gambar Harus Dibawah 2 MB")
+                dialog.setTitle("Ukuran Gambar Harus Dibawah 5 MB")
                 dialog.setPositiveButton("Ok"){ dialogInterface, _ ->
                     dialogInterface.dismiss()
                 }

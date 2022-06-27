@@ -48,13 +48,14 @@ class OtpLoginActivity : AppCompatActivity() {
         phoneNumber = intent.getStringExtra(Constant.KEY_PHONE) ?: ""
 
         binding.tvPhone.text = phoneNumber
-
-        init()
         setListener()
         setObserver()
+
+        sendOtp()
+
     }
 
-    private fun init() {
+    private fun sendOtp() {
         key = Random(System.currentTimeMillis()).nextInt(1000..9999).toString()
         val body = OtpRequest(
             phoneNumber,
@@ -93,13 +94,7 @@ class OtpLoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.tvResend.setOnClickListener {
-            key = Random(System.currentTimeMillis()).nextInt(1000..9999).toString()
-            val body = OtpRequest(
-                phoneNumber,
-                "otp",
-                getString(R.string.otp_text, key)
-            )
-            viewModel.sendOtp(body)
+            sendOtp()
         }
     }
 
@@ -108,14 +103,20 @@ class OtpLoginActivity : AppCompatActivity() {
             when(it) {
                 is Result.Loading -> {
                     binding.pg.visibility = View.VISIBLE
+                    binding.backBtn.isEnabled = false
+                    binding.btnVerify.isEnabled = false
                 }
                 is Result.Success -> {
                     binding.pg.visibility = View.GONE
                     Snackbar.make(binding.txtError, "OTP berhasil dikirim", Snackbar.LENGTH_LONG).show()
+                    binding.backBtn.isEnabled = true
+                    binding.btnVerify.isEnabled = true
                 }
                 is Result.Error -> {
                     binding.pg.visibility = View.GONE
                     Snackbar.make(binding.txtError, it.errorMessage, Snackbar.LENGTH_LONG).show()
+                    binding.backBtn.isEnabled = true
+                    binding.btnVerify.isEnabled = true
                 }
             }
         }

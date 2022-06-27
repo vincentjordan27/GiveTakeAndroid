@@ -135,7 +135,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_desc"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
+            android:minHeight="100dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="11dp"
             android:background="@drawable/edt_border"

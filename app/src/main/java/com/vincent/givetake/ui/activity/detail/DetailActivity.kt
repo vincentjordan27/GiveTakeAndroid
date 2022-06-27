@@ -250,8 +250,8 @@ class DetailActivity : AppCompatActivity() {
                         }
                         detailBinding.imgItemDetail.setImageList(imageList)
                         detailBinding.txtNameDetail.text = it.data.data.items[0].name
-                        detailBinding.txtDescDetail.setText(it.data.data.items[0].desc)
-                        detailBinding.txtCategoryDetail.setText(it.data.data.items[0].category)
+                        detailBinding.txtDescDetail.text = it.data.data.items[0].desc
+                        detailBinding.txtCategoryDetail.text = it.data.data.items[0].category
                         isWishlist = it.data.data.wish
                         if (it.data.data.wish) {
                             detailBinding.favDetail.setImageResource(R.drawable.ic_fav)
