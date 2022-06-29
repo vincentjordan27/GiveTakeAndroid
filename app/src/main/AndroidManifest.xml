@@ -16,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GiveTake">
         <activity
+            android:name=".ui.activity.reward.redeem.RedeemRewardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.reward.detail.DetailRewardActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.resetpass.UpdatePassActivity"
             android:exported="false" />
         <activity

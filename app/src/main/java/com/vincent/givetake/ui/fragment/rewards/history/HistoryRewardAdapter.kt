@@ -32,13 +32,6 @@ class HistoryRewardAdapter: RecyclerView.Adapter<HistoryRewardAdapter.ViewHolder
             binding.tvDateRewardHistory.text = oldItemList[position].date
             binding.tvStatusRewardHistory.text = if (oldItemList[position].status == 1) "Selesai" else "Diproses"
             binding.tvNameRewardHistory.text = oldItemList[position].name
-            itemView.setOnClickListener {
-                Toast.makeText(itemView.context, oldItemList[position].name, Toast.LENGTH_SHORT ).show()
-//                Intent(itemView.context, DetailActivity::class.java).run {
-//                    putExtra(DetailActivity.EXTRA_ITEM, oldItemList[position])
-//                    itemView.context.startActivity(this, optionsCompat.toBundle())
-//                }
-            }
         }
     }
 

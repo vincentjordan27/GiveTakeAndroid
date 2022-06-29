@@ -10,6 +10,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vincent.givetake.databinding.FragmentCatalogueRewardBinding
 import com.vincent.givetake.factory.RewardsPrefFactory
@@ -46,7 +47,7 @@ class CatalogueRewardFragment : Fragment() {
         setObserver()
 
         binding.rvRewardsCatalogue.apply {
-            layoutManager = LinearLayoutManager(requireActivity())
+            layoutManager = GridLayoutManager(requireActivity(), 2)
             adapter = catalogueRewardAdapter
             setHasFixedSize(true)
         }

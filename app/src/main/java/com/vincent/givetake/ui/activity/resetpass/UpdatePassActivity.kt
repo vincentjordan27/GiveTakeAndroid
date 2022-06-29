@@ -73,6 +73,8 @@ class UpdatePassActivity : AppCompatActivity() {
                 btnSave?.setOnClickListener {
                     if (inputPass?.text?.trim().toString().isEmpty()) {
                         inputPass?.error = "Password tidak boleh kosong"
+                    } else if (inputPass?.text?.trim().toString().length < 8) {
+                        inputPass?.error = "Password tidak boleh kurang dari 8"
                     } else {
                         val updatePass = UpdatePassRequest(
                             inputPass?.text?.trim().toString()

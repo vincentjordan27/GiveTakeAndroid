@@ -9,7 +9,6 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
 
     private val USER_KEY = stringPreferencesKey("user_key")
     private val USER_ID = stringPreferencesKey("user_id")
-    private val USER_POINT = intPreferencesKey("user_point")
     private val INDEX_FILTER = intPreferencesKey("index_filter")
     private val RADIUS_FILTER= stringPreferencesKey("radius_filter")
     private val NAME_FILTER = stringPreferencesKey("name_filter")
@@ -17,12 +16,6 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
     fun getUserAccessKey(): Flow<String> {
         return dataStore.data.map { preferences ->
             preferences[USER_KEY] ?: ""
-        }
-    }
-
-    fun getUserPoint(): Flow<Int> {
-        return dataStore.data.map { preferences ->
-            preferences[USER_POINT] ?: 0
         }
     }
 
@@ -45,12 +38,6 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
     suspend fun saveUserAccessKey(key: String) {
         dataStore.edit { preferences ->
             preferences[USER_KEY] = key
-        }
-    }
-
-    suspend fun saveUserPoint(point: Int) {
-        dataStore.edit { preferences ->
-            preferences[USER_POINT] = point
         }
     }
 

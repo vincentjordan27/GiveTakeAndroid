@@ -1,5 +1,6 @@
 package com.vincent.givetake.ui.fragment.rewards.catalogue
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -9,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.vincent.givetake.R
 import com.vincent.givetake.data.source.response.rewards.RewardItem
 import com.vincent.givetake.databinding.ItemRewardLayoutBinding
+import com.vincent.givetake.ui.activity.reward.detail.DetailRewardActivity
+import com.vincent.givetake.utils.Constant
 
 class CatalogueRewardAdapter: RecyclerView.Adapter<CatalogueRewardAdapter.ViewHolder>() {
 
@@ -29,7 +32,9 @@ class CatalogueRewardAdapter: RecyclerView.Adapter<CatalogueRewardAdapter.ViewHo
             binding.txtNameRewardRv.text = oldItemList[position].name
             binding.txtPriceRewardRv.text = oldItemList[position].price.toString() + " Pts"
             itemView.setOnClickListener {
-                Toast.makeText(itemView.context, oldItemList[position].name, Toast.LENGTH_SHORT ).show()
+                val intent = Intent(itemView.context, DetailRewardActivity::class.java)
+                intent.putExtra(Constant.REWARD_ID, oldItemList[position].id)
+                itemView.context.startActivity(intent)
             }
         }
     }
