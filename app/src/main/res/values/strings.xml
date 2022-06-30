@@ -50,7 +50,7 @@
     <string name="update">Perbarui</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ubah_barang">Ubah Barang</string>
-    <string name="reset_phone">Reset Nomor Telephone</string>
+    <string name="reset_phone">Reset Nomor Telepon</string>
     <string name="otp_text">%s merupakan kode OTP untuk aplikasi GiveTake</string>
 
     <string-array name="kategori">

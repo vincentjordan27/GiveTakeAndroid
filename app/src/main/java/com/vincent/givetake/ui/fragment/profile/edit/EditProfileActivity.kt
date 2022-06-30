@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.vincent.givetake.data.source.request.UpdateProfileRequest
@@ -19,7 +20,11 @@ import com.vincent.givetake.factory.UsersRepositoryViewModelFactory
 import com.vincent.givetake.ui.activity.map.AddressResult
 import com.vincent.givetake.ui.activity.map.MapsActivity
 import com.vincent.givetake.utils.Result
+import com.vincent.givetake.utils.reduceFileImage
 import com.vincent.givetake.utils.uriToFile
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class EditProfileActivity : AppCompatActivity() {
 
@@ -180,7 +185,7 @@ class EditProfileActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             val selectedImg: Uri = result.data?.data as Uri
 
-            val file = uriToFile(selectedImg, this@EditProfileActivity)
+            var file = uriToFile(selectedImg, this@EditProfileActivity)
 
             currentUri = selectedImg
 
@@ -193,7 +198,13 @@ class EditProfileActivity : AppCompatActivity() {
                 }
                 dialog.show()
             }else {
-                viewModel.uploadImageUser(file)
+                lifecycleScope.launch {
+                    showLoading(true)
+                    withContext(Dispatchers.IO) {
+                        file = reduceFileImage(file)
+                        viewModel.uploadImageUser(file)
+                    }
+                }
             }
         }
     }

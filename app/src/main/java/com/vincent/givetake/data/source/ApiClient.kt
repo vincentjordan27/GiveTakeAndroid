@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 object ApiClient {
 
-    const val url = "http://10.0.2.2:5000"
+    const val url = "http://13.250.106.123:5000"
     const val urlOtp = "https://sendtalk-api.taptalk.io/api/v1/message/"
     const val urlFcm = "https://fcm.googleapis.com/fcm/"
     fun getUsersService(): UsersService {
@@ -22,8 +22,8 @@ object ApiClient {
 
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .readTimeout(120, TimeUnit.SECONDS)
-            .connectTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(300, TimeUnit.SECONDS)
+            .connectTimeout(300, TimeUnit.SECONDS)
             .build()
 
         val retrofit = Retrofit.Builder()
@@ -44,8 +44,8 @@ object ApiClient {
 
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .readTimeout(120, TimeUnit.SECONDS)
-            .connectTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(300, TimeUnit.SECONDS)
+            .connectTimeout(300, TimeUnit.SECONDS)
             .build()
 
         val retrofit = Retrofit.Builder()
@@ -146,6 +146,8 @@ object ApiClient {
 
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .readTimeout(120, TimeUnit.SECONDS)
+            .connectTimeout(120, TimeUnit.SECONDS)
             .build()
 
         val retrofit = Retrofit.Builder()

@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.vincent.givetake.R
@@ -24,9 +25,13 @@ import com.vincent.givetake.ui.activity.login.LoginActivity
 import com.vincent.givetake.ui.activity.otp.OtpRegisterActivity
 import com.vincent.givetake.utils.Constant
 import com.vincent.givetake.utils.Result
+import com.vincent.givetake.utils.reduceFileImage
 import com.vincent.givetake.utils.uriToFile
 import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 
 class RegisterActivity : AppCompatActivity() {
@@ -192,7 +197,7 @@ class RegisterActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             val selectedImg: Uri = result.data?.data as Uri
 
-            val file = uriToFile(selectedImg, this@RegisterActivity)
+            var file = uriToFile(selectedImg, this@RegisterActivity)
 
             currentUri = selectedImg
 
@@ -205,7 +210,14 @@ class RegisterActivity : AppCompatActivity() {
                 }
                 dialog.show()
             }else {
-                viewModel.uploadImageUser(file)
+                lifecycleScope.launch {
+                    registerBinding.pgRegister.visibility = View.VISIBLE
+                    withContext(Dispatchers.IO) {
+                        file = reduceFileImage(file)
+                        viewModel.uploadImageUser(file)
+                    }
+                }
+
             }
         }
     }

@@ -15,7 +15,9 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.vincent.givetake.R
 import com.vincent.givetake.data.source.request.AddItemRequest
@@ -30,7 +32,9 @@ import com.vincent.givetake.ui.activity.map.AddressResult
 import com.vincent.givetake.ui.activity.map.MapsActivity
 import com.vincent.givetake.utils.Constant
 import com.vincent.givetake.utils.Result
+import com.vincent.givetake.utils.reduceFileImage
 import com.vincent.givetake.utils.uriToFile
+import kotlinx.coroutines.*
 
 class AddActivity : AppCompatActivity() {
 
@@ -140,13 +144,15 @@ class AddActivity : AppCompatActivity() {
                     Toast.makeText(this, "Maksimal 5 Gambar", Toast.LENGTH_LONG).show()
                 }
             } else if(image.size != 1) {
+                showLoading(true)
                 val imageView = ImageView(this)
                 imageView.scaleType = ImageView.ScaleType.FIT_XY
                 val container = FrameLayout(this)
-                val param = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                val param = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 400)
                 param.setMargins(30,30,30,30)
                 imageView.layoutParams = param
-                imageView.setImageURI(it.uri)
+//                imageView.setImageURI(it.uri)
+                Glide.with(this).load(it.uri).placeholder(R.drawable.ic_load).into(imageView)
                 container.addView(imageView)
 
                 val dialog = AlertDialog.Builder(this, R.style.CostumDialog)
@@ -164,6 +170,7 @@ class AddActivity : AppCompatActivity() {
                     imageAdapter.notifyDataSetChanged()
                     dialogInterface.dismiss()
                 }
+                showLoading(false)
                 dialog.show()
             }
         }
@@ -287,7 +294,7 @@ class AddActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             val selectedImg: Uri = result.data?.data as Uri
 
-            val file = uriToFile(selectedImg, this@AddActivity)
+            var file = uriToFile(selectedImg, this@AddActivity)
 
             currentUri = selectedImg
 
@@ -300,7 +307,13 @@ class AddActivity : AppCompatActivity() {
                 }
                 dialog.show()
             }else {
-                viewModel.uploadImageItem(token, itemId, file)
+                lifecycleScope.launch {
+                    showLoading(true)
+                    withContext(Dispatchers.IO) {
+                        file = reduceFileImage(file)
+                        viewModel.uploadImageItem(token, itemId, file)
+                    }
+                }
             }
         }
     }

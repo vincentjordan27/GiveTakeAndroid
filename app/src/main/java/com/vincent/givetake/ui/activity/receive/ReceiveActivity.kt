@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.vincent.givetake.R
@@ -24,8 +26,12 @@ import com.vincent.givetake.ui.activity.items.add.adapter.AddImageAdapter
 import com.vincent.givetake.ui.activity.items.add.model.ImageData
 import com.vincent.givetake.utils.Constant
 import com.vincent.givetake.utils.Result
+import com.vincent.givetake.utils.reduceFileImage
 import com.vincent.givetake.utils.uriToFile
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ReceiveActivity : AppCompatActivity() {
 
@@ -199,7 +205,7 @@ class ReceiveActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             val selectedImg: Uri = result.data?.data as Uri
 
-            val file = uriToFile(selectedImg, this@ReceiveActivity)
+            var file = uriToFile(selectedImg, this@ReceiveActivity)
 
             currentUri = selectedImg
 
@@ -212,7 +218,13 @@ class ReceiveActivity : AppCompatActivity() {
                 }
                 dialog.show()
             }else {
-                viewModel.uploadImageUlasan(token ,itemId, file)
+                lifecycleScope.launch {
+                    showLoading(true)
+                    withContext(Dispatchers.IO) {
+                        file = reduceFileImage(file)
+                        viewModel.uploadImageUlasan(token ,itemId, file)
+                    }
+                }
             }
         }
     }
@@ -223,10 +235,12 @@ class ReceiveActivity : AppCompatActivity() {
             binding.pg.visibility = View.VISIBLE
             binding.btnReceive.isEnabled = false
             binding.edtUlasan.isFocusable = false
+            binding.backBtn.isEnabled = false
         } else {
             binding.pg.visibility = View.GONE
             binding.btnReceive.isEnabled = true
             binding.edtUlasan.isFocusable = true
+            binding.backBtn.isEnabled = true
         }
     }
 }

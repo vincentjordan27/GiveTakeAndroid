@@ -1,32 +1,19 @@
 package com.vincent.givetake.utils
 
 import android.content.ContentResolver
-import com.vincent.givetake.R
-import android.content.ContentUris
 import android.content.Context
-import android.content.res.Resources
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
+import android.os.Debug
 import android.os.Environment
-import android.provider.DocumentsContract
-import android.provider.MediaStore
-import android.util.TypedValue
-import android.view.Gravity
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
-import androidx.core.content.ContextCompat
+import androidx.exifinterface.media.ExifInterface
 import com.google.android.gms.maps.model.LatLng
 import java.io.*
-import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 import java.util.*
+
 
 private const val FILENAME_FORMAT = "dd-MMM-yyyy"
 
@@ -85,4 +72,48 @@ fun decodePolyline(encoded: String): List<LatLng> {
         poly.add(latLng)
     }
     return poly
+}
+
+fun reduceFileImage(file: File): File {
+    val bitmap = BitmapFactory.decodeFile(file.path)
+
+    var compressQuality = 100
+    var streamLength: Int
+
+    do {
+        val bmpStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream)
+        val bmpPicByteArray = bmpStream.toByteArray()
+        streamLength = bmpPicByteArray.size
+        compressQuality -= 5
+    } while (streamLength > 500000)
+
+//    bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
+
+    val ei = ExifInterface(file.path)
+    val orientation: Int = ei.getAttributeInt(
+        ExifInterface.TAG_ORIENTATION,
+        ExifInterface.ORIENTATION_UNDEFINED
+    )
+
+    val rotatedBitmap = when (orientation) {
+        ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(bitmap, 90F)
+        ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bitmap, 180F)
+        ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(bitmap, 270F)
+        ExifInterface.ORIENTATION_NORMAL -> bitmap
+        else -> bitmap
+    }
+
+    rotatedBitmap!!.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
+
+    return file
+}
+
+fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
+    val matrix = Matrix()
+    matrix.postRotate(angle)
+    return Bitmap.createBitmap(
+        source, 0, 0, source.width, source.height,
+        matrix, true
+    )
 }
